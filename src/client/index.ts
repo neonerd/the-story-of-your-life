@@ -58,7 +58,7 @@ function animate() {
     // start the timer for the next animation loop
     requestAnimationFrame(animate);
     // do time delta
-    (simpleShader.uniforms as any).time = Date.now() - startTime
+    (simpleShader.uniforms as any).time = (Date.now() - startTime) / 1000
     // this is the main render call that makes pixi draw your container and its children.
     app.renderer.render(stage);
 }
