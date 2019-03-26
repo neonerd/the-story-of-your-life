@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+        body {margin: 0; overflow: hidden;}
+    </style>
+    <script src="/vendor/pixi.js"></script>
+</head>
+  <body>
+      <script id="shader-film-grain" type="shader">
+            uniform vec2 resolution;
+            uniform float time;
+            uniform sampler2D uSampler;
+            varying vec2 vTextureCoord;
+
+            void main(){
+                // vec2 uv = gl_FragCoord.xy / resolution.xy;   
+
+                vec4 color = texture2D(uSampler, vTextureCoord);                
+                float strength = 16.0;
+                float x = (vTextureCoord.x + 4.0 ) * (vTextureCoord.y + 4.0 ) * (time * 10.0);
+                vec4 grain = vec4(mod((mod(x, 13.0) + 1.0) * (mod(x, 123.0) + 1.0), 0.01)-0.005) * strength;
+                
+                if(vTextureCoord.x > 0.5)
+                {
+                    grain = 1.0 - grain;
+                    gl_FragColor = color * grain;
+                }
+                else
+                {
+                    gl_FragColor = color + grain;
+                }
+             }                                                                             
+      </script>
+  </body>
+</html>
