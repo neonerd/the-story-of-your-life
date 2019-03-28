@@ -16,7 +16,7 @@
 
             void main(){
                 vec4 color = texture2D(uSampler, vTextureCoord);                
-                float strength = 16.0;
+                float strength = 32.0;
                 float x = (vTextureCoord.x + 4.0 ) * (vTextureCoord.y + 4.0 ) * (time * 10.0);
                 vec4 grain = vec4(mod((mod(x, 13.0) + 1.0) * (mod(x, 123.0) + 1.0), 0.01)-0.005) * strength;
                 
