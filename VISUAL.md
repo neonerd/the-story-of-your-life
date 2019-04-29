@@ -1,0 +1,1 @@
+By stretching the text when rendering, an interesting effect can be achieved.

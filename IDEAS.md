@@ -54,11 +54,21 @@ friendship
 
 courage
 
+betrayal
+
 # QUALITIES
 
 # IDEAS
 
 # TOPICS
 
+# EMOTIONS
+
 # PROTAGONISTS AND ANTAGONISTS
+
+* Corrupter
+* Classic Villain
+* Fool For Love -> Easily falls to love and does things because of it.
+* The Hero
+* Anti-Hero
 

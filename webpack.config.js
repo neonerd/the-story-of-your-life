@@ -9,6 +9,7 @@ const htmlWebpackPluginOpts = {
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
   entry: './src/client/index.ts',
   module: {
     rules: [
