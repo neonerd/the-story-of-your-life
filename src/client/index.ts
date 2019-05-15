@@ -52,7 +52,7 @@ const renderSubtitles = (txt: string) => {
     let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
     
     // Interesting effect
-    text.width = monitorSettings.w*0.75
+    text.width = monitorSettings.w*0.5
     text.x = monitorSettings.w/2 - text.width/2
 
     subtitlesContainer.addChild(text)
@@ -87,7 +87,6 @@ const getTextToSpeech = async (txt: string) => {
     const res = await axios.post('http://localhost:2019/text-to-speech', {
         text: txt
     })
-    console.log(res.data)
     return res.data.link
 }
 
@@ -173,11 +172,20 @@ const test = async () => {
     const sentence = await createSentence('Imagine sitting in a room with someone you love. There is a movie playing in the TV.')
     renderSentence(sentence)
 }
-test()
+
+// don't need to test now
+// test()
 
 
 
 
+
+
+// Narrative test
+const narrativeTest = async () => {
+    renderSubtitles('Imagine you are in a room with your parents.')
+}
+narrativeTest()
 
 
 
@@ -255,6 +263,8 @@ function animate() {
     //     lastTime = currentTime
     // }    
     // this is the main render call that makes pixi draw your container and its children.
+
+    
 
     app.renderer.render(stage);
 }

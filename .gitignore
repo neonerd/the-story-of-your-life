@@ -1,3 +1,7 @@
 dist
 node_modules
 tmp
+
+res/crawler_nos
+res/stills_nos
+res/stills
