@@ -102,9 +102,10 @@ literary elements:
 * aliteration
 * pauses and other forms of rythm breaking
 
+speaking in absolutes versus relatives (absolute: 0 - 1)
 
 
-
+every new narrative unit begins with "Imagine..."
 
 
 

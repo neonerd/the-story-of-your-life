@@ -40,7 +40,7 @@ const app = new PIXI.Application({
     width: monitorSettings.w,         // default: 800
     height: monitorSettings.h,        // default: 600
     antialias: true,    // default: false
-    transparent: false, // default: false
+    transparent: true, // default: false
     resolution: 1       // default: 1
 })
 app.renderer.view.style.position = "absolute"
@@ -54,17 +54,29 @@ document.body.appendChild(app.view)
 // The stage is the root container that will hold everything in our scene
 const stage = new PIXI.Container()
 
-// This container is used to rencder the subtitles
-const subtitlesContainer = new PIXI.Container()
-subtitlesContainer.y = monitorSettings.h * 0.75
-stage.addChild(subtitlesContainer)
-
 // This container is used to rencder the stills
 const stillsContainer = new PIXI.Container()
 stillsContainer.y = 0
 stillsContainer.x = 0
 stage.addChild(stillsContainer)
 
+// This is the projection bg
+const bg = PIXI.Sprite.fromImage('/res/gfx/background.png');
+bg.x = 0
+bg.y = 0
+bg.width = monitorSettings.w
+bg.height = monitorSettings.h
+stage.addChild(bg)
+
+// This container is used to rencder the subtitles
+const subtitlesContainer = new PIXI.Container()
+subtitlesContainer.y = monitorSettings.h * 0.8
+stage.addChild(subtitlesContainer)
+
+/**
+ * This functions renders the subtitles
+ * @param txt 
+ */
 const renderSubtitles = (txt: string) => {
     let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
     
@@ -83,6 +95,7 @@ const renderSubtitles = (txt: string) => {
 // ===
 Gibber.init({ globalize: false })
 
+// Constant sounds
 const SOUND_SLIDEPROJECTOR = new Pizzicato.Sound({
     source: 'file',
     options: { path: '/res/sfx/slide_projector.wav' }
@@ -155,7 +168,6 @@ const UTTERANCE_PAUSES = {
     '.': 1000,
     ',,': 500 
 }
-
 const createSentence = async (txt: string): Promise<TextToSpeechSentence> => {
     const sentence: TextToSpeechSentence = {
         text: txt,
@@ -196,19 +208,19 @@ const renderStill = async (stillPath: string) => {
 
     await wait(1300)
 
-    // still.texture.baseTexture.on('loaded', function(){
-        still.height = monitorSettings.h * 0.5
+    still.height = monitorSettings.h * 0.6
 
-        still.position.x = getCenter(still.width, monitorSettings.w)
-        still.position.y = getCenter(still.height, monitorSettings.h) - monitorSettings.h*0.05
+    still.position.x = getCenter(still.width, monitorSettings.w)
+    still.position.y = 141
 
-        stillsContainer.addChild(still)
-    // });   
+    stillsContainer.addChild(still)
 }
 
 
 
-
+// ===
+// === TESTS
+// ===
 
 
 const test = async () => {
@@ -228,16 +240,15 @@ const narrativeTest = async () => {
     renderSubtitles('Imagine you are in a room with your parents.')
 
     await wait(1000)
-    renderStill(TESTING_STILLS[0])
+    renderStill(TESTING_STILLS[2])
 
     await wait(5000)
-    renderStill(TESTING_STILLS[1])
+    renderStill(TESTING_STILLS[3])
 }
 narrativeTest()
 
 
-const renderIntro = async () => {
-    
+const renderIntro = async () => {  
 }
 
 
