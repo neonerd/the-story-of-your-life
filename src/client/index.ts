@@ -70,7 +70,7 @@ stage.addChild(bg)
 
 // This container is used to rencder the subtitles
 const subtitlesContainer = new PIXI.Container()
-subtitlesContainer.y = monitorSettings.h * 0.8
+subtitlesContainer.y = monitorSettings.h * 0.82
 stage.addChild(subtitlesContainer)
 
 /**

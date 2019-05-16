@@ -26,7 +26,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin(htmlWebpackPluginOpts),
     new CopyPlugin([
-        {from: 'res', to: 'res'},
+        {from: 'res/gfx', to: 'res/gfx'},
+        {from: 'res/sfx', to: 'res/sfx'},
+        {from: 'res/data', to: 'res/data'},
         {from: 'vendor', to: 'vendor'}
     ])
   ],
