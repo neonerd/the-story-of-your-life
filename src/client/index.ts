@@ -4,10 +4,21 @@ declare var Pizzicato: any
 console.log('=== The Story of Your Life')
 
 import axios from 'axios'
-import {wait} from '../lib'
+import {wait, getCenter} from '../lib'
 
 // ===
-// === BROWSER SETPU
+// === TESTING STUFF
+// ===
+const TESTING_STILLS = [
+    '/res/crawler_nos/26_4.jpg',
+    '/res/crawler_nos/61_1.jpg',
+    '/res/crawler_nos/66_5.jpg',
+    '/res/crawler_nos/75_6.jpg',
+    '/res/crawler_nos/75_7.jpg'
+]
+
+// ===
+// === BROWSER SETUP
 // ===
 const monitorSettings = {
     w: window.innerWidth,
@@ -48,6 +59,12 @@ const subtitlesContainer = new PIXI.Container()
 subtitlesContainer.y = monitorSettings.h * 0.75
 stage.addChild(subtitlesContainer)
 
+// This container is used to rencder the stills
+const stillsContainer = new PIXI.Container()
+stillsContainer.y = 0
+stillsContainer.x = 0
+stage.addChild(stillsContainer)
+
 const renderSubtitles = (txt: string) => {
     let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
     
@@ -65,6 +82,11 @@ const renderSubtitles = (txt: string) => {
 // === GIBBER
 // ===
 Gibber.init({ globalize: false })
+
+const SOUND_SLIDEPROJECTOR = new Pizzicato.Sound({
+    source: 'file',
+    options: { path: '/res/sfx/slide_projector.wav' }
+})
 
 // ===
 // === SPEECH PLAYING
@@ -163,6 +185,27 @@ const renderSentence = async (sentence: TextToSpeechSentence) => {
 }
 
 
+// ===
+// === STILL RENDERING
+// ===
+const renderStill = async (stillPath: string) => {
+    stillsContainer.removeChildren(0, 10)
+    SOUND_SLIDEPROJECTOR.play()
+    // New image
+    const still = PIXI.Sprite.fromImage(stillPath);
+
+    await wait(1300)
+
+    // still.texture.baseTexture.on('loaded', function(){
+        still.height = monitorSettings.h * 0.5
+
+        still.position.x = getCenter(still.width, monitorSettings.w)
+        still.position.y = getCenter(still.height, monitorSettings.h) - monitorSettings.h*0.05
+
+        stillsContainer.addChild(still)
+    // });   
+}
+
 
 
 
@@ -172,7 +215,6 @@ const test = async () => {
     const sentence = await createSentence('Imagine sitting in a room with someone you love. There is a movie playing in the TV.')
     renderSentence(sentence)
 }
-
 // don't need to test now
 // test()
 
@@ -184,9 +226,19 @@ const test = async () => {
 // Narrative test
 const narrativeTest = async () => {
     renderSubtitles('Imagine you are in a room with your parents.')
+
+    await wait(1000)
+    renderStill(TESTING_STILLS[0])
+
+    await wait(5000)
+    renderStill(TESTING_STILLS[1])
 }
 narrativeTest()
 
+
+const renderIntro = async () => {
+    
+}
 
 
 

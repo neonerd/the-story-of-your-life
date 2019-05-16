@@ -5,3 +5,7 @@ export function wait (ms: number) {
         }, ms)
     })
 }
+
+export function getCenter (width: number, containerWidth: number) {
+    return containerWidth/2 - width/2
+}

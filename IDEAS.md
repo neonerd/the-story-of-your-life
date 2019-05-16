@@ -91,7 +91,7 @@ Try to make descriptions of media descriptive, not only a narrative.
 
 Writing generative text by trying to appropiate existing examples (how was this originally called somwhere on Twitter?):
 
-
+"Imagine you are in your room. Someone you love is next to you."
 
 "And one of the men is evil and the other one is good. Or so do we think."
 
@@ -112,6 +112,10 @@ literary elements:
 # INTRO
 
 Countdown from 60 to 0.
+
+Please, take a seat and relax. 
+
+The excercise will begin shortly.
 
 ---
 
