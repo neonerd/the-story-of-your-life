@@ -31,3 +31,18 @@ interface Story {
 
 }
 
+
+const DB_MEDIA: Medium[] = [
+    {
+        key: 'movie',
+        name: 'movie',
+        type: MEDIUM_TYPE.AV
+    },
+    {
+        key: 'song',
+        name: 'song',
+        type: MEDIUM_TYPE.MUSIC
+    }
+]
+
+

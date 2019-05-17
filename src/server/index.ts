@@ -25,7 +25,7 @@ const AVAILABLE_VOICES: TextToSpeechVoice[] = []
 const DEFAULT_VOICE: TextToSpeechVoice = {
     languageCode: 'fr-FR',
     name: 'fr-FR-Wavenet-C',
-    speakingRate: 0.85,
+    speakingRate: 0.75,
     pitch: 0
 }
 

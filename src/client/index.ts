@@ -130,7 +130,7 @@ const getTextToSpeech = async (txt: string) => {
  * @param link 
  */
 const reverb = new Pizzicato.Effects.Reverb({
-    time: 1,
+    time: 0.5,
     decay: 0.8,
     reverse: true,
     mix: 0.5
@@ -143,7 +143,7 @@ const playSpeech = (link: string) => {
             options: { path: link }
         }, function() {
             // Reverb
-            sound.addEffect(reverb)
+            // sound.addEffect(reverb)
 
             sound.on('end', () => {
                 resolve(true)
@@ -224,11 +224,11 @@ const renderStill = async (stillPath: string) => {
 
 
 const test = async () => {
-    const sentence = await createSentence('Imagine sitting in a room with someone you love. There is a movie playing in the TV.')
+    const sentence = await createSentence('Imagine sitting in a room with someone you love. \n There is a movie playing in the TV.')
     renderSentence(sentence)
 }
 // don't need to test now
-// test()
+test()
 
 
 
@@ -237,7 +237,7 @@ const test = async () => {
 
 // Narrative test
 const narrativeTest = async () => {
-    renderSubtitles('Imagine you are in a room with your parents.')
+    // renderSubtitles('Imagine you are in a room with your parents.')
 
     await wait(1000)
     renderStill(TESTING_STILLS[2])
