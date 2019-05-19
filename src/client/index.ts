@@ -14,7 +14,8 @@ const TESTING_STILLS = [
     '/res/crawler_nos/61_1.jpg',
     '/res/crawler_nos/66_5.jpg',
     '/res/crawler_nos/75_6.jpg',
-    '/res/crawler_nos/75_7.jpg'
+    '/res/crawler_nos/75_7.jpg',
+    '/res/crawler_nos/44_8.jpg'
 ]
 
 // ===
@@ -200,6 +201,9 @@ const renderSentence = async (sentence: TextToSpeechSentence) => {
 // ===
 // === STILL RENDERING
 // ===
+const RENDER_AREA_WIDTH = 900
+const RENDER_AREA_HEIGHT = 600
+
 const renderStill = async (stillPath: string) => {
     stillsContainer.removeChildren(0, 10)
     SOUND_SLIDEPROJECTOR.play()
@@ -208,10 +212,22 @@ const renderStill = async (stillPath: string) => {
 
     await wait(1300)
 
-    still.height = monitorSettings.h * 0.6
+    const originalHeight = still.height
+    const originalWidth = still.width
+    console.log('originals', still.height, still.width)
+
+    if (still.height > still.width) {
+        still.height = 600
+        still.width = (still.height/originalHeight) * still.width
+    } else {
+        still.width = 900
+        still.height = (still.width/originalWidth) * still.height
+    }
+
+    console.log('new', still.height, still.width)
 
     still.position.x = getCenter(still.width, monitorSettings.w)
-    still.position.y = 141
+    still.position.y = 10
 
     stillsContainer.addChild(still)
 }
@@ -223,12 +239,12 @@ const renderStill = async (stillPath: string) => {
 // ===
 
 
-const test = async () => {
+const audioTest = async () => {
     const sentence = await createSentence('Imagine sitting in a room with someone you love. \n There is a movie playing in the TV.')
     renderSentence(sentence)
 }
 // don't need to test now
-test()
+// audioTest()
 
 
 
@@ -240,13 +256,20 @@ const narrativeTest = async () => {
     // renderSubtitles('Imagine you are in a room with your parents.')
 
     await wait(1000)
-    renderStill(TESTING_STILLS[2])
+    renderStill(TESTING_STILLS[5])
 
-    await wait(5000)
-    renderStill(TESTING_STILLS[3])
+    // await wait(5000)
+    // renderStill(TESTING_STILLS[3])
 }
 narrativeTest()
 
+import {generateNarrativeSequence} from '../narrative'
+
+const generationTest = async () => {
+    const seq = generateNarrativeSequence()
+    console.log(seq.units)
+}
+generationTest()
 
 const renderIntro = async () => {  
 }

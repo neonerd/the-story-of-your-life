@@ -133,9 +133,10 @@ Imagine yourself living in the good times.
 
 
 
+# NARRATIVE UNIT DESCRIPTORS GENERATION
 
-
-
+"Imagine you are..."
+"It is about..."
 
 
 
@@ -182,6 +183,7 @@ imagination
 idea
 dream
 
+# MEDIA QUALITIES
 
 
 
@@ -204,7 +206,8 @@ dream
 
 
 
-# STORIES
+
+# STORY THEMES
 
 comitting suicide
 dying
@@ -215,7 +218,9 @@ love
 * romantic
 * pragmatic
 * motherly / fatherly
+* friendly
 * unrequited
+* tragic
 
 hate
 
@@ -229,35 +234,26 @@ success
 
 failure
 
+business
 
-# QUALITIES
+adventure
 
+# STORY QUALITIES
 
+* sad
+* uplifting
+* complex
+* happy
+* simple
+* 
 
-# IDEAS
-
-
-
-
-# TOPICS
-
-
-
-
-# EMOTIONS
-
-
-
-
-# PROTAGONISTS AND ANTAGONISTS
+# CHARACTERS
 
 * Corrupter
 * Classic Villain
 * Fool For Love -> Easily falls to love and does things because of it.
 * The Hero
 * Anti-Hero
-
-
 
 
 
@@ -274,10 +270,14 @@ how do we break the sound?
 
 
 
+
+
 ## VISUAL
 
 * slide projector vignettes appear
 * they are dcontinually disturbed and replaced by contemporary instagram images
+
+
 
 
 
