@@ -15,7 +15,10 @@ const TESTING_STILLS = [
     '/res/crawler_nos/66_5.jpg',
     '/res/crawler_nos/75_6.jpg',
     '/res/crawler_nos/75_7.jpg',
-    '/res/crawler_nos/44_8.jpg'
+    '/res/crawler_nos/44_8.jpg',
+    '/res/crawler_nos/83_0.jpg',
+    '/res/crawler_nos/54_5.jpg',
+    '/res/crawler_nos/75_2.jpg',
 ]
 
 // ===
@@ -74,6 +77,11 @@ const subtitlesContainer = new PIXI.Container()
 subtitlesContainer.y = monitorSettings.h * 0.82
 stage.addChild(subtitlesContainer)
 
+// This container is used to render the intro
+const introContainer = new PIXI.Container()
+introContainer.y = monitorSettings.h * 0.5
+stage.addChild(introContainer)
+
 /**
  * This functions renders the subtitles
  * @param txt 
@@ -85,7 +93,23 @@ const renderSubtitles = (txt: string) => {
     text.width = monitorSettings.w*0.5
     text.x = monitorSettings.w/2 - text.width/2
 
+    subtitlesContainer.removeChildren()
     subtitlesContainer.addChild(text)
+}
+
+const renderIntro = (txt: string) => {
+    let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
+
+    // Interesting effect
+    text.width = monitorSettings.w*0.5
+    text.x = monitorSettings.w/2 - text.width/2
+
+    introContainer.removeChildren()
+    introContainer.addChild(text)
+}
+
+const clearIntro = () => {
+    introContainer.removeChildren()
 }
 
 
@@ -100,6 +124,10 @@ Gibber.init({ globalize: false })
 const SOUND_SLIDEPROJECTOR = new Pizzicato.Sound({
     source: 'file',
     options: { path: '/res/sfx/slide_projector.wav' }
+})
+const SOUND_FAN = new Pizzicato.Sound({
+    source: 'file',
+    options: { path: '/res/sfx/fan.wav', loop: true }
 })
 
 // ===
@@ -172,7 +200,7 @@ const UTTERANCE_PAUSES = {
 const createSentence = async (txt: string): Promise<TextToSpeechSentence> => {
     const sentence: TextToSpeechSentence = {
         text: txt,
-        tokens: txt.split('.').map(u => {
+        tokens: txt.split('.').filter(u => u.length).map(u => {
             return {
                 utterance: u,
                 pauseAfter: 500,
@@ -255,11 +283,69 @@ const audioTest = async () => {
 const narrativeTest = async () => {
     // renderSubtitles('Imagine you are in a room with your parents.')
 
-    await wait(1000)
-    renderStill(TESTING_STILLS[5])
+    await wait(2000)
+    SOUND_FAN.play()
 
-    // await wait(5000)
-    // renderStill(TESTING_STILLS[3])
+    await wait(3000)
+    renderIntro('Please, take a seat and relax. \n The excercise will begin shortly.')
+
+    await wait(5000)
+    renderIntro('Please, take a seat and relax. \n The excercise will begin shortly.')
+
+    await wait(5000)
+    renderIntro('Welcome to excercise #4.')
+
+    await wait(10000)
+    renderIntro('This excercise is focused \n on broadening your cultural imagination.')
+
+    await wait(10000)
+    renderIntro('You will be presented with a set of situations.')
+
+    await wait(10000)
+    renderIntro('Try to immerse yourself into these fictions \n to achieve the expected result.')
+
+    await wait(5000)
+    clearIntro()
+    await wait(3000)
+
+    await renderStill(TESTING_STILLS[5])
+    await wait(1000)
+    await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you love is next to you.'))
+    
+    await wait(1000)
+    await renderSentence(await createSentence('You are watching an acclaimed romantic comedy.'))
+
+    await wait(1000)
+    await renderSentence(await createSentence('A young couple struggles. They overcome \n all obstacles with courage and wisdom.'))
+
+    await renderStill(TESTING_STILLS[6])
+    await wait(1000)
+    await renderSentence(await createSentence('You can see an old painting at one point in the movie.'))
+    await wait(1000)
+    await renderSentence(await createSentence('It depicts a group of businessmen angrily discussing something.'))
+    await wait(1000)
+    await renderSentence(await createSentence('They look so angry.'))
+
+    await renderStill(TESTING_STILLS[7])
+    await wait(1000)
+    await renderSentence(await createSentence('Back in the movie a rock song plays in the background.'))
+    await wait(1000)
+    await renderSentence(await createSentence('Someone is singing about failure and betrayal.'))
+
+    await renderStill(TESTING_STILLS[8])
+    await wait(1000)
+    await renderSentence(await createSentence('Your mind wanders. You remember the \n times you were happy in high school.'))
+    await wait(1000)
+    await renderSentence(await createSentence('Everyone was friendly. Pretty. Thoughtful.'))
+    
+    // await wait(1000)
+    // await renderSentence(await createSentence('Everyone was friendly. Pretty.'))
+
+    await renderStill(TESTING_STILLS[5])
+    await wait(1000)
+    await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you maybe love is next to you.'))
+
+    
 }
 narrativeTest()
 
@@ -269,12 +355,7 @@ const generationTest = async () => {
     const seq = generateNarrativeSequence()
     console.log(seq.units)
 }
-generationTest()
-
-const renderIntro = async () => {  
-}
-
-
+// generationTest()
 
 
 
@@ -335,19 +416,28 @@ const renderIntro = async () => {
 // // Add it to the screen
 // stage.addChild(photo);
 
-// const startTime = Date.now()
-// let lastTime = Date.now()
+const startTime = Date.now()
+let lastTime = Date.now()
 
 function animate() {
     // start the timer for the next animation loop
     requestAnimationFrame(animate);
 
     // do time delta
-    // const currentTime = Date.now()
-    // if (currentTime - lastTime > 50) {
-    //     (simpleShader.uniforms as any).time = (currentTime - startTime) / 1000
-    //     lastTime = currentTime
-    // }    
+    const currentTime = Date.now()
+    if (currentTime - lastTime > 50) {
+        //     (simpleShader.uniforms as any).time = (currentTime - startTime) / 1000
+        lastTime = currentTime
+
+        const moveX = Math.round(Math.random() * 1)
+        const moveY = Math.round(Math.random() * 1)
+        
+        stillsContainer.x = 0 + moveX
+        stillsContainer.y = 0 + moveY
+
+        bg.x = 0 + moveX
+        bg.y = 0 + moveY
+    }    
     // this is the main render call that makes pixi draw your container and its children.
 
     

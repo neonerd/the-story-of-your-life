@@ -25,7 +25,7 @@ Lasts countdown + 30 seconds? -> 30 SEC
 
 ### Resolution
 - Roleplaying generator should start to fail / distrub the sequence
-- Visuals should be replaced by fancy instagram pictures -> Life wasn't fun only in the 60's
+- Visuals should be replaced by fancy instagram pictures -> Life wasn't fun only in the 60's (?)
 - The opposing audio should be done using different voice
 
 ## Narrative structure (carried by narrative units)
@@ -284,6 +284,8 @@ how do we break the sound?
 
 
 # OUTRO
+
+last slide should be just white
 
 the story of your life
 

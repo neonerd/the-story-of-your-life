@@ -21,12 +21,31 @@ interface TextToSpeechVoice {
     pitch: number
 }
 
-const AVAILABLE_VOICES: TextToSpeechVoice[] = []
+const AVAILABLE_VOICES: TextToSpeechVoice[] = [
+    {
+        languageCode: 'fr-FR',
+        name: 'fr-FR-Wavenet-C',
+        speakingRate: 0.75,
+        pitch: 0
+    },
+    {
+        languageCode: 'de-DE',
+        name: 'de-DE-Wavenet-A',
+        speakingRate: 0.85,
+        pitch: -4
+    },
+    {
+        languageCode: 'de-DE',
+        name: 'de-DE-Wavenet-C',
+        speakingRate: 0.85,
+        pitch: -4.40
+    }
+]
 const DEFAULT_VOICE: TextToSpeechVoice = {
-    languageCode: 'fr-FR',
-    name: 'fr-FR-Wavenet-C',
-    speakingRate: 0.75,
-    pitch: 0
+    languageCode: 'de-DE',
+    name: 'de-DE-Wavenet-C',
+    speakingRate: 0.85,
+    pitch: -4.40
 }
 
 // ===
@@ -73,24 +92,32 @@ app.post('/text-to-speech', async (req, res, next) => {
 
         // Assign a random output
         const hash = crypto.createHash('md5')
-        hash.update(Math.random().toString())
-        hash.update(Date.now().toString())
-        const outputName = `${hash.digest('hex')}.wav`
-    
-        // Write the binary audio content to a local file
-        fs.writeFile(path.join(DIR_TMP, outputName), response.audioContent, 'binary', err => {
-            if (err) {
-                console.error('ERROR:', err)
-                res.statusCode = 500
-                res.json({status: 'ERROR'})
-                return
-            }
+        hash.update(req.body.text)
 
+        const outputName = `${hash.digest('hex')}.wav`
+        const outputPath = path.join(DIR_TMP, outputName)
+
+        if (fs.existsSync(outputPath)) {
             res.json({
                 status: 'OK',
                 link: `http://localhost:2019/files/${outputName}`
             })
-        });
+        } else {    
+            // Write the binary audio content to a local file
+            fs.writeFile(outputPath, response.audioContent, 'binary', err => {
+                if (err) {
+                    console.error('ERROR:', err)
+                    res.statusCode = 500
+                    res.json({status: 'ERROR'})
+                    return
+                }
+
+                res.json({
+                    status: 'OK',
+                    link: `http://localhost:2019/files/${outputName}`
+                })
+            });
+        }   
     });
 })
 
