@@ -97,6 +97,10 @@ const renderSubtitles = (txt: string) => {
     subtitlesContainer.addChild(text)
 }
 
+const clearSubtitles = () => {
+    subtitlesContainer.removeChildren()
+}
+
 const renderIntro = (txt: string) => {
     let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
 
@@ -260,7 +264,9 @@ const renderStill = async (stillPath: string) => {
     stillsContainer.addChild(still)
 }
 
-
+const clearStills = () => {
+    stillsContainer.removeChildren()
+}
 
 // ===
 // === TESTS
@@ -283,69 +289,81 @@ const audioTest = async () => {
 const narrativeTest = async () => {
     // renderSubtitles('Imagine you are in a room with your parents.')
 
-    await wait(2000)
+    await wait(3000)
     SOUND_FAN.play()
 
-    await wait(3000)
+    await wait(7000)
     renderIntro('Please, take a seat and relax. \n The excercise will begin shortly.')
-
-    await wait(5000)
-    renderIntro('Please, take a seat and relax. \n The excercise will begin shortly.')
-
-    await wait(5000)
-    renderIntro('Welcome to excercise #4.')
 
     await wait(10000)
-    renderIntro('This excercise is focused \n on broadening your cultural imagination.')
+    renderIntro('Excercise #4: Love and youth')
+
+    await wait(10000)
+    renderIntro('This excercise is focused \n on developing your sense of nostalgia \n and broadening your cultural imagination.')
 
     await wait(10000)
     renderIntro('You will be presented with a set of situations.')
 
     await wait(10000)
-    renderIntro('Try to immerse yourself into these fictions \n to achieve the expected result.')
+    renderIntro('Try to immerse yourself into these fictions \n to achieve the expected result \n and feel nostalgic and longing for \n lost youth and love.')
 
-    await wait(5000)
+    await wait(15000)
     clearIntro()
-    await wait(3000)
+    await wait(5000)
 
-    await renderStill(TESTING_STILLS[5])
-    await wait(1000)
     await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you love is next to you.'))
-    
     await wait(1000)
     await renderSentence(await createSentence('You are watching an acclaimed romantic comedy.'))
-
     await wait(1000)
     await renderSentence(await createSentence('A young couple struggles. They overcome \n all obstacles with courage and wisdom.'))
-
-    await renderStill(TESTING_STILLS[6])
     await wait(1000)
+
+    clearSubtitles()
+    await renderStill(TESTING_STILLS[5])
+    await wait(10000)
+    clearStills()
+    await wait(1000)
+
     await renderSentence(await createSentence('You can see an old painting at one point in the movie.'))
     await wait(1000)
     await renderSentence(await createSentence('It depicts a group of businessmen angrily discussing something.'))
     await wait(1000)
     await renderSentence(await createSentence('They look so angry.'))
-
-    await renderStill(TESTING_STILLS[7])
     await wait(1000)
+
+    clearSubtitles()
+    await renderStill(TESTING_STILLS[6])
+    await wait(10000)
+    clearStills()
+    await wait(1000)
+
+    
     await renderSentence(await createSentence('Back in the movie a rock song plays in the background.'))
     await wait(1000)
     await renderSentence(await createSentence('Someone is singing about failure and betrayal.'))
-
-    await renderStill(TESTING_STILLS[8])
     await wait(1000)
+
+    clearSubtitles()
+    await renderStill(TESTING_STILLS[7])
+    await wait(10000)
+    clearStills()
+    await wait(1000)
+
+    
     await renderSentence(await createSentence('Your mind wanders. You remember the \n times you were happy in high school.'))
     await wait(1000)
     await renderSentence(await createSentence('Everyone was friendly. Pretty. Thoughtful.'))
-    
-    // await wait(1000)
-    // await renderSentence(await createSentence('Everyone was friendly. Pretty.'))
-
-    await renderStill(TESTING_STILLS[5])
     await wait(1000)
-    await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you maybe love is next to you.'))
 
-    
+    clearSubtitles()
+    await renderStill(TESTING_STILLS[8])
+    await wait(10000)
+    clearStills()
+    await wait(1000)
+
+    await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you maybe love is next to you.'))
+    await wait(1000)
+    clearSubtitles()
 }
 narrativeTest()
 

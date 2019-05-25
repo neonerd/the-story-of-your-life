@@ -42,10 +42,10 @@ const AVAILABLE_VOICES: TextToSpeechVoice[] = [
     }
 ]
 const DEFAULT_VOICE: TextToSpeechVoice = {
-    languageCode: 'de-DE',
-    name: 'de-DE-Wavenet-C',
-    speakingRate: 0.85,
-    pitch: -4.40
+    languageCode: 'fr-FR',
+    name: 'fr-FR-Wavenet-C',
+    speakingRate: 0.75,
+    pitch: 0
 }
 
 // ===
@@ -66,6 +66,21 @@ app.use(bodyParser())
 app.use('/files', express.static(DIR_TMP))
 
 app.post('/text-to-speech', async (req, res, next) => {
+    // Assign a random output
+    const hash = crypto.createHash('md5')
+    hash.update(req.body.text)
+
+    const outputName = `${hash.digest('hex')}.wav`
+    const outputPath = path.join(DIR_TMP, outputName)
+
+    if (fs.existsSync(outputPath)) {
+        res.json({
+            status: 'OK',
+            link: `http://localhost:2019/files/${outputName}`
+        })
+        return
+    }
+
     // Create the Text-to-Speech request
     const tsRequest = {
         input: {text: req.body.text},
@@ -90,12 +105,9 @@ app.post('/text-to-speech', async (req, res, next) => {
             return
         }
 
-        // Assign a random output
-        const hash = crypto.createHash('md5')
-        hash.update(req.body.text)
+        
 
-        const outputName = `${hash.digest('hex')}.wav`
-        const outputPath = path.join(DIR_TMP, outputName)
+        
 
         if (fs.existsSync(outputPath)) {
             res.json({
