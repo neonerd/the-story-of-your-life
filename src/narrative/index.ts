@@ -180,6 +180,17 @@ const DB_MEDIA: Medium[] = [
             {key: 'country', name: 'country'}
         ],
         transitionVerbs: ['hear']
+    },
+    {
+        key: 'painting',
+        name: 'painting',
+        type: MEDIUM_TYPE.FINE_ART,
+        defaultWeight: 50,
+        hasGenre: true,
+        genres: [
+            
+        ],
+        transitionVerbs: ['see']
     }
 ]
 

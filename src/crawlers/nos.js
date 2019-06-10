@@ -2,16 +2,14 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const R = require('ramda')
 
-const DOWNLOAD_PATH = `../../res/crawler_nos/`
+const DOWNLOAD_PATH = __dirname + `/../../res/stills/nos/`
 const NOS_URL = `https://nos.twnsnd.co/page/`
-const pageNumbers = R.range(26, 143)
+const pageNumbers = R.range(1, 143)
 
 const http = require('http');
 const fs = require('fs');
 
 console.log(pageNumbers)
-
-
 
 const getAndParseNosPage = async (pageNo) => {
     const downloads = []

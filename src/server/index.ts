@@ -8,6 +8,8 @@ import * as bodyParser from 'body-parser'
 
 import * as textToSpeech from '@google-cloud/text-to-speech'
 
+import * as recursiveReadDir from 'recursive-readdir'
+
 // === 
 // === CONFIG
 // ===
@@ -132,6 +134,25 @@ app.post('/text-to-speech', async (req, res, next) => {
         }   
     });
 })
+
+// ===
+// === PHOTO DATABASE
+// ===
+const DIR_STILLS = __dirname + '/../../res/stills'
+
+app.get('/db/files', async (req, res) => {
+    recursiveReadDir(DIR_STILLS, (err, files) => {
+        res.json({
+            status: 'OK',
+            files
+        })
+    })
+})
+
+app.get('/db/data', async (req, res) => {
+
+})
+
 
 app.listen(PORT)
 console.log('TheStoryOfYourLife ~ Server is running at ' + PORT)

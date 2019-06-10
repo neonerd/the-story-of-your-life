@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --watch",
-    "dev-server": "ts-node --skip-project src/server/index.ts",
-    "dist-server": "http-server dist/ -c-1",
+    "server": "ts-node --skip-project src/server/index.ts",
+    "installation": "http-server dist/ -c-1",
+    "tagger": "http-server src/tagger -c-1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrej Sykora",
@@ -18,7 +19,9 @@
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "lowdb": "^1.0.0",
     "ramda": "^0.26.1",
+    "recursive-readdir": "^2.2.2",
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {

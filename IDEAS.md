@@ -67,6 +67,10 @@ non-linear: flashbacks
 non-linear: flashforwards
 non-linear: mind
 
+
+
+
+
 ## Transitions
 
 They need to happen between narrative units.
@@ -102,13 +106,10 @@ literary elements:
 * aliteration
 * pauses and other forms of rythm breaking
 
-speaking in absolutes versus relatives (absolute: 0 - 1)
+certainity of phrases (certainity: 0 - 1)
 
 
 every new narrative unit begins with "Imagine..."
-
-
-
 
 # INTRO
 
