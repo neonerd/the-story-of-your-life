@@ -138,21 +138,63 @@ app.post('/text-to-speech', async (req, res, next) => {
 // ===
 // === PHOTO DATABASE
 // ===
+import * as lowdb from 'lowdb'
+import * as lowdbFileSync from 'lowdb/adapters/FileSync'
+
 const DIR_STILLS = __dirname + '/../../res/stills'
+const DB_STILLS = __dirname + '/../../res/data/stills_db.json'
+
+const lowdbAdapter = new lowdbFileSync(DB_STILLS)
+const lowdbDb = lowdb(lowdbAdapter)
+
+lowdbDb.defaults({
+    stills: []
+})
+.write()
 
 app.get('/db/files', async (req, res) => {
     recursiveReadDir(DIR_STILLS, (err, files) => {
         res.json({
             status: 'OK',
-            files
+            files: files.map(filePath => path.relative(DIR_STILLS, filePath))
         })
     })
 })
 
 app.get('/db/data', async (req, res) => {
-
+    res.json({
+        status: 'OK',
+        stills: lowdbDb.get('stills').value()
+    })
 })
 
+app.get('/db/data/:filepath', async (req, res) => {
+    const still = lowdbDb.get('stills').find({ file: req.params.filepath }).value()
+
+    res.json({
+        status: 'OK',
+        filepath: req.params.filepath
+    })
+})
+
+app.post('/db/data', async (req, res) => {
+    const still = lowdbDb.get('stills').find({ file: req.body.file }).value()
+
+    if (still) {
+        lowdbDb.get('stills').find({ file: req.body.file }).assign({
+            tags: req.body.tags,
+            isValid: req.body.isValid
+        }).write()
+    } else {
+        lowdbDb.get('stills').push(req.body).write()
+    }
+
+    res.json({
+        status: 'OK'
+    })
+})
+
+app.use('/stills', express.static(DIR_STILLS))
 
 app.listen(PORT)
 console.log('TheStoryOfYourLife ~ Server is running at ' + PORT)

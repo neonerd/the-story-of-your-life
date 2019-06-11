@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --watch",
-    "server": "ts-node --skip-project src/server/index.ts",
+    "server": "nodemon --watch 'src/server/**/*.ts' --exec ts-node --skip-project src/server/index.ts",
     "installation": "http-server dist/ -c-1",
     "tagger": "http-server src/tagger -c-1",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,6 +32,7 @@
     "copy-webpack-plugin": "^5.0.2",
     "html-webpack-plugin": "^4.0.0-beta.5",
     "http-server": "^0.11.1",
+    "nodemon": "^1.19.1",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.1.0",
     "typescript": "^3.4.5",

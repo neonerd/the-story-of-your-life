@@ -2,8 +2,71 @@
 <html>
     <head>
         <title>The Story Of Your Life - Tagger</title>
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.26.1/ramda.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            #app {
+                height: 100vh;
+            }
+            #app .row {
+                height: 100vh;
+            }
+            #app .still {
+                margin-bottom: 25px;
+            }
+            #app .tags {
+                margin-bottom: 50px;
+            }
+            #app .tags .btn {
+                margin: 0px 5px;
+            }
+            #app img {
+                max-width: 900px;
+            }
+            #app .buttons .btn {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+        </style>
     </head>
     <body>
-        
-    </body>
+        <div class="container" id = "app">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <template v-if="!isDataLoaded">
+                        <h2>Application initializing, please wait...</h2>
+                    </template>
+
+                    <template v-else>
+                        <p>Stills remaining: {{ unprocessedFiles.length }}</p>
+
+                        <template v-if="isCurrentStillLoaded">
+                            <div class="still">
+                                <img :src="`http://localhost:2019/stills/${currentStill.file}`">
+                            </div>
+
+                            <div class="tags">
+                                <button v-for="t in availableTags" :class="{btn: true, 'btn-secondary': currentStill.tags.indexOf(t) < 0, 'btn-primary': currentStill.tags.indexOf(t) > -1}" :key="`tag-${t}`" @click="toggleTagInCurrentStill(t)">{{ t }}</button>
+                            </div>
+                            
+                            <div class="buttons float-right">                                    
+                                    <button class="btn btn-success" @click="submitCurrentStill">Validate and Next</button>
+                            </div>
+
+                            <div class="buttons">
+                                <button class="btn btn-danger" @click="throwAwayCurrentStill">Throw Away</button>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <h2>Loading, please wait...</h2>
+                        </template>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <script src="/index.js"></script>
+    </body>   
 </html>
