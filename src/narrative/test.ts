@@ -1,8 +1,18 @@
 import * as narrative from './index'
+import { RandomGenerator } from './random';
 
-const units = narrative.generateNarrativeSequence().units
+const rng = new RandomGenerator('test')
 
+console.log('=== NARRATIVE SEQUENCE\n')
+const sequence = narrative.generateNarrativeSequence(rng)
 
+// Get the themes
+sequence.themes.map(t => {
+    console.log('Theme: ', t.name)
+})
+
+// Get the units
+const units = sequence.units
 units.map((u, idx) => {
     console.log('\n')
     console.log('UNIT #' + (idx+1))

@@ -22,6 +22,7 @@
     "lowdb": "^1.0.0",
     "ramda": "^0.26.1",
     "recursive-readdir": "^2.2.2",
+    "seedrandom": "^3.0.1",
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "@types/express": "^4.16.1",
     "@types/pixi.js": "^4.8.6",
     "@types/ramda": "^0.26.8",
+    "@types/seedrandom": "^2.4.28",
     "copy-webpack-plugin": "^5.0.2",
     "html-webpack-plugin": "^4.0.0-beta.5",
     "http-server": "^0.11.1",
