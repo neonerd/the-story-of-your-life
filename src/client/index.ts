@@ -311,6 +311,10 @@ const narrativeTest = async () => {
     clearIntro()
     await wait(5000)
 
+    //
+    // THE MEAT
+    //
+    
     await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you love is next to you.'))
     await wait(1000)
     await renderSentence(await createSentence('You are watching an acclaimed romantic comedy.'))

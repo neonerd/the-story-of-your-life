@@ -14,16 +14,23 @@ const MUSIC_GENRES = [
 ]
 
 const CINEMA_GENRES = [
-    {key: 'action', name: 'action'},
+    {key: 'action', name: 'action movie'},
     {key: 'drama', name: 'drama'},
     {key: 'comedy', name: 'comedy'},
-    {key: 'detective', name: 'detective'},
+    {key: 'detective', name: 'detective movie'},
     {key: 'noir', name: 'noir'},
-    {key: 'romantic', name: 'romantic'},
+    {key: 'romantic', name: 'romantic movie'},
     {key: 'scifi', name: 'scifi'},
-    {key: 'historical', name: 'historical'},
-    {key: 'fantasy', name: 'fantasy'}
+    {key: 'historical', name: 'historical movie'},
+    {key: 'fantasy', name: 'fantasy movie'},
+    {key: 'thriller', name: 'thriller'}
 ]   
+
+const LITERATURE_GENRES = [
+    {key: 'crime', name: 'crime'},
+    {key: 'paperback', name: 'paperback'},
+    {key: 'fantasy', name: 'fantasy'}
+]
 
 export const DB_MEDIA: Medium[] = [
     //
@@ -36,16 +43,80 @@ export const DB_MEDIA: Medium[] = [
         defaultWeight: 50,
         hasGenre: true,
         genres: CINEMA_GENRES,
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'You are watching #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['movie'],
+                grammar: {
+                    origin: [
+                        'You can see #newMedium# playing in the background.'
+                    ],
+                    rules: {
+
+                    }
+                }
+            },
+            {
+                to: ['tv', 'talkshow', 'videogame', 'book', 'comic book', 'song', 'album', 'painting', 'statue'],
+                grammar: {
+                    origin: [
+                        'You can see #newMedium# at one point in the movie.'
+                    ],
+                    rules: {
+
+                    }
+                }
+            }
+        ]
     },
     {
         key: 'tv',
-        name: 'tv series',
+        name: 'episode of tv series',
         type: MEDIUM_TYPE.AV,
         defaultWeight: 50,
         hasGenre: true,
         genres: CINEMA_GENRES,
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'You are watching #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['tv'],
+                grammar: {
+                    origin: [
+                        ''
+                    ],
+                    rules: {
+
+                    }
+            }
+            },
+            {
+                to: ['movie', 'talkshow', 'videogame', 'book', 'comic book', 'song', 'album', 'painting', 'statue'],
+                grammar: {
+                    origin: [
+                        ''
+                    ],
+                    rules: {
+
+                    }
+            }
+            }
+        ]
     },
     {
         key: 'talkshow',
@@ -54,7 +125,27 @@ export const DB_MEDIA: Medium[] = [
         defaultWeight: 50,
         hasGenre: true,
         genres: [],
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'You are watching #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book', 'comic book'],
+                grammar: {
+                    origin: [
+                        'The talkshow host talks about a #newMedium.',
+                        'One of the guests mentions a #newMedium.'
+                    ],
+                    rules: {}
+            }
+            }
+        ]
     },
     //
     // GAMES
@@ -66,7 +157,36 @@ export const DB_MEDIA: Medium[] = [
         defaultWeight: 50,
         hasGenre: true,
         genres: [],
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'You are playing #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['videogame'],
+                grammar: {
+                    origin: [
+                        'The game contains '
+                    ],
+                    rules: {}
+            }
+            },
+            {
+                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book', 'comic book'],
+                grammar: {
+                    origin: [
+                        'The characters talk about #newMedia# at one point in the story.',
+                        'You can #transitiveVerb# #newMedia# in one of the levels of the videogame.'
+                    ],
+                    rules: {}
+            }
+            }
+        ]
     },
     //
     // MUSIC
@@ -78,7 +198,37 @@ export const DB_MEDIA: Medium[] = [
         defaultWeight: 50,
         hasGenre: true,
         genres: MUSIC_GENRES,
-        transitionVerbs: ['hear']
+        intro: {
+            origin: [
+                'You are listening to #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['hear'],
+        transitions: [
+            {
+                to: ['song'],
+                grammar: {
+                    origin: [
+                        'The song mentions #newMedia#.'
+                    ],
+                    rules: {}
+            }
+            },
+            {
+                to: ['movie', 'tv', 'videogame', 'album', 'painting', 'statue', 'book', 'comic book'],
+                grammar: {
+                    origin: [
+                        'The singer mentions #newMedia#.'
+                    ],
+                    rules: {
+
+                    }
+            }
+            }
+        ]
     },
     {
         key: 'album',
@@ -87,7 +237,35 @@ export const DB_MEDIA: Medium[] = [
         defaultWeight: 50,
         hasGenre: true,
         genres: MUSIC_GENRES,
-        transitionVerbs: ['hear']
+        intro: {
+            origin: [
+                'You are listening to #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['hear'],
+        transitions: [
+            {
+                to: ['album'],
+                grammar: {
+                    origin: [
+                        'There are references to another'
+                    ],
+                    rules: {}
+            }
+            },
+            {
+                to: ['movie', 'tv', 'videogame', 'song', 'painting', 'statue', 'book', 'comic book'],
+                grammar: {
+                    origin: [
+                        'In one of the songs, the signer sings about #newMedia#.'
+                    ],
+                    rules: {}
+            }
+            }
+        ]
     },
     //
     // FINE ART
@@ -100,7 +278,35 @@ export const DB_MEDIA: Medium[] = [
         hasGenre: true,
         genres: [
         ],
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'There is #newMedia# on the wall.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['painting'],
+                grammar: {
+                    origin: [
+
+                    ],
+                    rules: {}
+            }
+            },
+            {
+                to: ['movie', 'tv', 'videogame', 'song', 'album', 'statue', 'book', 'comic book'],
+                grammar: {
+                    origin: [
+                    
+                    ],
+                    rules: {}
+            }
+            }
+        ]
     },
     {
         key: 'statue',
@@ -110,44 +316,129 @@ export const DB_MEDIA: Medium[] = [
         hasGenre: true,
         genres: [
         ],
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'There is #newMedia# in the room.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['statue'],
+                grammar: {
+                    origin: [
+
+                    ],
+                    rules: {}
+            }
+            },
+            {
+                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'book', 'comic book'],
+                grammar: {
+                    origin: [
+                    
+                    ],
+                    rules: {}
+            }
+            }
+        ]
     },
     // 
     // LITERATURE
     //
     {
         key: 'book',
-        name: 'book',
+        name: 'novel',
         type: MEDIUM_TYPE.LITERATURE,
         defaultWeight: 50,
         hasGenre: true,
-        genres: [
-        ],
-        transitionVerbs: ['see']
+        genres: LITERATURE_GENRES,
+        intro: {
+            origin: [
+                'You are reading #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['book'],
+                grammar: {
+                    origin: [
+
+                    ],
+                    rules: {}
+            }
+            },
+            {
+                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'comic book'],
+                grammar: {
+                    origin: [
+                    
+                    ],
+                    rules: {}
+            }
+            }
+        ]
     },
     {
         key: 'comic book',
         name: 'comic book',
         type: MEDIUM_TYPE.LITERATURE,
         defaultWeight: 50,
-        hasGenre: true,
+        hasGenre: false,
         genres: [
         ],
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'You are reading #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+            {
+                to: ['comic book'],
+                grammar: {
+                    origin: [
+
+                    ],
+                    rules: {}
+            }
+            },
+            {
+                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book'],
+                grammar: {
+                    origin: [
+                    
+                    ],
+                    rules: {}
+            }
+            }
+        ]
     },
     //
     // MASSMEDIA
     // 
-    {
-        key: 'job ad',
-        name: 'job ad',
-        type: MEDIUM_TYPE.LITERATURE,
-        defaultWeight: 50,
-        hasGenre: true,
-        genres: [
-        ],
-        transitionVerbs: ['see']
-    },
+    // TODO: Do we need this? 
+    // {
+    //     key: 'job ad',
+    //     name: 'job ad',
+    //     type: MEDIUM_TYPE.LITERATURE,
+    //     defaultWeight: 50,
+    //     hasGenre: true,
+    //     genres: [
+    //     ],
+    //     transitionVerbs: ['see'],
+    //     transitions: []
+    // },
     //
     // MIND
     //
@@ -159,7 +450,18 @@ export const DB_MEDIA: Medium[] = [
         hasGenre: true,
         genres: [
         ],
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'You remember #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+
+        ]
     },
     {
         key: 'imagination',
@@ -169,7 +471,18 @@ export const DB_MEDIA: Medium[] = [
         hasGenre: true,
         genres: [
         ],
-        transitionVerbs: ['see']
+        intro: {
+            origin: [
+                'You think of #newMedia#.'
+            ],
+            rules: {
+
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+
+        ]
     },
     {
         key: 'dream',
@@ -179,43 +492,74 @@ export const DB_MEDIA: Medium[] = [
         hasGenre: true,
         genres: [
         ],
-        transitionVerbs: ['see']
-    }
-]
+        intro: {
+            origin: [
+                'You dream of #newMedia#.'
+            ],
+            rules: {
 
-export const DB_MEDIA_TRANSITIONS: MediumTransition[] = [
-    
+            }
+        },
+        transitionVerbs: ['see'],
+        transitions: [
+
+        ]
+    }
 ]
 
 export const DB_MEDIA_QUALITIES: MediumQuality[] = [
     {
         key: 'old',
         name: 'old',
-        modifiers: []
-    },
-    {
-        key: 'famous',
-        name: 'famous',
-        modifiers: []
-    },
-    {
-        key: 'b',
-        name: 'b',
-        modifiers: []
+        modifiers: [],
+        applicableMedia: []
     },
     {
         key: 'new',
         name: 'new',
-        modifiers: ['', 'relatively']
+        modifiers: ['', 'relatively'],
+        applicableMedia: []
     },
+    {
+        key: 'famous',
+        name: 'famous',
+        modifiers: [],
+        applicableMedia: []
+    },
+    {
+        key: 'infamous',
+        name: 'infamous',
+        modifiers: [],
+        applicableMedia: []
+    },
+    {
+        key: 'b',
+        name: 'b',
+        modifiers: [],
+        applicableMedia: ['movie']
+    },    
     {
         key: 'acclaimed',
         name: 'acclaimed',
-        modifiers: []
+        modifiers: [],
+        applicableMedia: []
     },
     {
         key: 'controversial',
         name: 'controversial',
-        modifiers: []
+        modifiers: [],
+        applicableMedia: []
+    },
+    {
+        key: 'well-known',
+        name: 'well-known',
+        modifiers: [],
+        applicableMedia: []
+    },
+    {
+        key: 'popular',
+        name: 'popular',
+        modifiers: [],
+        applicableMedia: []
     }
 ]

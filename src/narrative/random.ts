@@ -4,8 +4,19 @@
 
 import * as seedrandom from 'seedrandom'
 
+interface KeyFilterCacheKey {
+    key: string
+    numberOfTimesUsed: number
+}
+
+interface KeyFilterCacheNamespace {
+    id: string
+    keys: KeyFilterCacheKey[]
+}
+
 export class RandomGenerator {
     rng: seedrandom.prng
+    keyFilterCache: KeyFilterCacheNamespace[]
 
     constructor (seed) {
         this.rng = seedrandom(seed)
@@ -30,5 +41,9 @@ export class RandomGenerator {
         }
     
         return -1;
+    }
+
+    weightedWithFilter (id: string, options: any[], maxNumberOfUses: number) {
+        
     }
 }

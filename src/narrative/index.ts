@@ -29,8 +29,14 @@ export function generateNarrativeSequence (rng: RandomGenerator): NarrativeSeque
         themes: []
     }
 
+    let previousUnit: NarrativeUnit = null
     range(0, DEFAULT_NARRATIVE_SEQUENCE_LENGTH).map(i => {
-        ns.units.push(generateNarrativeUnit(rng))
+        if (!previousUnit) {
+            previousUnit = generateNarrativeUnit(rng, null)
+        } else {
+            previousUnit = generateNarrativeUnit(rng, previousUnit.id)
+        }
+        ns.units.push(previousUnit)
     })
 
     range(0, 2).map(i => {
@@ -46,7 +52,9 @@ export function generateNarrativeUnit (rng: RandomGenerator, previousUnitId?: nu
     // Create the NU and assign an ID
     const nu: NarrativeUnit = {
         id: NARRATIVE_UNIT_COUNTER,
-        previousUnitId: previousUnitId
+        previousUnitId: previousUnitId,
+        certainity: 1,
+        passion: 0
     }
     NARRATIVE_UNIT_COUNTER++
 
@@ -80,6 +88,7 @@ export function generateMediumInstance (rng: RandomGenerator): MediumInstance {
     }
 
     // TODO: Do we do more than one quality?
+    // Probably not, says Andrej on 13.6.2019 at 00:39AM
     medium.qualities.push(generateMediumQuality(rng))
 
     return medium
@@ -117,6 +126,10 @@ export function generateStoryTheme (rng: RandomGenerator): StoryTheme {
 export function generateStoryQuality () {
 }
 
+// ===
+// === NARRATIVE UNITS
+// ===
+
 // Returns an array of texts to be used for one unit.
 export function generateNarrativeUnitText (): string[] {
     const res = []
@@ -126,5 +139,11 @@ export function generateNarrativeUnitText (): string[] {
 
 // Returns a single line of text used for transition
 export function generateNarrativeUnitTransition (): string {
+    return ``
+}
+
+export function generateNarrativeUnitIntro (nu: NarrativeUnit): string {
+    
+
     return ``
 }

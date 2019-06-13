@@ -1,4 +1,4 @@
-import {StoryTheme, StoryQuality} from '../engine'
+import {StoryTheme, StoryQuality, StoryCharacter} from '../engine'
 
 export const DB_STORY_THEMES: StoryTheme[] = [
     {
@@ -37,6 +37,39 @@ export const DB_STORY_QUALITIES: StoryQuality[] = [
     {
         key: 'sad',
         name: 'sad',
+        modifiers: []
+    }
+]
+
+export const DB_STORY_CHARACTERS: StoryCharacter[] = [
+    {
+        key: 'couple',
+        name: '',
+        modifiers: []
+    },
+    {
+        key: 'man',
+        name: '',
+        modifiers: []
+    },
+    {
+        key: 'woman',
+        name: '',
+        modifiers: []
+    },
+    {
+        key: 'child',
+        name: '',
+        modifiers: []
+    },
+    {
+        key: 'friends',
+        name: '',
+        modifiers: []
+    },
+    {
+        key: 'famous person',
+        name: '',
         modifiers: []
     }
 ]

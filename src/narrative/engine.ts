@@ -41,9 +41,22 @@ NARRATIVE_UNIT_TYPE_PROBABILITIES[NARRATIVE_UNIT_TYPE.NONLINEAR_FLASHFORWARD] = 
 // Narrative unit is a part of narrative sequence
 export interface NarrativeUnit {
     id: number
+    // A reference to the previous unit, so we know where to get back to
     previousUnitId?: number
+    // Type of the narrative unit, so we know how to transition into it (do we need this?)
     type?: NARRATIVE_UNIT_TYPE
+    // Instance of the medium that is contained in the movie
     mediumInstance?: MediumInstance
+    // Literary variables
+    // The certainity of the narrator
+    certainity: number
+    // The passion of the narrator
+    passion: number
+}
+
+export interface NarrativeGrammar {
+    origin: string[],
+    rules: any
 }
 
 // === 
@@ -72,13 +85,16 @@ export interface Medium {
     genres?: MediumGenre[]
     // Text
     transitionVerbs: string[]
+    transitions: MediumTransition[]
+    intro: NarrativeGrammar
 }
 
 // I.e. an acclaimed movie
 export interface MediumQuality {
     key: string
     name: string,
-    modifiers: string[]
+    modifiers: string[],
+    applicableMedia: string[]
 }
 
 // I.e. a crime movie
@@ -89,8 +105,8 @@ export interface MediumGenre {
 
 // Text generation rules from transitioning from one medium to another
 export interface MediumTransition {
-    from: string[],
-    to: string[]
+    to: string[],
+    grammar: NarrativeGrammar
 }
 
 // Actual instance of a generated medium
@@ -119,13 +135,8 @@ export interface StoryQuality {
     name: string
     modifiers: string[]
 }
-
-
-
-
-
-// TODO: Characters, etc.
-export interface Character {
+export interface StoryCharacter {
     key: string
     name: string
+    modifiers: string[]
 }
