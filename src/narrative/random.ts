@@ -2,7 +2,12 @@
  * This file contains the random generation functions for the work.
  */
 
+// Definitions
+import { NarrativeGrammar } from './engine';
+
+import {clone} from 'ramda'
 import * as seedrandom from 'seedrandom'
+import * as tracery from 'tracery-grammar'
 
 interface KeyFilterCacheKey {
     key: string
@@ -20,6 +25,10 @@ export class RandomGenerator {
 
     constructor (seed) {
         this.rng = seedrandom(seed)
+    }
+
+    randomItem (items: any[]) {
+        return items[Math.floor(this.rng()*items.length)]
     }
 
     weighted (weights: number[]): number {
@@ -45,5 +54,25 @@ export class RandomGenerator {
 
     weightedWithFilter (id: string, options: any[], maxNumberOfUses: number) {
         
+    }
+
+    /**
+     * Expands the provided narrative grammar
+     * @param g 
+     */
+    expandGrammar (g: NarrativeGrammar, injectRules?: any): string {
+        let grammar = Object.assign({}, clone(g.rules), {
+            origin: clone(g.origin)
+        })        
+
+        // If we have outside rules to inject, inject them into the grammar
+        if (injectRules) {
+            grammar = Object.assign(grammar, injectRules)
+        }
+
+        // Passed grammar is always expanded through origin
+        const grammarDefinition = tracery.createGrammar(grammar)
+        grammarDefinition.addModifiers(tracery.baseEngModifiers)
+        return grammarDefinition.flatten('#origin#')
     }
 }

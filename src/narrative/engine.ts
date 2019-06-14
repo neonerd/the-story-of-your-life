@@ -11,7 +11,8 @@ const RES_KEYS = {
 // Main narrative sequence instance. There should be only one for each "video".
 export interface NarrativeSequence {
     units: NarrativeUnit[],
-    themes: NarrativeTheme[]
+    themes: NarrativeTheme[],
+    characters: NarrativeCharacter[]
 }
 
 // The basic themes that the narrative should carry
@@ -19,6 +20,12 @@ export interface NarrativeTheme {
     key: string
     name: string
     defaultWeight: number
+}
+
+export interface NarrativeCharacter {
+    key: string
+    name: string|string[]
+    isPlural?: boolean
 }
 
 export enum NARRATIVE_UNIT_TYPE {
@@ -123,11 +130,14 @@ export interface MediumInstance {
 // ===
 export interface Story {
     themes: StoryTheme[],
+    characters: StoryCharacter[],
+    situations: StorySituation[],
+    plots: StoryPlot[],
     qualities: StoryQuality[]
 }
 export interface StoryTheme {
     key: string
-    name: string
+    name: string|string[]
     modifiers: string[]
 }
 export interface StoryQuality {
@@ -136,6 +146,16 @@ export interface StoryQuality {
     modifiers: string[]
 }
 export interface StoryCharacter {
+    key: string
+    name: string
+    modifiers: string[]
+    isPlural?: boolean
+}
+export interface StorySituation {
+    key: string
+    grammar: NarrativeGrammar
+}
+export interface StoryPlot {
     key: string
     name: string
     modifiers: string[]

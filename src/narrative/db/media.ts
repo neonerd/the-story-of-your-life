@@ -45,7 +45,7 @@ export const DB_MEDIA: Medium[] = [
         genres: CINEMA_GENRES,
         intro: {
             origin: [
-                'You are watching #newMedia#.'
+                'You are watching #newMedium.a#.'
             ],
             rules: {
 
@@ -57,7 +57,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie'],
                 grammar: {
                     origin: [
-                        'You can see #newMedium# playing in the background.'
+                        'You can see #newMedium.a# on a TV set in one of the scenes.'
                     ],
                     rules: {
 
@@ -68,7 +68,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['tv', 'talkshow', 'videogame', 'book', 'comic book', 'song', 'album', 'painting', 'statue'],
                 grammar: {
                     origin: [
-                        'You can see #newMedium# at one point in the movie.'
+                        'You can see #newMedium.a# at one point in the movie.'
                     ],
                     rules: {
 
@@ -86,7 +86,7 @@ export const DB_MEDIA: Medium[] = [
         genres: CINEMA_GENRES,
         intro: {
             origin: [
-                'You are watching #newMedia#.'
+                'You are watching #newMedium.a#.'
             ],
             rules: {
 
@@ -127,7 +127,7 @@ export const DB_MEDIA: Medium[] = [
         genres: [],
         intro: {
             origin: [
-                'You are watching #newMedia#.'
+                'You are watching #newMedium.a#.'
             ],
             rules: {
 
@@ -150,44 +150,44 @@ export const DB_MEDIA: Medium[] = [
     //
     // GAMES
     //
-    {
-        key: 'videogame',
-        name: 'videogame',
-        type: MEDIUM_TYPE.GAME,
-        defaultWeight: 50,
-        hasGenre: true,
-        genres: [],
-        intro: {
-            origin: [
-                'You are playing #newMedia#.'
-            ],
-            rules: {
+    // {
+    //     key: 'videogame',
+    //     name: 'videogame',
+    //     type: MEDIUM_TYPE.GAME,
+    //     defaultWeight: 50,
+    //     hasGenre: true,
+    //     genres: [],
+    //     intro: {
+    //         origin: [
+    //             'You are playing #newMedium.a#.'
+    //         ],
+    //         rules: {
 
-            }
-        },
-        transitionVerbs: ['see'],
-        transitions: [
-            {
-                to: ['videogame'],
-                grammar: {
-                    origin: [
-                        'The game contains '
-                    ],
-                    rules: {}
-            }
-            },
-            {
-                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book', 'comic book'],
-                grammar: {
-                    origin: [
-                        'The characters talk about #newMedia# at one point in the story.',
-                        'You can #transitiveVerb# #newMedia# in one of the levels of the videogame.'
-                    ],
-                    rules: {}
-            }
-            }
-        ]
-    },
+    //         }
+    //     },
+    //     transitionVerbs: ['see'],
+    //     transitions: [
+    //         {
+    //             to: ['videogame'],
+    //             grammar: {
+    //                 origin: [
+    //                     'The game contains '
+    //                 ],
+    //                 rules: {}
+    //         }
+    //         },
+    //         {
+    //             to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book', 'comic book'],
+    //             grammar: {
+    //                 origin: [
+    //                     'The characters talk about #newMedium.a# at one point in the story.',
+    //                     'You can #transitiveVerb# #newMedium.a# in one of the levels of the videogame.'
+    //                 ],
+    //                 rules: {}
+    //         }
+    //         }
+    //     ]
+    // },
     //
     // MUSIC
     //
@@ -200,7 +200,7 @@ export const DB_MEDIA: Medium[] = [
         genres: MUSIC_GENRES,
         intro: {
             origin: [
-                'You are listening to #newMedia#.'
+                'You are listening to #newMedium.a#.'
             ],
             rules: {
 
@@ -212,7 +212,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['song'],
                 grammar: {
                     origin: [
-                        'The song mentions #newMedia#.'
+                        'The song mentions #newMedium.a#.'
                     ],
                     rules: {}
             }
@@ -221,7 +221,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'album', 'painting', 'statue', 'book', 'comic book'],
                 grammar: {
                     origin: [
-                        'The singer mentions #newMedia#.'
+                        'The singer mentions #newMedium.a#.'
                     ],
                     rules: {
 
@@ -239,7 +239,7 @@ export const DB_MEDIA: Medium[] = [
         genres: MUSIC_GENRES,
         intro: {
             origin: [
-                'You are listening to #newMedia#.'
+                'You are listening to #newMedium.a#.'
             ],
             rules: {
 
@@ -260,7 +260,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'song', 'painting', 'statue', 'book', 'comic book'],
                 grammar: {
                     origin: [
-                        'In one of the songs, the signer sings about #newMedia#.'
+                        'In one of the songs, the signer sings about #newMedium.a#.'
                     ],
                     rules: {}
             }
@@ -280,7 +280,7 @@ export const DB_MEDIA: Medium[] = [
         ],
         intro: {
             origin: [
-                'There is #newMedia# on the wall.'
+                'There is #newMedium.a# on the wall.'
             ],
             rules: {
 
@@ -318,7 +318,7 @@ export const DB_MEDIA: Medium[] = [
         ],
         intro: {
             origin: [
-                'There is #newMedia# in the room.'
+                'There is #newMedium.a# in the room.'
             ],
             rules: {
 
@@ -358,7 +358,7 @@ export const DB_MEDIA: Medium[] = [
         genres: LITERATURE_GENRES,
         intro: {
             origin: [
-                'You are reading #newMedia#.'
+                'You are reading #newMedium.a#.'
             ],
             rules: {
 
@@ -396,7 +396,7 @@ export const DB_MEDIA: Medium[] = [
         ],
         intro: {
             origin: [
-                'You are reading #newMedia#.'
+                'You are reading #newMedium.a#.'
             ],
             rules: {
 
@@ -452,7 +452,7 @@ export const DB_MEDIA: Medium[] = [
         ],
         intro: {
             origin: [
-                'You remember #newMedia#.'
+                'You remember #newMedium.a#.'
             ],
             rules: {
 
@@ -473,7 +473,7 @@ export const DB_MEDIA: Medium[] = [
         ],
         intro: {
             origin: [
-                'You think of #newMedia#.'
+                'You think of #newMedium.a#.'
             ],
             rules: {
 
@@ -494,7 +494,7 @@ export const DB_MEDIA: Medium[] = [
         ],
         intro: {
             origin: [
-                'You dream of #newMedia#.'
+                'You dream of #newMedium.a#.'
             ],
             rules: {
 
@@ -512,25 +512,25 @@ export const DB_MEDIA_QUALITIES: MediumQuality[] = [
         key: 'old',
         name: 'old',
         modifiers: [],
-        applicableMedia: []
+        applicableMedia: ['*']
     },
     {
         key: 'new',
         name: 'new',
         modifiers: ['', 'relatively'],
-        applicableMedia: []
+        applicableMedia: ['*']
     },
     {
         key: 'famous',
         name: 'famous',
         modifiers: [],
-        applicableMedia: []
+        applicableMedia: ['*']
     },
     {
         key: 'infamous',
         name: 'infamous',
         modifiers: [],
-        applicableMedia: []
+        applicableMedia: ['*']
     },
     {
         key: 'b',
@@ -541,25 +541,25 @@ export const DB_MEDIA_QUALITIES: MediumQuality[] = [
     {
         key: 'acclaimed',
         name: 'acclaimed',
-        modifiers: [],
-        applicableMedia: []
+        modifiers: ['universally', 'critically'],
+        applicableMedia: ['*']
     },
     {
         key: 'controversial',
         name: 'controversial',
         modifiers: [],
-        applicableMedia: []
+        applicableMedia: ['*']
     },
     {
         key: 'well-known',
         name: 'well-known',
         modifiers: [],
-        applicableMedia: []
+        applicableMedia: ['*']
     },
     {
         key: 'popular',
         name: 'popular',
         modifiers: [],
-        applicableMedia: []
+        applicableMedia: ['*']
     }
 ]

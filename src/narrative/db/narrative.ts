@@ -1,4 +1,4 @@
-import { NarrativeTheme } from "../engine";
+import { NarrativeTheme, NarrativeCharacter } from "../engine";
 
 export const DB_NARRATIVE_THEMES: NarrativeTheme[] = [
     {
@@ -45,5 +45,36 @@ export const DB_NARRATIVE_THEMES: NarrativeTheme[] = [
         key: 'summer',
         name: 'summer',
         defaultWeight: 50
+    }
+]
+
+export const DB_NARRATIVE_CHARACTERS: NarrativeCharacter[] = [
+    {
+        key: 'someone',
+        name: [
+            'someone you love',
+            'someone who is no longer here',
+            'someone who cared about you'
+        ],
+    },
+    {
+        key: 'grandmom',
+        name: ['grandmother', 'grandmom']
+    },
+    {
+        key: 'granddad',
+        name: ['granddad', 'grandfather']
+    },
+    {
+        key: 'mum',
+        name: ['mum', 'mother']
+    },
+    {
+        key: 'dad',
+        name: ['dad', 'father']
+    },
+    {
+        key: 'friend',
+        name: ['best friend', 'closest friend', 'friend']
     }
 ]

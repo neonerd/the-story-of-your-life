@@ -11,6 +11,11 @@ sequence.themes.map(t => {
     console.log('Theme: ', t.name)
 })
 
+// Get the narrative characters
+sequence.characters.map(c => {
+    console.log('Character: ', c.name)
+})
+
 // Get the units
 const units = sequence.units
 units.map((u, idx) => {
