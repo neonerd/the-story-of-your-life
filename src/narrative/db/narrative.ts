@@ -198,7 +198,7 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
                     'cut grass',
                     'lunch',
                     'the laundry',
-                    'fresh rain on hot pavement',
+                    'fresh rain evaporating from hot pavement',
                     'wet asphalt',
                     'old books',
                     'the ocean',

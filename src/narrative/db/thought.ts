@@ -103,7 +103,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         key: 'politics',
         plainGrammar: {
             origin: [
-                
+
             ],
             rules: {
                 
@@ -123,3 +123,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         }  
     }
 ]
+
+export const DB_THOUGHT_QUALITY = []
+
+export const DB_THOUGHT_REASONS = []

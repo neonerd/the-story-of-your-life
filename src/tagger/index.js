@@ -7,7 +7,14 @@ const AVAILABLE_TAGS = [
     'history',
     'love',
     'politics',
+    
     'people',   
+
+    'man',
+    'woman',
+    'boy',
+    'girl',
+
     'school',
     'scenery',
     'youth',

@@ -5,6 +5,7 @@ console.log('=== The Story of Your Life')
 
 import axios from 'axios'
 import {wait, getCenter} from '../lib'
+import {max} from 'ramda'
 
 // ===
 // === TESTING STUFF
@@ -129,10 +130,12 @@ const SOUND_SLIDEPROJECTOR = new Pizzicato.Sound({
     source: 'file',
     options: { path: '/res/sfx/slide_projector.wav' }
 })
+SOUND_SLIDEPROJECTOR.volume = 0.5
 const SOUND_FAN = new Pizzicato.Sound({
     source: 'file',
     options: { path: '/res/sfx/fan.wav', loop: true }
 })
+SOUND_FAN.volume = 1
 
 // ===
 // === SPEECH PLAYING
@@ -177,6 +180,8 @@ const playSpeech = (link: string) => {
         }, function() {
             // Reverb
             // sound.addEffect(reverb)
+
+            sound.volume = 0.3
 
             sound.on('end', () => {
                 resolve(true)
@@ -237,35 +242,23 @@ const RENDER_AREA_WIDTH = 900
 const RENDER_AREA_HEIGHT = 600
 
 const renderStill = async (stillPath: string) => {
-    stillsContainer.removeChildren(0, 10)
+    document.getElementById('still').style.visibility = `hidden`
+    document.getElementById('still').style.backgroundImage = `url('${stillPath}')`
+    
+    // TODO: Remove cmoment
     SOUND_SLIDEPROJECTOR.play()
+    
     // New image
-    const still = PIXI.Sprite.fromImage(stillPath);
-
-    await wait(1300)
-
-    const originalHeight = still.height
-    const originalWidth = still.width
-    console.log('originals', still.height, still.width)
-
-    if (still.height > still.width) {
-        still.height = 600
-        still.width = (still.height/originalHeight) * still.width
-    } else {
-        still.width = 900
-        still.height = (still.width/originalWidth) * still.height
-    }
-
-    console.log('new', still.height, still.width)
-
-    still.position.x = getCenter(still.width, monitorSettings.w)
-    still.position.y = 10
-
-    stillsContainer.addChild(still)
+    await wait(1500)
+    document.getElementById('still').style.visibility = 'visible'
 }
 
-const clearStills = () => {
-    stillsContainer.removeChildren()
+const clearStills = async () => {
+    // TODO: Remove cmoment
+    SOUND_SLIDEPROJECTOR.play()
+    await wait(1500)
+    // Remove the image
+    document.getElementById('still').style.backgroundImage = `none`
 }
 
 // ===
@@ -282,21 +275,48 @@ const audioTest = async () => {
 
 
 
+const renderStillSequence = async (utterances: string[], stillPath: string, final = false) => {
+    // Render the text
+    for (let u of utterances) {
+        await renderSentence(await createSentence(u))
+        await wait(1000)
+    }
+    await wait(1000)
 
+    // Display the still and give time to think
+    clearSubtitles()
+    await renderStill(stillPath)
+    await wait(5000)
 
+    if (!final) {
+        await clearStills()
+        await wait(3000)
+    } else {
+        await renderOutro()
+    }    
+}
 
-// Narrative test
-const narrativeTest = async () => {
-    // renderSubtitles('Imagine you are in a room with your parents.')
-
+const renderTimePassage = async (utterance: string) => {
+    await renderSentence(await createSentence(utterance))
     await wait(3000)
-    SOUND_FAN.play()
+}
 
+const renderOutro = async () => {
+    SOUND_SLIDEPROJECTOR.play()
+    await wait(1500)
+    // Remove the image
+    document.getElementById('still').style.backgroundImage = `none`
+    document.getElementById('still').style.backgroundColor = '#ffffff'
+    await wait(5000)
+    document.getElementById('still').style.backgroundColor = '#000000'
+}
+
+const renderInstructions = async (excerciseNo: number, topics: string) => {
     await wait(7000)
     renderIntro('Please, take a seat and relax. \n The excercise will begin shortly.')
 
     await wait(10000)
-    renderIntro('Excercise #4: Love and youth')
+    renderIntro('Excercise #' + excerciseNo + ': ' + topics)
 
     await wait(10000)
     renderIntro('This excercise is focused \n on developing your sense of nostalgia \n and broadening your cultural imagination.')
@@ -305,77 +325,167 @@ const narrativeTest = async () => {
     renderIntro('You will be presented with a set of situations.')
 
     await wait(10000)
-    renderIntro('Try to immerse yourself into these fictions \n to achieve the expected result \n and feel nostalgic and longing for \n lost youth and love.')
+    renderIntro('Try to immerse yourself into these fictions \n to achieve the expected result \n and feel nostalgic and longing for \n ' + topics + '.')
 
     await wait(15000)
     clearIntro()
     await wait(5000)
+}
+
+// Narrative test
+const narrativeTest = async () => {
+    await wait(3000)
+    SOUND_FAN.play()
+
+    await renderInstructions(5, 'wanderlust and friendship')
 
     //
     // THE MEAT
     //
     
-    await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you love is next to you.'))
-    await wait(1000)
-    await renderSentence(await createSentence('You are watching an acclaimed romantic comedy.'))
-    await wait(1000)
-    await renderSentence(await createSentence('A young couple struggles. They overcome \n all obstacles with courage and wisdom.'))
-    await wait(1000)
+    await renderStillSequence(
+        [
+            'Imagine you are sitting in the garden. Your best friend is next to you.',
+            'You can smell fresh rain evaporating from hot pavement.'
+        ],
+        '/res/stills/slideofthetimes/tumblr_p4b3skAKUQ1x4cwtgo1_1280.jpg'
+    )
 
-    clearSubtitles()
-    await renderStill(TESTING_STILLS[5])
-    await wait(10000)
-    clearStills()
-    await wait(1000)
+    await renderStillSequence(
+        [
+            'You are listening to a famous song.',
+            'The singer sings about a long-distance relationship.',
+            'It is very honest.'
+        ],
+        '/res/stills/reddit_sub_oldschoolcool/bsjus2-Nick_Lowe_in_the_studio__circa_1978-t9JMmAY.jpg'
+    )
 
-    await renderSentence(await createSentence('You can see an old painting at one point in the movie.'))
-    await wait(1000)
-    await renderSentence(await createSentence('It depicts a group of businessmen angrily discussing something.'))
-    await wait(1000)
-    await renderSentence(await createSentence('They look so angry.'))
-    await wait(1000)
+    await renderStillSequence(
+        [
+            'The song mentions a controversial episode of a TV series.',
+            'A boy and a girl face betrayal and grief.',
+            'The episode is aesthetically pleasing.'
+        ],
+        '/res/stills/slideofthetimes/tumblr_p4bd4mnGvX1x4cwtgo1_1280.jpg'
+    )
 
-    clearSubtitles()
-    await renderStill(TESTING_STILLS[6])
-    await wait(10000)
-    clearStills()
-    await wait(1000)
+    await renderStillSequence(
+        [
+            'You think of the summer when you travelled the country with your family.',
+            'You were really happy back then.'
+        ],
+        '/res/stills/thesillyhippy/tumblr_n3sbfxI7Gb1spwacto2_1280.jpg'
+    )
 
-    
-    await renderSentence(await createSentence('Back in the movie a rock song plays in the background.'))
-    await wait(1000)
-    await renderSentence(await createSentence('Someone is singing about failure and betrayal.'))
-    await wait(1000)
+    await renderTimePassage('But time passes.')
 
-    clearSubtitles()
-    await renderStill(TESTING_STILLS[7])
-    await wait(10000)
-    clearStills()
-    await wait(1000)
+    await renderStillSequence(
+        [
+            'Imagine you are sitting in the garden. Your best friend is no longer with you.',
+            'You can hear kids playing outside.'
+        ],
+        '/res/stills/thesillyhippy/tumblr_oejdr35l4y1rsrjrno2_1280.jpg'
+    )
 
-    
-    await renderSentence(await createSentence('Your mind wanders. You remember the \n times you were happy in high school.'))
-    await wait(1000)
-    await renderSentence(await createSentence('Everyone was friendly. Pretty. Thoughtful.'))
-    await wait(1000)
+    await renderStillSequence(
+        [
+            'For some reason, it reminds you of a painting.',
+            'It depicts an aging soldier.',
+            'It is very tasteful.'
+        ],
+        '/res/stills/nos/8_5.jpg'
+    )
 
-    clearSubtitles()
-    await renderStill(TESTING_STILLS[8])
-    await wait(10000)
-    clearStills()
-    await wait(1000)
+    await renderStillSequence(
+        [
+            'You think of your other trips and adventures.',
+            'They were not really that happy again, were they.',
 
-    await renderSentence(await createSentence('Imagine sitting on a couch. \n Someone you maybe love is next to you.'))
-    await wait(1000)
-    clearSubtitles()
+            'Maybe we should have stopped them sooner.',
+            'Maybe the mountains would be a happier place \n without some sorts of people.',
+
+            'But everything is fine now.',
+            'We can move on.'
+        ],
+        '/res/stills/nos/78_0.jpg',
+        true
+    )
+
+    // Sample no. 2
+
+    await renderInstructions(6,'love and sadness')
+
+    await renderStillSequence(
+        [
+            'Imagine you are sitting on a sofa. \n You are spending time with your cousin.',
+            'An old clock is ticking nearby.'
+        ],
+        '/res/stills/nos/79_0.jpg'
+    )
+
+    await renderStillSequence(
+        [
+            'You are reading an acclaimed book.',
+            'It is about a great journey \n of a shy man and a bit unconventional.'
+        ],
+        '/res/stills/nos/84_1.jpg'
+    )
+
+    await renderStillSequence(
+        [
+            'You suddenly remember the third time  you were in love.',
+            'The feeling warms you up. Love is beautiful.'
+        ],
+        '/res/stills/sealedintime/tumblr_poggo6F4Sc1y62e4co1_640.jpg'
+    )
+
+    await renderTimePassage('But life goes on.')
+
+    await renderStillSequence(
+        [
+            'Imagine you are sitting on a sofa. \n Your cousin has moved far away.',
+            'A thunderstorm is coming.'
+        ],
+        '/res/stills/slideofthetimes/tumblr_pg606cAFx61x4cwtgo1_1280.jpg'
+    )
+
+    await renderStillSequence(
+        [
+            'You are watching a crime movie.',
+            'It is about a woman and hate. Inspirational.'
+        ],
+        '/res/stills/coolkidsofhistory/tumblr_op1faat9DE1w8i449o1_1280.jpg'
+    )
+
+    await renderStillSequence(
+        [
+            'At one point in the movie,\n a talkshow plays in the background.',
+            'An outgoing attorney talks with the host.',
+            'They are passionately discussing\n society and purpose.'
+        ],
+        '/res/stills/nos/75_8.jpg'
+    )
+
+    await renderStillSequence(
+        [
+            'You remember your third love again. \n Was it ever the same?',
+            'Things got sadder and sadder. So sad.',
+
+            'But now we are in better place.',
+            'You can move on. Find a new life.'
+        ],
+        '/res/stills/nos/124_4.jpg',
+        true
+    )
+
 }
 narrativeTest()
 
 import {generateNarrativeSequence} from '../narrative'
 
 const generationTest = async () => {
-    const seq = generateNarrativeSequence()
-    console.log(seq.units)
+    // const seq = generateNarrativeSequence()
+    // console.log(seq.units)
 }
 // generationTest()
 

@@ -27,6 +27,11 @@ export const DB_STORY_THEMES: StoryTheme[] = [
         modifiers: []
     },
     {
+        key: 'grief',
+        name: 'grief',
+        modifiers: []
+    },
+    {
         key: 'failure',
         name: 'failure',
         modifiers: []
@@ -57,8 +62,8 @@ export const DB_STORY_THEMES: StoryTheme[] = [
         modifiers: []
     },
     {
-        key: 'groving up',
-        name: 'groving up',
+        key: 'growing up',
+        name: 'growing up',
         modifiers: []
     },
     {
