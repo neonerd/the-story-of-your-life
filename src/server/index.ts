@@ -16,6 +16,23 @@ import * as recursiveReadDir from 'recursive-readdir'
 const DIR_TMP = __dirname + '/../../tmp'
 console.log('TheStoryOfYourLife ~ DIR_TMP set to: ' + DIR_TMP)
 
+// !!! GET FROM TAGGER
+const AVAILABLE_TAGS = [
+    'adventure',
+    'city',
+    'emotions',
+    'famous',
+    'fun',
+    'history',
+    'love',
+    'politics',
+    'people',   
+    'school',
+    'scenery',
+    'youth',
+    'wanderlust'
+]
+
 interface TextToSpeechVoice {
     languageCode: string
     name: string
@@ -165,6 +182,22 @@ app.get('/db/data', async (req, res) => {
     res.json({
         status: 'OK',
         stills: lowdbDb.get('stills').value()
+    })
+})
+
+app.get('/db/statistics', async (req, res) => {
+    const stats = {}
+    const stills = lowdbDb.get('stills').filter({ isValid: true }).value()
+
+    console.log('stills is', stills)
+
+    AVAILABLE_TAGS.map(t => {
+        stats[t] = stills.filter(s => s.tags.indexOf(t) > -1).length
+    })
+
+    res.json({
+        status: 'OK',
+        stats
     })
 })
 

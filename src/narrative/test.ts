@@ -7,14 +7,26 @@ console.log('=== NARRATIVE SEQUENCE\n')
 const sequence = narrative.generateNarrativeSequence(rng)
 
 // Get the themes
-sequence.themes.map(t => {
-    console.log('Theme: ', t.name)
-})
+// Sequence doesn't need themes
+// sequence.themes.map(t => {
+//     console.log('Theme: ', t.name)
+// })
+
+// Get the location
+console.log('Location: ', rng.expandGrammar(sequence.location.grammar))
 
 // Get the narrative characters
 sequence.characters.map(c => {
     console.log('Character: ', c.name)
 })
+
+// === Create the intro
+console.log('\n')
+console.log(`Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.introduceNarrativeCharacter(sequence, rng)}.`)
+
+// === Create ambience
+console.log('\n')
+console.log(narrative.describeAmbience(sequence, rng))
 
 // Get the units
 const units = sequence.units

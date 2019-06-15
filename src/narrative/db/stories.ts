@@ -55,6 +55,16 @@ export const DB_STORY_THEMES: StoryTheme[] = [
         key: 'family',
         name: 'family',
         modifiers: []
+    },
+    {
+        key: 'groving up',
+        name: 'groving up',
+        modifiers: []
+    },
+    {
+        key: 'adventure',
+        name: 'adventure',
+        modifiers: []
     }
 ]
 
@@ -82,7 +92,7 @@ export const DB_STORY_SITUATIONS: StorySituation[] = [
                 '#p# discussing #s#'
             ],
             rules: {
-                p: ['angrily', 'passionately', 'calmly'],
+                p: ['angrily', 'passionately', 'calmly', ''],
                 s: ['life', 'politics', 'society', 'love', 'sex', 'happiness', 'purpose']
             }
         }
@@ -517,6 +527,11 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
     {
         key: 'boy',
         name: 'boy',
+        modifiers: []
+    },
+    {
+        key: 'attorney',
+        name: 'attorney',
         modifiers: []
     }
 ]

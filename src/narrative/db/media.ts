@@ -442,69 +442,6 @@ export const DB_MEDIA: Medium[] = [
     //
     // MIND
     //
-    {
-        key: 'memory',
-        name: 'memory',
-        type: MEDIUM_TYPE.MIND,
-        defaultWeight: 50,
-        hasGenre: true,
-        genres: [
-        ],
-        intro: {
-            origin: [
-                'You remember #newMedium.a#.'
-            ],
-            rules: {
-
-            }
-        },
-        transitionVerbs: ['see'],
-        transitions: [
-
-        ]
-    },
-    {
-        key: 'imagination',
-        name: 'imagination',
-        type: MEDIUM_TYPE.MIND,
-        defaultWeight: 50,
-        hasGenre: true,
-        genres: [
-        ],
-        intro: {
-            origin: [
-                'You think of #newMedium.a#.'
-            ],
-            rules: {
-
-            }
-        },
-        transitionVerbs: ['see'],
-        transitions: [
-
-        ]
-    },
-    {
-        key: 'dream',
-        name: 'dream',
-        type: MEDIUM_TYPE.MIND,
-        defaultWeight: 50,
-        hasGenre: true,
-        genres: [
-        ],
-        intro: {
-            origin: [
-                'You dream of #newMedium.a#.'
-            ],
-            rules: {
-
-            }
-        },
-        transitionVerbs: ['see'],
-        transitions: [
-
-        ]
-    }
 ]
 
 export const DB_MEDIA_QUALITIES: MediumQuality[] = [

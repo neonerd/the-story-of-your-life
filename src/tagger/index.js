@@ -1,9 +1,17 @@
 const AVAILABLE_TAGS = [
-    'love',
     'adventure',
-    'wanderlust',
+    'city',
     'emotions',
-    'youth'
+    'famous',
+    'fun',
+    'history',
+    'love',
+    'politics',
+    'people',   
+    'school',
+    'scenery',
+    'youth',
+    'wanderlust'
 ]
 
 const app = new Vue({

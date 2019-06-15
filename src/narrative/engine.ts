@@ -12,7 +12,9 @@ const RES_KEYS = {
 export interface NarrativeSequence {
     units: NarrativeUnit[],
     themes: NarrativeTheme[],
-    characters: NarrativeCharacter[]
+    characters: NarrativeCharacter[],
+    location: NarrativeLocation,
+    ambience: NarrativeAmbience
 }
 
 // The basic themes that the narrative should carry
@@ -24,8 +26,19 @@ export interface NarrativeTheme {
 
 export interface NarrativeCharacter {
     key: string
-    name: string|string[]
-    isPlural?: boolean
+    name: string[]
+    isPlural?: boolean,
+    isYour?: boolean
+}
+
+export interface NarrativeAmbience {
+    key: string
+    grammar: NarrativeGrammar
+}
+
+export interface NarrativeLocation {
+    key: string
+    grammar: NarrativeGrammar
 }
 
 export enum NARRATIVE_UNIT_TYPE {
@@ -78,7 +91,6 @@ export enum MEDIUM_TYPE {
     MASSMEDIA,
     MIND
 }
-
 // I.e. a movie
 export interface Medium {
     // Main settings
@@ -95,7 +107,6 @@ export interface Medium {
     transitions: MediumTransition[]
     intro: NarrativeGrammar
 }
-
 // I.e. an acclaimed movie
 export interface MediumQuality {
     key: string
@@ -103,19 +114,16 @@ export interface MediumQuality {
     modifiers: string[],
     applicableMedia: string[]
 }
-
 // I.e. a crime movie
 export interface MediumGenre {
     key: string,
     name: string
 }
-
 // Text generation rules from transitioning from one medium to another
 export interface MediumTransition {
     to: string[],
     grammar: NarrativeGrammar
 }
-
 // Actual instance of a generated medium
 export interface MediumInstance {
     id: number
@@ -159,4 +167,20 @@ export interface StoryPlot {
     key: string
     name: string
     modifiers: string[]
+}
+
+// ===
+// === MIND
+// ===
+
+export interface Thought {
+    key: string
+    introductoryGrammar: NarrativeGrammar
+}
+
+export interface ThoughtSubject {
+    key: string
+    plainGrammar: NarrativeGrammar,
+    uncertainGrammar: NarrativeGrammar,
+    radicalGrammar: NarrativeGrammar
 }

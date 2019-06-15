@@ -11,11 +11,14 @@ import {
     MediumQuality,
     MediumInstance,
     Story,
-    StoryTheme
+    StoryTheme,
+    NarrativeLocation,
+    NarrativeGrammar,
+    NarrativeAmbience
 } from './engine'
 
 import {DB_MEDIA, DB_MEDIA_QUALITIES} from './db/media'
-import {DB_NARRATIVE_THEMES, DB_NARRATIVE_CHARACTERS} from './db/narrative'
+import {DB_NARRATIVE_THEMES, DB_NARRATIVE_CHARACTERS, DB_NARRATIVE_LOCATIONS, DB_NARRATIVE_AMBIENCES} from './db/narrative'
 import {DB_STORY_THEMES} from './db/stories'
 import { addIndefiniteArticle } from './db/grammar';
 
@@ -28,7 +31,9 @@ export function generateNarrativeSequence (rng: RandomGenerator): NarrativeSeque
     const ns: NarrativeSequence = {
         units: [],
         themes: [],
-        characters: []
+        characters: [],
+        location: generateNarrativeLocation(rng),
+        ambience: generateNarrativeAmbience(rng)
     }
 
     let previousUnit: NarrativeUnit = null
@@ -51,6 +56,14 @@ export function generateNarrativeSequence (rng: RandomGenerator): NarrativeSeque
     })
 
     return ns
+}
+
+export function generateNarrativeLocation (rng: RandomGenerator): NarrativeLocation {
+    return rng.randomItem(DB_NARRATIVE_LOCATIONS)
+}
+
+export function generateNarrativeAmbience (rng: RandomGenerator): NarrativeAmbience {
+    return rng.randomItem(DB_NARRATIVE_AMBIENCES)
 }
 
 let NARRATIVE_UNIT_COUNTER = 1
@@ -181,4 +194,53 @@ export function getMediumGrammarRules (mi: MediumInstance): any {
     rules.newMedium = `${mediumQuality} ${mi.medium.name}`
 
     return rules
+}
+
+
+
+
+
+// ===
+// TEXT GENERATION
+// ===
+
+// Note: Text generation should not include punctuation?
+export function describeNarrativeLocation (ns: NarrativeSequence, rng: RandomGenerator) {
+    return rng.expandGrammar(ns.location.grammar)
+}
+
+export function introduceNarrativeCharacter (ns: NarrativeSequence, rng: RandomGenerator) {
+    const characterStrings = ns.characters.map(c => {
+        return rng.randomItem(c.name)
+    })
+
+    const grammar: NarrativeGrammar = {
+        origin: [`#subject.capitalize# is next to you`],
+        rules: {
+            subject: characterStrings.join(' and ')
+        }
+    }
+
+    return rng.expandGrammar(grammar)
+}
+
+export function describeAmbience (ns: NarrativeSequence, rng: RandomGenerator) {
+    return rng.expandGrammar(ns.ambience.grammar)
+}
+
+export function describeTimePassage (rng: RandomGenerator) {
+    const grammar: NarrativeGrammar = {
+        origin: [
+            'Time passes.',
+            'Time moves on.',
+            'But life continues.',
+            'But life goes on.',
+            'But life passes.'
+        ],
+        rules: {
+
+        }
+    }
+
+    return rng.expandGrammar(grammar)
 }
