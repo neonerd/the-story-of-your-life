@@ -14,7 +14,8 @@ export interface NarrativeSequence {
     themes: NarrativeTheme[],
     characters: NarrativeCharacter[],
     location: NarrativeLocation,
-    ambience: NarrativeAmbience
+    ambience: NarrativeAmbience,
+    thought: ThoughtInstance
 }
 
 // The basic themes that the narrative should carry
@@ -173,6 +174,17 @@ export interface StoryPlot {
 // === MIND
 // ===
 
+export interface ThoughtInstance {
+    thought: Thought,
+    subject: ThoughtSubject,
+    positiveQuality: ThoughtQuality,
+    negativeQuality: ThoughtQuality,
+    reason: ThoughtReason,
+
+    positiveGrammarResult: string
+    negativeGrammarResult: string
+}
+
 export interface Thought {
     key: string
     introductoryGrammar: NarrativeGrammar
@@ -188,6 +200,7 @@ export interface ThoughtQuality {
     key: string
     grammar: NarrativeGrammar
     isNegative?: boolean
+    isNegativeTo?: string[]
 }
 
 export interface ThoughtReason {

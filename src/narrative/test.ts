@@ -20,6 +20,8 @@ sequence.characters.map(c => {
     console.log('Character: ', c.name)
 })
 
+console.log(sequence.thought.positiveGrammarResult)
+
 // === Create the intro
 console.log('\n')
 console.log(`Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.introduceNarrativeCharacter(sequence, rng)}.`)

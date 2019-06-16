@@ -5,7 +5,9 @@ export const DB_THOUGHTS: Thought[] = [
     {
         key: 'memory',
         introductoryGrammar: {
-            origin: [],
+            origin: [
+                'You remember'
+            ],
             rules: {
 
             }
@@ -14,7 +16,9 @@ export const DB_THOUGHTS: Thought[] = [
     {
         key: 'imagination',
         introductoryGrammar: {
-            origin: [],
+            origin: [
+                'You think of'
+            ],
             rules: {
                 
             }
@@ -36,9 +40,10 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             }
         },
         negativeGrammar: {
-            origin: [],
+            origin: [
+                'the times when you were not a student anymore'
+            ],
             rules: {
-                
             }
         },
      
@@ -57,7 +62,9 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             }
         },
         negativeGrammar: {
-            origin: [],
+            origin: [
+                'your other trips and adventures'
+            ],
             rules: {
                 
             }
@@ -77,7 +84,9 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             }
         },
         negativeGrammar: {
-            origin: [],
+            origin: [
+                '#positiveGrammarResult# again. Was it ever the same?'
+            ],
             rules: {
                 
             }
@@ -88,14 +97,24 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         key: 'politics',
         positiveGrammar: {
             origin: [
-
+                'the #adjective# #position# that helped us move forward'
             ],
             rules: {
-                
+                adjective: [
+                    'great'
+                ],
+                position: [
+                    'presidents',
+                    'prime ministers',
+                    'politicians',
+                    'leaders'
+                ]
             }
         },
         negativeGrammar: {
-            origin: [],
+            origin: [
+                'how politics changed to worse.'
+            ],
             rules: {
                 
             }
@@ -105,15 +124,21 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         key: 'childhood',
         positiveGrammar: {
             origin: [
-                ''
+                'the times when you were a little child'
             ],
             rules: {
             }
         },
         negativeGrammar: {
-            origin: [],
+            origin: [
+                'growing up and losing all that child\'s #adjective#'
+            ],
             rules: {
-                
+                adjective: [
+                    'curiosity',
+                    'hope',
+                    'wonder'
+                ]
             }
         },
  
@@ -122,32 +147,20 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         key: 'youth',
         positiveGrammar: {
             origin: [
-                ''
+                'when you were young and free'
             ],
             rules: {
             }
         },
         negativeGrammar: {
-            origin: [],
-            rules: {
-                
-            }
-        },
- 
-    },
-    {
-        key: 'people',
-        positiveGrammar: {
             origin: [
-                ''
+                'getting older and youth slowly #verb#'
             ],
             rules: {
-            }
-        },
-        negativeGrammar: {
-            origin: [],
-            rules: {
-                
+                verb: [
+                    'fading away',
+                    'disappearing'
+                ]
             }
         },
  
@@ -156,13 +169,17 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         key: 'history',
         positiveGrammar: {
             origin: [
-                ''
+                'all the moments of great importance that happened',
+                'when we achieved all those important historical milestones'
             ],
             rules: {
+
             }
         },
         negativeGrammar: {
-            origin: [],
+            origin: [
+                'how everything stopped making sense. Being significant. Historical.'
+            ],
             rules: {
                 
             }
@@ -202,7 +219,7 @@ export const DB_THOUGHT_QUALITY: ThoughtQuality[] = [
                     'exquisite',
                     'lovely',
                     'pretty',
-                    'splending',
+                    'splendid',
                     'stunning',
                     'superb'
                 ]
@@ -212,19 +229,13 @@ export const DB_THOUGHT_QUALITY: ThoughtQuality[] = [
     {
         key: 'sad',
         isNegative: true,
+        isNegativeTo: ['happy'],
         grammar: {
             origin: [
-
+                'Things got sadder and sadder. So sad.',
+                'Things only got worse.',
+                'Things got sadder.'
             ],
-            rules: {
-                
-            }
-        }
-    },
-    {
-        key: '',
-        grammar: {
-            origin: [],
             rules: {
                 
             }

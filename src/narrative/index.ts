@@ -14,12 +14,16 @@ import {
     StoryTheme,
     NarrativeLocation,
     NarrativeGrammar,
-    NarrativeAmbience
+    NarrativeAmbience,
+    ThoughtInstance,
+    Thought,
+    ThoughtQuality
 } from './engine'
 
 import {DB_MEDIA, DB_MEDIA_QUALITIES} from './db/media'
 import {DB_NARRATIVE_THEMES, DB_NARRATIVE_CHARACTERS, DB_NARRATIVE_LOCATIONS, DB_NARRATIVE_AMBIENCES} from './db/narrative'
 import {DB_STORY_THEMES} from './db/stories'
+import { DB_THOUGHTS, DB_THOUGHT_SUBJECT, DB_THOUGHT_REASONS, DB_THOUGHT_QUALITY } from './db/thought';
 
 // ===
 // === FUNCTIONS
@@ -32,7 +36,8 @@ export function generateNarrativeSequence (rng: RandomGenerator): NarrativeSeque
         themes: [],
         characters: [],
         location: generateNarrativeLocation(rng),
-        ambience: generateNarrativeAmbience(rng)
+        ambience: generateNarrativeAmbience(rng),
+        thought: generateThoughtInstance(rng)
     }
 
     let previousUnit: NarrativeUnit = null
@@ -157,6 +162,27 @@ export function generateStoryTheme (rng: RandomGenerator): StoryTheme {
 
 // TODO: This is just a stub.
 export function generateStoryQuality () {
+}
+
+// ===
+// === THOUGHTS
+// ===
+export function generateThoughtInstance (rng: RandomGenerator): ThoughtInstance {
+    const positiveQuality: ThoughtQuality = rng.randomItem(DB_THOUGHT_QUALITY.filter(q => !q.isNegative))
+    const negativeQuality = rng.randomItem(DB_THOUGHT_QUALITY.filter(q => q.isNegative).filter(q => q.isNegativeTo.indexOf(positiveQuality.key) > -1))
+
+    const t: ThoughtInstance = {
+        thought: rng.randomItem(DB_THOUGHTS),
+        subject: rng.randomItem(DB_THOUGHT_SUBJECT),
+        positiveQuality: positiveQuality,
+        negativeQuality: negativeQuality,
+        reason: rng.randomItem(DB_THOUGHT_REASONS),
+
+        positiveGrammarResult: rng.expandGrammar(positiveQuality.grammar),
+        negativeGrammarResult: rng.expandGrammar(negativeQuality.grammar)
+    }
+
+    return t
 }
 
 // ===
