@@ -121,6 +121,31 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
                 
             }
         }  
+    },
+    {
+        key: 'fun',
+        plainGrammar: {
+            origin: [
+                'the #time# you were in love',
+                'your first #quality# love'
+            ],
+            rules: {
+                time: ['second', 'first', 'last', 'third'],
+                quality: ['real', 'unfulfilled', 'fulfilled']
+            }
+        },
+        uncertainGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        },
+        radicalGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        }    
     }
 ]
 
