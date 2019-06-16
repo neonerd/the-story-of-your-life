@@ -49,7 +49,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         }        
     },
     {
-        key: 'trip',
+        key: 'travel',
         plainGrammar: {
             origin: [
                 'the trip to #destination# you took with #partners#',
@@ -123,15 +123,74 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
         }  
     },
     {
-        key: 'fun',
+        key: 'childhood',
         plainGrammar: {
             origin: [
-                'the #time# you were in love',
-                'your first #quality# love'
             ],
             rules: {
-                time: ['second', 'first', 'last', 'third'],
-                quality: ['real', 'unfulfilled', 'fulfilled']
+            }
+        },
+        uncertainGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        },
+        radicalGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        }    
+    },
+    {
+        key: 'youth',
+        plainGrammar: {
+            origin: [
+            ],
+            rules: {
+            }
+        },
+        uncertainGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        },
+        radicalGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        }    
+    },
+    {
+        key: 'people',
+        plainGrammar: {
+            origin: [
+            ],
+            rules: {
+            }
+        },
+        uncertainGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        },
+        radicalGrammar: {
+            origin: [],
+            rules: {
+                
+            }
+        }    
+    },
+    {
+        key: 'history',
+        plainGrammar: {
+            origin: [
+            ],
+            rules: {
             }
         },
         uncertainGrammar: {
@@ -149,6 +208,10 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
     }
 ]
 
-export const DB_THOUGHT_QUALITY = []
+export const DB_THOUGHT_QUALITY = [
 
-export const DB_THOUGHT_REASONS = []
+]
+
+export const DB_THOUGHT_REASONS = [
+
+]

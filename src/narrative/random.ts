@@ -25,6 +25,7 @@ export class RandomGenerator {
 
     constructor (seed) {
         this.rng = seedrandom(seed)
+        Math.random = this.rng
     }
 
     randomItem (items: any[]) {
