@@ -180,8 +180,8 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
                     'someone '
                 ],
                 typingTool: [
-                    'keyboard',
-                    'typewriter'
+                    'someone typing on a keyboard',
+                    'a typewriter'
                 ]
             }
         }

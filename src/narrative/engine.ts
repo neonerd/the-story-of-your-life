@@ -180,7 +180,17 @@ export interface Thought {
 
 export interface ThoughtSubject {
     key: string
-    plainGrammar: NarrativeGrammar,
-    uncertainGrammar: NarrativeGrammar,
-    radicalGrammar: NarrativeGrammar
+    positiveGrammar: NarrativeGrammar,
+    negativeGrammar: NarrativeGrammar
+}
+
+export interface ThoughtQuality {
+    key: string
+    grammar: NarrativeGrammar
+    isNegative?: boolean
+}
+
+export interface ThoughtReason {
+    key: string
+    grammar: NarrativeGrammar
 }
