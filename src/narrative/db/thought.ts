@@ -73,7 +73,8 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
 
             }
-        }
+        },
+        stillTags: ['youth']
     },
     {
         key: 'travel',
@@ -103,7 +104,8 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
-        }
+        },
+        stillTags: ['scenery']
     },
     {
         key: 'love',
@@ -132,42 +134,8 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
-        }
-    },
-    {
-        key: 'politics',
-        positiveGrammar: {
-            origin: [
-                'the #adjective# #position# that helped us move forward'
-            ],
-            rules: {
-                adjective: [
-                    'great'
-                ],
-                position: [
-                    'presidents',
-                    'prime ministers',
-                    'politicians',
-                    'leaders'
-                ]
-            }
         },
-        negativeGrammar: {
-            origin: [
-                'how politics changed to worse.'
-            ],
-            rules: {
-                
-            }
-        },
-        subjectGrammar: {
-            origin: [
-                'political life'
-            ],
-            rules: {
-                
-            }
-        }
+        stillTags: ['love']
     },
     {
         key: 'childhood',
@@ -197,7 +165,8 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
-        }
+        },
+        stillTags: ['childhood']
     },
     {
         key: 'youth',
@@ -226,17 +195,27 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
-        }
+        },
+        stillTags: ['youth']
     },
     {
         key: 'history',
         positiveGrammar: {
             origin: [
                 'all the moments of great importance that happened',
-                'when we achieved all those important historical milestones'
+                'when we achieved all those important historical milestones',
+                'the #adjective# #position# that helped us move forward'
             ],
             rules: {
-
+                adjective: [
+                    'great'
+                ],
+                position: [
+                    'presidents',
+                    'prime ministers',
+                    'politicians',
+                    'leaders'
+                ]
             }
         },
         negativeGrammar: {
@@ -254,7 +233,8 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
-        }
+        },
+        stillTags: ['history']
     }
 ]
 

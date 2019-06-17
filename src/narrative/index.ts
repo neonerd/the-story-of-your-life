@@ -1,4 +1,5 @@
-import {range, clone} from 'ramda'
+import {range, clone, flatten, concat} from 'ramda'
+import axios from 'axios'
 
 import {RandomGenerator} from './random'
 
@@ -187,8 +188,8 @@ export function generateThoughtInstance (rng: RandomGenerator): ThoughtInstance 
     const thought: Thought = rng.randomItem(DB_THOUGHTS)
     const subject: ThoughtSubject = rng.randomItem(DB_THOUGHT_SUBJECT)
 
-    const positiveGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.positiveGrammar)
-    const negativeGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.negativeGrammar)
+    const positiveGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.positiveGrammar) + '.'
+    const negativeGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.negativeGrammar) + '.'
 
     const reason: ThoughtReason = rng.randomItem(DB_THOUGHT_REASONS)
 
@@ -269,9 +270,42 @@ export function getMediumGrammarRules (mi: MediumInstance): any {
     return rules
 }
 
+// ===
+// === STILL API
+// ===
+export async function getPhotoForTags (tags: string[]) {
+    const res = await axios.get('http://localhost:2019/still/' + tags.join(','))
+    return res.data.still
+}
 
+export async function getStillForNarrativeSequence (ns: NarrativeSequence) {
+    const tags = flatten<string>(ns.characters.map(c => c.stillTags))
+    const stillUrl = await getPhotoForTags(tags)
 
+    return stillUrl
+}
 
+export async function getStillForNarrativeUnit (nu: NarrativeUnit) {
+    const tags = concat(
+        flatten<string>(nu.mediumInstance.story.characters.map(c => c.stillTags)),
+        flatten<string>(nu.mediumInstance.story.themes.map(t => t.stillTags))
+    )
+
+    const stillUrl = await getPhotoForTags(tags)
+    return stillUrl
+}
+
+export async function getStillForThought (t: ThoughtInstance) {
+    const tags = t.subject.stillTags
+
+    const stillUrl = await getPhotoForTags(tags)
+    return stillUrl
+}
+
+export async function getStillForMovingOn () {
+    const stillUrl = await getPhotoForTags(['moving on'])
+    return stillUrl
+}
 
 // ===
 // TEXT GENERATION

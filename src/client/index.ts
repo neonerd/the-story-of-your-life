@@ -3,24 +3,13 @@ declare var Pizzicato: any
 
 console.log('=== The Story of Your Life')
 
+// Libs
 import axios from 'axios'
-import {wait, getCenter} from '../lib'
-import {max} from 'ramda'
 
-// ===
-// === TESTING STUFF
-// ===
-const TESTING_STILLS = [
-    '/res/crawler_nos/26_4.jpg',
-    '/res/crawler_nos/61_1.jpg',
-    '/res/crawler_nos/66_5.jpg',
-    '/res/crawler_nos/75_6.jpg',
-    '/res/crawler_nos/75_7.jpg',
-    '/res/crawler_nos/44_8.jpg',
-    '/res/crawler_nos/83_0.jpg',
-    '/res/crawler_nos/54_5.jpg',
-    '/res/crawler_nos/75_2.jpg',
-]
+// Own
+import {wait} from '../lib'
+import * as narrative from '../narrative'
+import { RandomGenerator } from '../narrative/random'
 
 // ===
 // === BROWSER SETUP
@@ -302,6 +291,91 @@ const renderInstructions = async (excerciseNo: number, topics: string) => {
     await wait(5000)
 }
 
+const createNarrative = async (rng: RandomGenerator) => {
+    const sequence = narrative.generateNarrativeSequence(rng)
+
+    await renderStillSequence(
+        [
+            `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.introduceNarrativeCharacter(sequence, rng)}.`,
+            narrative.describeAmbience(sequence, rng)
+        ],
+        await narrative.getStillForNarrativeSequence(sequence)
+    )
+
+    await renderStillSequence(
+        [
+            narrative.generateMediumIntro(sequence.units[0], rng),
+            narrative.describeStory(sequence.units[0], rng),
+            narrative.describeStoryQuality(sequence.units[0], rng),
+        ],
+        await narrative.getStillForNarrativeUnit(sequence.units[0])
+    )
+
+    await renderStillSequence(
+        [
+            narrative.generateMediumNesting(sequence.units[1], sequence.units[0], rng),
+            narrative.describeStory(sequence.units[1], rng),
+            narrative.describeStoryQuality(sequence.units[1], rng),
+        ],
+        await narrative.getStillForNarrativeUnit(sequence.units[1])
+    )
+
+    await renderStillSequence(
+        [
+            sequence.thought.positiveGrammarResult,
+            sequence.thought.positiveQualityResult
+        ],
+        await narrative.getStillForThought(sequence.thought) 
+    )
+
+    await renderTimePassage(narrative.describeTimePassage(rng))
+
+    await renderStillSequence(
+        [
+            `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.removeNarrativeCharacter(sequence, rng)}.`,
+            narrative.describeAmbience(sequence, rng)
+        ],
+        await narrative.getStillForNarrativeSequence(sequence)
+    )
+
+    await renderStillSequence(
+        [
+            narrative.generateMediumIntro(sequence.units[2], rng),
+            narrative.describeStory(sequence.units[2], rng),
+            narrative.describeStoryQuality(sequence.units[2], rng),
+        ],
+        await narrative.getStillForNarrativeUnit(sequence.units[2])
+    )
+
+    await renderStillSequence(
+        [
+            narrative.generateMediumNesting(sequence.units[3], sequence.units[2], rng),
+            narrative.describeStory(sequence.units[3], rng),
+            narrative.describeStoryQuality(sequence.units[3], rng),
+        ],
+        await narrative.getStillForNarrativeUnit(sequence.units[3])
+    )
+
+    await renderStillSequence(
+        [
+            sequence.thought.negativeGrammarResult,
+            sequence.thought.negativeQualityResult
+        ],
+        await narrative.getStillForThought(sequence.thought)
+    )
+
+    const movingOn = narrative.describeMovingOn(rng)
+    await renderStillSequence(
+        [
+            sequence.thought.reasonResult,
+            movingOn[0],
+            movingOn[1]
+        ],
+        await narrative.getStillForMovingOn(),
+        true
+    )    
+}
+
 // Narrative test
 const narrativeTest = async () => {
     await wait(3000)
@@ -449,23 +523,23 @@ const narrativeTest = async () => {
     )
 
 }
-narrativeTest()
+// narrativeTest()
 
 
 
-
-
-
-// === 
-// === REAL BOOTSTRAP
-// ===
-import {generateNarrativeSequence} from '../narrative'
-
-const generationTest = async () => {
-    // const seq = generateNarrativeSequence()
-    // console.log(seq.units)
+const narrativeStart = async () => {
+    const rng = new RandomGenerator('1')
+    await createNarrative(rng)
 }
-// generationTest()
+narrativeStart()
+
+
+
+
+
+
+
+
 
 
 

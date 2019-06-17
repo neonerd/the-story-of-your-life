@@ -4,77 +4,92 @@ export const DB_STORY_THEMES: StoryTheme[] = [
     {
         key: 'love',
         name: ['love', 'romance'],
-        modifiers: ['unrequited', 'motherly', 'fatherly', 'friendly', 'tragic', 'pragmatic', 'forbidden', 'long-distance']
+        modifiers: ['unrequited', 'motherly', 'fatherly', 'friendly', 'tragic', 'pragmatic', 'forbidden', 'long-distance'],
+        stillTags: ['love']
     },
     {
         key: 'hate',
         name: 'hate',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['man', 'woman']
     },
     {
         key: 'friendship',
         name: 'friendship',
-        modifiers: ['failing', 'great', '']
+        modifiers: ['failing', 'great', ''],
+        stillTags: ['childhood', 'youth']
     },
     {
         key: 'struggle',
         name: 'struggle',
-        modifiers: ['evil', 'corporations', 'system']
+        modifiers: ['evil', 'corporations', 'system'],
+        stillTags: ['history']
     },
     {
         key: 'betrayal',
         name: 'betrayal',
-        modifiers: []
+        modifiers: [],
+        stillTags: []
     },
     {
         key: 'grief',
         name: 'grief',
-        modifiers: []
+        modifiers: [],
+        stillTags: []
     },
     {
         key: 'failure',
         name: 'failure',
-        modifiers: []
+        modifiers: [],
+        stillTags: []
     },
     {
         key: 'journey',
         name: 'journey',
-        modifiers: ['great', 'small', 'important', '']
+        modifiers: ['great', 'small', 'important', ''],
+        stillTags: ['scenery']
     },
     {
         key: 'youth',
         name: 'youth',
-        modifiers: ['lost', 'reclaimed', 'boring']
+        modifiers: ['lost', 'reclaimed', 'boring'],
+        stillTags: ['youth']
     },
     {
         key: 'summer',
         name: 'summer',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['scenery', 'youth']
     },
     {
         key: 'hope',
         name: 'hope',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['scenery', 'youth']
     },
     {
         key: 'family',
         name: 'family',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['childhood']
     },
     {
         key: 'growing up',
         name: 'growing up',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['childhood', 'youth']
     },
     {
         key: 'adventure',
         name: 'adventure',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['scenery']
     },
     {
         key: 'sadness',
         name: 'sadness',
-        modifiers: []
+        modifiers: [],
+        stillTags: []
     }
 ]
 
@@ -476,63 +491,75 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
     {
         key: 'couple',
         name: 'couple',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['love']
     },
     {
         key: 'man',
         name: 'man',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['man']
     },
     {
         key: 'woman',
         name: 'woman',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['woman']
     },
     {
         key: 'child',
         name: 'child',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['childhood']
     },
     {
         key: 'friends',
         name: 'friends',
         modifiers: [],
-        isPlural: true
+        isPlural: true,
+        stillTags: ['youth','man','woman']
     },
     {
         key: 'famous person',
         name: 'famous person',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['history']
     },
     {
         key: 'soldier',
         name: 'soldier',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['history', 'man', 'woman']
     },
     {
         key: 'businessman',
         name: 'businessman',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['man', 'woman']
     },
     {
         key: 'businessmen',
         name: 'businessmen',
         modifiers: [],
-        isPlural: true
+        isPlural: true,
+        stillTags: ['man', 'woman']
     },
     {
         key: 'hero',
         name: 'hero',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['man', 'woman']
     },
     {
         key: 'teacher',
         name: 'teacher',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['man','woman']
     },
     {
         key: 'attorney',
         name: 'attorney',
-        modifiers: []
+        modifiers: [],
+        stillTags: ['man', 'woman']
     }
 ]

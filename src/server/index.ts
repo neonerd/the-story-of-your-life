@@ -10,6 +10,8 @@ import * as textToSpeech from '@google-cloud/text-to-speech'
 
 import * as recursiveReadDir from 'recursive-readdir'
 
+import {intersection} from 'ramda'
+
 // === 
 // === CONFIG
 // ===
@@ -169,6 +171,20 @@ lowdbDb.defaults({
 })
 .write()
 
+app.get('/still/:tags', async (req, res) => {
+    const tags = req.params.tags.split(',')
+
+    const result = lowdbDb.get('stills').filter(s => {
+        return intersection(tags, s.tags).length
+    }).sample().value()
+
+    
+    res.json({
+        status: 'OK',
+        still: `/res/stills/` + result.file.replace(/\\/g, '/')
+    })
+})
+
 app.get('/db/files', async (req, res) => {
     recursiveReadDir(DIR_STILLS, (err, files) => {
         res.json({
@@ -188,8 +204,6 @@ app.get('/db/data', async (req, res) => {
 app.get('/db/statistics', async (req, res) => {
     const stats = {}
     const stills = lowdbDb.get('stills').filter({ isValid: true }).value()
-
-    console.log('stills is', stills)
 
     AVAILABLE_TAGS.map(t => {
         stats[t] = stills.filter(s => s.tags.indexOf(t) > -1).length

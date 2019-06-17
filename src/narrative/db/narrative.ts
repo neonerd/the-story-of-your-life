@@ -57,46 +57,80 @@ export const DB_NARRATIVE_CHARACTERS: NarrativeCharacter[] = [
             'someone who you look up to',
             'someone who cared about you'
         ],
+        stillTags: [
+            'man',
+            'woman'
+        ]
     },
     {
         key: 'grandmom',
         name: ['grandmother', 'grandmom'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'woman',
+            'childhood'
+        ]
     },
     {
         key: 'granddad',
         name: ['granddad', 'grandfather'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'man',
+            'childhood'   
+        ]
     },
     {
         key: 'mum',
         name: ['mum', 'mother'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'woman',
+            'childhood'
+        ]
     },
     {
         key: 'dad',
         name: ['dad', 'father'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'man',
+            'childhood'
+        ]
     },
     {
         key: 'friend',
         name: ['best friend', 'closest friend', 'friend'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'childhood'
+        ]
     },
     {
         key: 'aunt',
         name: ['favourite aunt', 'aunt'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'woman',
+            'childhood'
+        ]
     },
     {
         key: 'cousin',
         name: ['favourite cousin'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'childhood'
+        ]
     },
     {
         key: 'uncle',
         name: ['favourite uncle', 'uncle'],
-        isYour: true
+        isYour: true,
+        stillTags: [
+            'man',
+            'childhood'
+        ]
     }
 ]
 

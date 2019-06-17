@@ -29,7 +29,8 @@ export interface NarrativeCharacter {
     key: string
     name: string[]
     isPlural?: boolean,
-    isYour?: boolean
+    isYour?: boolean,
+    stillTags: string[]
 }
 
 export interface NarrativeAmbience {
@@ -148,6 +149,7 @@ export interface Story {
 export interface StoryTheme {
     key: string
     name: string|string[]
+    stillTags: string[]
     modifiers: string[]
 }
 export interface StoryQuality {
@@ -159,6 +161,7 @@ export interface StoryCharacter {
     key: string
     name: string
     modifiers: string[]
+    stillTags: string[]
     isPlural?: boolean
 }
 export interface StorySituation {
@@ -199,7 +202,8 @@ export interface ThoughtSubject {
     key: string
     positiveGrammar: NarrativeGrammar,
     negativeGrammar: NarrativeGrammar,
-    subjectGrammar: NarrativeGrammar
+    subjectGrammar: NarrativeGrammar,
+    stillTags: string[]
 }
 
 export interface ThoughtQuality {
