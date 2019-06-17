@@ -59,48 +59,18 @@ document.body.appendChild(app.view)
 // The stage is the root container that will hold everything in our scene
 const stage = new PIXI.Container()
 
-// This container is used to rencder the stills
-const stillsContainer = new PIXI.Container()
-stillsContainer.y = 0
-stillsContainer.x = 0
-stage.addChild(stillsContainer)
-
 // This is the projection bg
-const bg = PIXI.Sprite.fromImage('/res/gfx/background.png');
-bg.x = 0
-bg.y = 0
-bg.width = monitorSettings.w
-bg.height = monitorSettings.h
-stage.addChild(bg)
-
-// This container is used to rencder the subtitles
-const subtitlesContainer = new PIXI.Container()
-subtitlesContainer.y = monitorSettings.h * 0.82
-stage.addChild(subtitlesContainer)
+// const bg = PIXI.Sprite.fromImage('/res/gfx/background.png');
+// bg.x = 0
+// bg.y = 0
+// bg.width = monitorSettings.w
+// bg.height = monitorSettings.h
+// stage.addChild(bg)
 
 // This container is used to render the intro
 const introContainer = new PIXI.Container()
 introContainer.y = monitorSettings.h * 0.5
 stage.addChild(introContainer)
-
-/**
- * This functions renders the subtitles
- * @param txt 
- */
-const renderSubtitles = (txt: string) => {
-    let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
-    
-    // Interesting effect
-    text.width = monitorSettings.w*0.5
-    text.x = monitorSettings.w/2 - text.width/2
-
-    subtitlesContainer.removeChildren()
-    subtitlesContainer.addChild(text)
-}
-
-const clearSubtitles = () => {
-    subtitlesContainer.removeChildren()
-}
 
 const renderIntro = (txt: string) => {
     let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
@@ -226,7 +196,7 @@ const createSentence = async (txt: string): Promise<TextToSpeechSentence> => {
 }
 
 const renderSentence = async (sentence: TextToSpeechSentence) => {
-    renderSubtitles(sentence.text)
+    renderIntro(sentence.text)
 
     for (const token of sentence.tokens) {
         await playSpeech(token.link)
@@ -262,29 +232,27 @@ const clearStills = async () => {
 }
 
 // ===
-// === TESTS
+// === TEXT RENDERING
 // ===
-
-
-const audioTest = async () => {
-    const sentence = await createSentence('Imagine sitting in a room with someone you love. \n There is a movie playing in the TV.')
-    renderSentence(sentence)
-}
-// don't need to test now
-// audioTest()
-
-
-
 const renderStillSequence = async (utterances: string[], stillPath: string, final = false) => {
     // Render the text
     for (let u of utterances) {
-        await renderSentence(await createSentence(u))
+        const processedUtterance = u.split('\n').map(uPart => {
+            if (uPart.length > 40) {
+                return uPart.substring(0, 40) + uPart.substring(40).replace(' ', '\n')
+            } else {
+                return uPart
+            }
+        }).join('\n')
+        
+
+        await renderSentence(await createSentence(processedUtterance))
         await wait(1000)
     }
     await wait(1000)
 
     // Display the still and give time to think
-    clearSubtitles()
+    clearIntro()
     await renderStill(stillPath)
     await wait(5000)
 
@@ -298,6 +266,8 @@ const renderStillSequence = async (utterances: string[], stillPath: string, fina
 
 const renderTimePassage = async (utterance: string) => {
     await renderSentence(await createSentence(utterance))
+    await wait(3000)
+    await clearIntro()
     await wait(3000)
 }
 
@@ -337,7 +307,7 @@ const narrativeTest = async () => {
     await wait(3000)
     SOUND_FAN.play()
 
-    await renderInstructions(5, 'wanderlust and friendship')
+    // await renderInstructions(5, 'wanderlust and friendship')
 
     //
     // THE MEAT
@@ -481,6 +451,14 @@ const narrativeTest = async () => {
 }
 narrativeTest()
 
+
+
+
+
+
+// === 
+// === REAL BOOTSTRAP
+// ===
 import {generateNarrativeSequence} from '../narrative'
 
 const generationTest = async () => {
@@ -561,14 +539,11 @@ function animate() {
         //     (simpleShader.uniforms as any).time = (currentTime - startTime) / 1000
         lastTime = currentTime
 
-        const moveX = Math.round(Math.random() * 1)
-        const moveY = Math.round(Math.random() * 1)
+        const moveX = Math.round(Math.random() * 1) * (Math.random() > 0.5 ? -1 : 1)
+        const moveY = Math.round(Math.random() * 1) * (Math.random() > 0.5 ? -1 : 1)
         
-        stillsContainer.x = 0 + moveX
-        stillsContainer.y = 0 + moveY
-
-        bg.x = 0 + moveX
-        bg.y = 0 + moveY
+        document.getElementById('still').style.marginLeft = `${moveX}px`
+        document.getElementById('still').style.marginTop = `${moveY}px`
     }    
     // this is the main render call that makes pixi draw your container and its children.
 

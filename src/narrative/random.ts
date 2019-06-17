@@ -7,7 +7,7 @@ import { NarrativeGrammar } from './engine';
 
 import {clone} from 'ramda'
 import * as seedrandom from 'seedrandom'
-import * as tracery from 'tracery-grammar'
+import * as tracery from '../lib/tracery'
 
 interface KeyFilterCacheKey {
     key: string
@@ -25,7 +25,7 @@ export class RandomGenerator {
 
     constructor (seed) {
         this.rng = seedrandom(seed)
-        Math.random = this.rng
+        tracery.setRng(this.rng)
     }
 
     randomItem (items: any[]) {
