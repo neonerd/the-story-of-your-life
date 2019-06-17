@@ -1,7 +1,6 @@
 import {range, clone} from 'ramda'
 
 import {RandomGenerator} from './random'
-import {getRandomValueFromArray} from './lib'
 
 import {
     NarrativeSequence,
@@ -17,18 +16,21 @@ import {
     NarrativeAmbience,
     ThoughtInstance,
     Thought,
-    ThoughtQuality
+    ThoughtQuality,
+    ThoughtSubject,
+    ThoughtReason
 } from './engine'
 
 import {DB_MEDIA, DB_MEDIA_QUALITIES} from './db/media'
 import {DB_NARRATIVE_THEMES, DB_NARRATIVE_CHARACTERS, DB_NARRATIVE_LOCATIONS, DB_NARRATIVE_AMBIENCES} from './db/narrative'
-import {DB_STORY_THEMES} from './db/stories'
+import {DB_STORY_THEMES, DB_STORY_QUALITIES, DB_STORY_CHARACTERS, DB_STORY_SITUATIONS} from './db/stories'
 import { DB_THOUGHTS, DB_THOUGHT_SUBJECT, DB_THOUGHT_REASONS, DB_THOUGHT_QUALITY } from './db/thought';
 
 // ===
 // === FUNCTIONS
 // ===
-const DEFAULT_NARRATIVE_SEQUENCE_LENGTH = 5
+const DEFALT_NARRATIVE_SEQUENCE_PARTS = 2
+const DEFAULT_NARRATIVE_SEQUENCE_UNIT_LENGTH = 2
 
 export function generateNarrativeSequence (rng: RandomGenerator): NarrativeSequence {
     const ns: NarrativeSequence = {
@@ -40,15 +42,17 @@ export function generateNarrativeSequence (rng: RandomGenerator): NarrativeSeque
         thought: generateThoughtInstance(rng)
     }
 
-    let previousUnit: NarrativeUnit = null
-    range(0, DEFAULT_NARRATIVE_SEQUENCE_LENGTH).map(i => {
-        if (!previousUnit) {
-            previousUnit = generateNarrativeUnit(rng, null)
-        } else {
-            previousUnit = generateNarrativeUnit(rng, previousUnit.id)
-        }
-        ns.units.push(previousUnit)
-    })
+    range(0, DEFALT_NARRATIVE_SEQUENCE_PARTS).map(i => {
+        let previousUnit: NarrativeUnit = null
+        range(0, DEFAULT_NARRATIVE_SEQUENCE_UNIT_LENGTH).map(i => {
+            if (!previousUnit) {
+                previousUnit = generateNarrativeUnit(rng, null)
+            } else {
+                previousUnit = generateNarrativeUnit(rng, previousUnit.id)
+            }
+            ns.units.push(previousUnit)
+        })
+    })    
 
     range(0, 2).map(i => {
         const probability = rng.weighted(DB_NARRATIVE_THEMES.map(t => t.defaultWeight))
@@ -107,7 +111,7 @@ export function generateMediumInstance (rng: RandomGenerator): MediumInstance {
     MEDIUM_COUNTER++
 
     if (medium.medium.hasGenre) {
-        medium.mediumGenre = getRandomValueFromArray(medium.medium.genres)
+        medium.mediumGenre = rng.randomItem(medium.medium.genres)
     }
 
     // TODO: Do we do more than one quality?
@@ -149,6 +153,15 @@ export function generateStory (rng: RandomGenerator): Story {
     s.themes.push(generateStoryTheme(rng))
 
     // Get the qualities
+    s.qualities.push(rng.randomItem(DB_STORY_QUALITIES))
+
+    // Get the characters
+    s.characters.push(rng.randomItem(DB_STORY_CHARACTERS))
+
+    // We don't have plots right now
+
+    // Get the story situations
+    s.situations.push(rng.randomItem(DB_STORY_SITUATIONS))
 
     return s
 }
@@ -171,15 +184,34 @@ export function generateThoughtInstance (rng: RandomGenerator): ThoughtInstance 
     const positiveQuality: ThoughtQuality = rng.randomItem(DB_THOUGHT_QUALITY.filter(q => !q.isNegative))
     const negativeQuality = rng.randomItem(DB_THOUGHT_QUALITY.filter(q => q.isNegative).filter(q => q.isNegativeTo.indexOf(positiveQuality.key) > -1))
 
+    const thought: Thought = rng.randomItem(DB_THOUGHTS)
+    const subject: ThoughtSubject = rng.randomItem(DB_THOUGHT_SUBJECT)
+
+    const positiveGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.positiveGrammar)
+    const negativeGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.negativeGrammar)
+
+    const reason: ThoughtReason = rng.randomItem(DB_THOUGHT_REASONS)
+
     const t: ThoughtInstance = {
-        thought: rng.randomItem(DB_THOUGHTS),
-        subject: rng.randomItem(DB_THOUGHT_SUBJECT),
+        thought: thought,
+        subject: subject,
         positiveQuality: positiveQuality,
         negativeQuality: negativeQuality,
-        reason: rng.randomItem(DB_THOUGHT_REASONS),
+        reason,
 
-        positiveGrammarResult: rng.expandGrammar(positiveQuality.grammar),
-        negativeGrammarResult: rng.expandGrammar(negativeQuality.grammar)
+        positiveGrammarResult,
+        negativeGrammarResult,
+
+        positiveQualityResult: rng.expandGrammar(positiveQuality.grammar, {
+            thoughtType: rng.expandGrammar(thought.typeGrammar),
+            thoughtSubject: rng.expandGrammar(subject.subjectGrammar)
+        }),
+        negativeQualityResult: rng.expandGrammar(negativeQuality.grammar, {
+            thoughtType: rng.expandGrammar(thought.typeGrammar),
+            thoughtSubject: rng.expandGrammar(subject.subjectGrammar)
+        }),
+
+        reasonResult: rng.expandGrammar(reason.grammar)
     }
 
     return t
@@ -201,13 +233,29 @@ export function generateNarrativeUnitTransition (): string {
     return ``
 }
 
-export function generateNarrativeUnitIntro (nu: NarrativeUnit, rng: RandomGenerator): string {
+// Returns an intro to a new narrative unit
+export function  generateMediumIntro (nu: NarrativeUnit, rng: RandomGenerator): string {
     const injectableGrammar = Object.assign(
         {},
         getMediumGrammarRules(nu.mediumInstance)
     )
 
     return rng.expandGrammar(nu.mediumInstance.medium.intro, injectableGrammar)
+}
+
+// Returns a nested intro to a new narrative unit
+export function generateMediumNesting (nu: NarrativeUnit, previousNu: NarrativeUnit, rng: RandomGenerator): string {
+    const injectableGrammar = Object.assign(
+        {},
+        getMediumGrammarRules(nu.mediumInstance)
+    )
+
+    const availableTransitions = previousNu.mediumInstance.medium.transitions.filter(t => {
+        return t.to.indexOf('*') > -1 || t.to.indexOf(nu.mediumInstance.medium.key) > -1
+    })
+    const transition = rng.randomItem(availableTransitions)
+
+    return rng.expandGrammar(transition.grammar, injectableGrammar)
 }
 
 export function getMediumGrammarRules (mi: MediumInstance): any {
@@ -228,6 +276,40 @@ export function getMediumGrammarRules (mi: MediumInstance): any {
 // ===
 // TEXT GENERATION
 // ===
+export function describeStory (nu: NarrativeUnit, rng: RandomGenerator) {
+    return rng.expandGrammar(nu.mediumInstance.medium.story, {
+        themes: nu.mediumInstance.story.themes.map(t => t.name).join(' and '),
+        characters: nu.mediumInstance.story.characters.map(c => {
+            let name = ''
+            if (Array.isArray(c.name)) {
+                name = rng.randomItem(c.name)
+            } else {
+                name = c.name
+            }
+
+            if (!c.isPlural) {
+                name = rng.expandGrammar({origin: ['#name.a#'], rules: {name}})
+            }
+
+            return name
+        }).join(' and ')
+    })
+}
+
+export function describeStoryQuality (nu: NarrativeUnit, rng: RandomGenerator) {
+    const grammar: NarrativeGrammar = {
+        origin: [
+            'It is #adjective# #quality#.'
+        ],
+        rules: {
+            adjective: ['', '', '', 'very', 'really', 'so']
+        }
+    }
+
+    return rng.expandGrammar(grammar, {
+        quality: nu.mediumInstance.story.qualities.map(q => q.name).join(' and ')
+    })
+}
 
 // Note: Text generation should not include punctuation?
 export function describeNarrativeLocation (ns: NarrativeSequence, rng: RandomGenerator) {
@@ -236,7 +318,12 @@ export function describeNarrativeLocation (ns: NarrativeSequence, rng: RandomGen
 
 export function introduceNarrativeCharacter (ns: NarrativeSequence, rng: RandomGenerator) {
     const characterStrings = ns.characters.map(c => {
-        return rng.randomItem(c.name)
+        const n = rng.randomItem(c.name)
+        if (c.isYour) {
+            return `your ${n}`
+        } else {
+            return n
+        }
     })
 
     const grammar: NarrativeGrammar = {
@@ -249,10 +336,33 @@ export function introduceNarrativeCharacter (ns: NarrativeSequence, rng: RandomG
     return rng.expandGrammar(grammar)
 }
 
+export function removeNarrativeCharacter (ns: NarrativeSequence, rng: RandomGenerator) {
+    const characterStrings = ns.characters.map(c => {
+        const n = rng.randomItem(c.name)
+        if (c.isYour) {
+            return `your ${n}`
+        } else {
+            return n
+        }
+    })
+
+    const grammar: NarrativeGrammar = {
+        origin: [`#subject.capitalize# is no longer with you`],
+        rules: {
+            subject: characterStrings.join(' and ')
+        }
+    }
+
+    return rng.expandGrammar(grammar)
+}
+
 export function describeAmbience (ns: NarrativeSequence, rng: RandomGenerator) {
     return rng.expandGrammar(ns.ambience.grammar)
 }
 
+// ===
+// === STATICAL GENERATORS
+// ===
 export function describeTimePassage (rng: RandomGenerator) {
     const grammar: NarrativeGrammar = {
         origin: [
@@ -268,4 +378,26 @@ export function describeTimePassage (rng: RandomGenerator) {
     }
 
     return rng.expandGrammar(grammar)
+}
+
+export function describeMovingOn (rng: RandomGenerator): string[] {
+    const grammar: NarrativeGrammar = {
+        origin: [
+            'Now we are in a better place.'
+        ],
+        rules: {
+
+        }
+    }
+    const grammar2: NarrativeGrammar = {
+        origin: [
+            'You can move on.',
+            'Everything can be like it used to.',
+        ],
+        rules: {
+
+        }
+    }
+
+    return [rng.expandGrammar(grammar), rng.expandGrammar(grammar2)]
 }

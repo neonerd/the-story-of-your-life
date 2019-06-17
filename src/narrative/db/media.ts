@@ -68,14 +68,23 @@ export const DB_MEDIA: Medium[] = [
                 to: ['tv', 'talkshow', 'videogame', 'book', 'comic book', 'song', 'album', 'painting', 'statue'],
                 grammar: {
                     origin: [
-                        'You can see #newMedium.a# at one point in the movie.'
+                        'You can see #newMedium.a# at one point in the movie.',
+                        'The movie mentions #newMedium.a# at one point.'
                     ],
                     rules: {
 
                     }
                 }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'It is about #characters# and #themes#.'
+            ],
+            rules: {
+
+            }
+        }
     },
     {
         key: 'tv',
@@ -98,7 +107,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['tv'],
                 grammar: {
                     origin: [
-                        ''
+                        'The episode references another #newMedium.a# at one point.'
                     ],
                     rules: {
 
@@ -109,14 +118,22 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'talkshow', 'videogame', 'book', 'comic book', 'song', 'album', 'painting', 'statue'],
                 grammar: {
                     origin: [
-                        ''
+                        'The episode reference #newMedium.a# at one point.'
                     ],
                     rules: {
 
                     }
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'It is about #characters# and #themes#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'talkshow',
@@ -136,16 +153,26 @@ export const DB_MEDIA: Medium[] = [
         transitionVerbs: ['see'],
         transitions: [
             {
-                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book', 'comic book'],
+                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book', 'comic book', 'talkshow'],
                 grammar: {
                     origin: [
-                        'The talkshow host talks about a #newMedium.',
-                        'One of the guests mentions a #newMedium.'
+                        'The talkshow host talks about #newMedium.a#.',
+                        'One of the guests mentions #newMedium.a#.'
                     ],
-                    rules: {}
+                    rules: {
+
+                    }
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'It is an interview with #characters#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     //
     // GAMES
@@ -212,7 +239,8 @@ export const DB_MEDIA: Medium[] = [
                 to: ['song'],
                 grammar: {
                     origin: [
-                        'The song mentions #newMedium.a#.'
+                        'The song mentions #newMedium.a#.',
+                        'The singer mentions #newMedium.a# in the song.'
                     ],
                     rules: {}
             }
@@ -221,14 +249,22 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'album', 'painting', 'statue', 'book', 'comic book'],
                 grammar: {
                     origin: [
-                        'The singer mentions #newMedium.a#.'
+                        'The singer mentions #newMedium.a# in the song.'
                     ],
                     rules: {
 
                     }
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'The singer sings about #themes#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'album',
@@ -251,7 +287,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['album'],
                 grammar: {
                     origin: [
-                        'There are references to another'
+                        'There are references to another #newMedium.a#.'
                     ],
                     rules: {}
             }
@@ -260,12 +296,20 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'song', 'painting', 'statue', 'book', 'comic book'],
                 grammar: {
                     origin: [
-                        'In one of the songs, the signer sings about #newMedium.a#.'
+                        'In one of the songs on the album,\n the signer sings about #newMedium.a#.'
                     ],
                     rules: {}
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'The band sings about #themes#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     //
     // FINE ART
@@ -292,7 +336,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['painting'],
                 grammar: {
                     origin: [
-
+                        'You can spot #newMedium.a# in the painting.'
                     ],
                     rules: {}
             }
@@ -301,12 +345,20 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'song', 'album', 'statue', 'book', 'comic book'],
                 grammar: {
                     origin: [
-                    
+                        'You can spot #newMedium.a# in the painting.'
                     ],
                     rules: {}
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'The painting depicts #characters#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'statue',
@@ -318,7 +370,7 @@ export const DB_MEDIA: Medium[] = [
         ],
         intro: {
             origin: [
-                'There is #newMedium.a# in the room.'
+                'There is #newMedium.a# nearby.'
             ],
             rules: {
 
@@ -330,7 +382,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['statue'],
                 grammar: {
                     origin: [
-
+                        'The statue is based on another #newMedium.a#.'
                     ],
                     rules: {}
             }
@@ -339,12 +391,20 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'book', 'comic book'],
                 grammar: {
                     origin: [
-                    
+                        'The statue references #newMedium.a#.'
                     ],
                     rules: {}
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'The statue depicts #characters#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     // 
     // LITERATURE
@@ -370,7 +430,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['book'],
                 grammar: {
                     origin: [
-
+                        'The book is basically a retelling of #newMedium.a#.'
                     ],
                     rules: {}
             }
@@ -379,12 +439,21 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'comic book'],
                 grammar: {
                     origin: [
-                    
+                        'The book is basically a retelling of #newMedium.a#.',
+                        '#newMedium.a.capitalize# is mentioned in the book.'
                     ],
                     rules: {}
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'The book is about #characters# and #themes#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'comic book',
@@ -408,21 +477,38 @@ export const DB_MEDIA: Medium[] = [
                 to: ['comic book'],
                 grammar: {
                     origin: [
-
+                        'The comic book is basically a retelling of #newMedium.a#.'
                     ],
-                    rules: {}
+                    rules: {
+
+                    }
             }
             },
             {
                 to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book'],
                 grammar: {
                     origin: [
-                    
+                        '#singleSubject.capitalize# references #newMedium.a# at one point.',
+
                     ],
-                    rules: {}
+                    rules: {
+                        singleSubject: [
+                            'the comic book',
+                            'the story',
+                            'the plot'
+                        ]
+                    }
             }
             }
-        ]
+        ],
+        story: {
+            origin: [
+                'The comic book is about #characters# and #themes#.'
+            ],
+            rules: {
+                
+            }
+        }
     },
     //
     // MASSMEDIA
@@ -448,7 +534,7 @@ export const DB_MEDIA_QUALITIES: MediumQuality[] = [
     {
         key: 'old',
         name: 'old',
-        modifiers: [],
+        modifiers: ['', 'very', 'really'],
         applicableMedia: ['*']
     },
     {
@@ -478,7 +564,7 @@ export const DB_MEDIA_QUALITIES: MediumQuality[] = [
     {
         key: 'acclaimed',
         name: 'acclaimed',
-        modifiers: ['universally', 'critically'],
+        modifiers: ['', 'universally', 'critically'],
         applicableMedia: ['*']
     },
     {

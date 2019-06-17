@@ -11,6 +11,16 @@ export const DB_THOUGHTS: Thought[] = [
             rules: {
 
             }
+        },
+        typeGrammar: {
+            origin: [
+                '#type#'
+            ],
+            rules: {
+                type: [
+                    'memory'
+                ]
+            }
         }
     },
     {
@@ -21,6 +31,16 @@ export const DB_THOUGHTS: Thought[] = [
             ],
             rules: {
                 
+            }
+        },
+        typeGrammar: {
+            origin: [
+                '#type#'
+            ],
+            rules: {
+                type: [
+                    'thought'
+                ]
             }
         }
     }
@@ -45,8 +65,15 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             ],
             rules: {
             }
-        },
-     
+        },     
+        subjectGrammar: {
+            origin: [
+                'school'
+            ],
+            rules: {
+
+            }
+        }
     },
     {
         key: 'travel',
@@ -68,8 +95,15 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
-        },
- 
+        }, 
+        subjectGrammar: {
+            origin: [
+                'travel'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'love',
@@ -90,8 +124,15 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
-        },
- 
+        }, 
+        subjectGrammar: {
+            origin: [
+                'love'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'politics',
@@ -118,6 +159,14 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
+        },
+        subjectGrammar: {
+            origin: [
+                'political life'
+            ],
+            rules: {
+                
+            }
         }
     },
     {
@@ -140,8 +189,15 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
                     'wonder'
                 ]
             }
-        },
- 
+        }, 
+        subjectGrammar: {
+            origin: [
+                'childhood'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'youth',
@@ -162,8 +218,15 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
                     'disappearing'
                 ]
             }
-        },
- 
+        }, 
+        subjectGrammar: {
+            origin: [
+                'youth'
+            ],
+            rules: {
+                
+            }
+        }
     },
     {
         key: 'history',
@@ -183,6 +246,14 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
             rules: {
                 
             }
+        },
+        subjectGrammar: {
+            origin: [
+                'history'
+            ],
+            rules: {
+                
+            }
         }
     }
 ]
@@ -195,7 +266,7 @@ export const DB_THOUGHT_QUALITY: ThoughtQuality[] = [
             origin: [
                 'You were really #personalAdjective# back then.',
                 'Those were #personalAdjective# times.',
-                'The #thoughtType# #verb#. #thoughtSubject# is #thoughtAdjective#.'
+                'The #thoughtType# #verb#. #thoughtSubject.capitalize# is #thoughtAdjective#.'
             ],
             rules: {
                 personalAdjective: [
@@ -218,10 +289,11 @@ export const DB_THOUGHT_QUALITY: ThoughtQuality[] = [
                     'dazzling',
                     'exquisite',
                     'lovely',
-                    'pretty',
                     'splendid',
                     'stunning',
-                    'superb'
+                    'superb',
+                    'happiness',
+                    'power'
                 ]
             }
         }
@@ -233,8 +305,8 @@ export const DB_THOUGHT_QUALITY: ThoughtQuality[] = [
         grammar: {
             origin: [
                 'Things got sadder and sadder. So sad.',
-                'Things only got worse.',
-                'Things got sadder.'
+                'Things only got worse. Everything fell apart.',
+                'Things got sadder. Never the same.'
             ],
             rules: {
                 
@@ -284,6 +356,7 @@ export const DB_THOUGHT_REASONS: ThoughtReason[] = [
         key: 'politics',
         grammar: {
             origin: [
+                'Politicians lost their faces. Everything went south.',
                 ''
             ],
             rules: {
@@ -307,7 +380,7 @@ export const DB_THOUGHT_REASONS: ThoughtReason[] = [
         key: 'progress',
         grammar: {
             origin: [
-                'That is the price we had to pay '
+                'That is the price we had to pay for constant progress.'
             ],
             rules: {
 
@@ -371,21 +444,10 @@ export const DB_THOUGHT_REASONS: ThoughtReason[] = [
         }
     },
     {
-        key: 'entertainment',
-        grammar: {
-            origin: [
-                ''
-            ],
-            rules: {
-
-            }
-        }
-    },
-    {
         key: 'economy',
         grammar: {
             origin: [
-                'Maybe '
+                'The money. The greed. It ruined everything.'
             ],
             rules: {
 

@@ -53,7 +53,8 @@ export const DB_NARRATIVE_CHARACTERS: NarrativeCharacter[] = [
         key: 'someone',
         name: [
             'someone you love',
-            'someone who is no longer here',
+            'someone who respect',
+            'someone who you look up to',
             'someone who cared about you'
         ],
     },

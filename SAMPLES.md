@@ -1,42 +1,42 @@
 # Sample 1
 
-Imagine you are sitting in the garden. Your best friend is next to you.
-You can smell fresh rain evaporating from hot pavement.
+Imagine you are sitting in the garden. Your best friend is next to you. [x]
+You can smell fresh rain evaporating from hot pavement. [x]
 
 [still: /res/stills/slideofthetimes/tumblr_p4b3skAKUQ1x4cwtgo1_1280.jpg]
 
-You are listening to a famous song.
-The singer sings about a long-distance relationship.
-It's very honest.
+You are listening to a famous song. [x]
+The singer sings about a long-distance relationship. [x]
+It's very honest. [x]
 
 [still: /res/stills/reddit_sub_oldschoolcool/bsjus2-Nick_Lowe_in_the_studio__circa_1978-t9JMmAY.jpg]
 
-The song mentions a controversial episode of a TV series.
-A boy and a girl face betrayal and grief.
-The episode is aesthetically pleasing.
+The song mentions a controversial episode of a TV series. [x]
+A boy and a girl face betrayal and grief. [x]
+The episode is aesthetically pleasing. [x]
 
 [still: /res/stills/slideofthetimes/tumblr_p4bd4mnGvX1x4cwtgo1_1280.jpg]
 
-You think of the summer when you travelled the country with your family.
-You were really happy back then.
+You think of the summer when you travelled the country with your family. []
+You were really happy back then. []
 
 [still: /res/stills/thesillyhippy/tumblr_n3sbfxI7Gb1spwacto2_1280.jpg]
 
-But time passes.
+But time passes. [x]
 
-Imagine you are sitting in the garden. Your best friend is no longer with you.
-You can hear kids playing outside.
+Imagine you are sitting in the garden. Your best friend is no longer with you. [x]
+You can hear kids playing outside. []
 
 [still: /res/stills/thesillyhippy/tumblr_oejdr35l4y1rsrjrno2_1280.jpg]
 
-You are reading a comic book.
-It's about a sad teacher. And hope.
+You are reading a comic book. [x]
+It's about a sad teacher. And hope. [x]
 
 [still: /res/stills/own/east_la_1983.jpg]
 
-For some reason, it reminds you of a painting.
-It depicts an aging soldier.
-It's very tasteful.
+For some reason, it reminds you of a painting. [x]
+It depicts an aging soldier. [x]
+It's very tasteful. [x]
 
 [still: /res/stills/nos/8_5.jpg]
 

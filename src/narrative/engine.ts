@@ -107,6 +107,7 @@ export interface Medium {
     transitionVerbs: string[]
     transitions: MediumTransition[]
     intro: NarrativeGrammar
+    story: NarrativeGrammar
 }
 // I.e. an acclaimed movie
 export interface MediumQuality {
@@ -175,25 +176,30 @@ export interface StoryPlot {
 // ===
 
 export interface ThoughtInstance {
-    thought: Thought,
-    subject: ThoughtSubject,
-    positiveQuality: ThoughtQuality,
-    negativeQuality: ThoughtQuality,
-    reason: ThoughtReason,
+    thought: Thought
+    subject: ThoughtSubject
+    positiveQuality: ThoughtQuality
+    negativeQuality: ThoughtQuality
+    reason: ThoughtReason
 
     positiveGrammarResult: string
     negativeGrammarResult: string
+    positiveQualityResult: string
+    negativeQualityResult: string
+    reasonResult: string
 }
 
 export interface Thought {
     key: string
     introductoryGrammar: NarrativeGrammar
+    typeGrammar: NarrativeGrammar
 }
 
 export interface ThoughtSubject {
     key: string
     positiveGrammar: NarrativeGrammar,
-    negativeGrammar: NarrativeGrammar
+    negativeGrammar: NarrativeGrammar,
+    subjectGrammar: NarrativeGrammar
 }
 
 export interface ThoughtQuality {
