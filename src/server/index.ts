@@ -18,19 +18,19 @@ console.log('TheStoryOfYourLife ~ DIR_TMP set to: ' + DIR_TMP)
 
 // !!! GET FROM TAGGER
 const AVAILABLE_TAGS = [
-    'adventure',
-    'city',
-    'emotions',
-    'famous',
-    'fun',
-    'history',
-    'love',
-    'politics',
-    'people',   
-    'school',
+    // For thoughts
     'scenery',
+    'moving on',
+    'childhood',
     'youth',
-    'wanderlust'
+    'love',
+    'history',
+
+    // For media
+    'man',
+    'woman',
+    'people',
+    'music'
 ]
 
 interface TextToSpeechVoice {

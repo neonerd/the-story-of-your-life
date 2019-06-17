@@ -1,19 +1,17 @@
 const AVAILABLE_TAGS = [
     // For thoughts
+    'scenery',
+    'moving on',
     'childhood',
     'youth',
-    'school',
-    'travel',
     'love',
-    'politics',
     'history',
-    'people',   
 
     // For media
     'man',
-    'woman',
-    'boy',
-    'girl',    
+    'woman', 
+    'people',
+    'music'
 ]
 
 const app = new Vue({

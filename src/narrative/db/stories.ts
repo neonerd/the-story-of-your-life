@@ -531,16 +531,6 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
         modifiers: []
     },
     {
-        key: 'girl',
-        name: 'girl',
-        modifiers: []
-    },
-    {
-        key: 'boy',
-        name: 'boy',
-        modifiers: []
-    },
-    {
         key: 'attorney',
         name: 'attorney',
         modifiers: []
