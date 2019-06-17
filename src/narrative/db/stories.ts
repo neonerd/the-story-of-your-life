@@ -3,7 +3,7 @@ import {StoryTheme, StoryQuality, StoryCharacter, StorySituation} from '../engin
 export const DB_STORY_THEMES: StoryTheme[] = [
     {
         key: 'love',
-        name: ['love', 'romance'],
+        name: 'love',
         modifiers: ['unrequited', 'motherly', 'fatherly', 'friendly', 'tragic', 'pragmatic', 'forbidden', 'long-distance'],
         stillTags: ['love']
     },
