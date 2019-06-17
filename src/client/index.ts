@@ -85,6 +85,8 @@ const clearIntro = () => {
 Gibber.init({ globalize: false })
 
 // Constant sounds
+
+// Projector and fan panned to center
 const SOUND_SLIDEPROJECTOR = new Pizzicato.Sound({
     source: 'file',
     options: { path: '/res/sfx/slide_projector.wav' }
@@ -95,6 +97,21 @@ const SOUND_FAN = new Pizzicato.Sound({
     options: { path: '/res/sfx/fan.wav', loop: true }
 })
 SOUND_FAN.volume = 1
+
+// Ventilation panned to right
+const SOUND_VENTILATION = new Pizzicato.Sound({
+    source: 'file',
+    options: { path: '/res/sfx/ventilation.wav' }
+})
+SOUND_VENTILATION.volume = 0.08
+var stereoPanner = new Pizzicato.Effects.StereoPanner({
+    pan: 0.75
+});
+SOUND_VENTILATION.addEffect(stereoPanner);
+
+const SOUNDS_AMBIENCE = new Pizzicato.Group([SOUND_FAN, SOUND_VENTILATION])
+
+
 
 // ===
 // === SPEECH PLAYING
@@ -125,9 +142,9 @@ const getTextToSpeech = async (txt: string) => {
  * @param link 
  */
 const reverb = new Pizzicato.Effects.Reverb({
-    time: 0.5,
+    time: 0.2,
     decay: 0.8,
-    reverse: true,
+    reverse: false,
     mix: 0.5
 })
 
@@ -147,14 +164,7 @@ const playSpeech = (link: string) => {
             })
             sound.play()
         });
-    })   
-
-    // Gibber
-    // Load and wait for the loading to finish
-    // s.load(link)
-    // setTimeout(() => {
-    //     s.note(1)
-    // }, 500)
+    })
 }
 
 /**
@@ -294,6 +304,15 @@ const renderInstructions = async (excerciseNo: number, topics: string) => {
 const createNarrative = async (rng: RandomGenerator) => {
     const sequence = narrative.generateNarrativeSequence(rng)
 
+    // START SOUNDS
+    await wait(5000)
+    SOUNDS_AMBIENCE.play()
+
+    // Wait a while
+    await wait(3000)
+
+    await renderInstructions(1, 'childhood')
+
     await renderStillSequence(
         [
             `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.introduceNarrativeCharacter(sequence, rng)}.`,
@@ -374,158 +393,11 @@ const createNarrative = async (rng: RandomGenerator) => {
         await narrative.getStillForMovingOn(),
         true
     )    
+
+    // STOP SOUNDS
+    await wait(5000)
+    SOUNDS_AMBIENCE.stop()
 }
-
-// Narrative test
-const narrativeTest = async () => {
-    await wait(3000)
-    SOUND_FAN.play()
-
-    // await renderInstructions(5, 'wanderlust and friendship')
-
-    //
-    // THE MEAT
-    //
-    
-    await renderStillSequence(
-        [
-            'Imagine you are sitting in the garden. Your best friend is next to you.',
-            'You can smell fresh rain evaporating from hot pavement.'
-        ],
-        '/res/stills/slideofthetimes/tumblr_p4b3skAKUQ1x4cwtgo1_1280.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'You are listening to a famous song.',
-            'The singer sings about a long-distance relationship.',
-            'It is very honest.'
-        ],
-        '/res/stills/reddit_sub_oldschoolcool/bsjus2-Nick_Lowe_in_the_studio__circa_1978-t9JMmAY.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'The song mentions a controversial episode of a TV series.',
-            'A boy and a girl face betrayal and grief.',
-            'The episode is aesthetically pleasing.'
-        ],
-        '/res/stills/slideofthetimes/tumblr_p4bd4mnGvX1x4cwtgo1_1280.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'You think of the summer when you travelled the country with your family.',
-            'You were really happy back then.'
-        ],
-        '/res/stills/thesillyhippy/tumblr_n3sbfxI7Gb1spwacto2_1280.jpg'
-    )
-
-    await renderTimePassage('But time passes.')
-
-    await renderStillSequence(
-        [
-            'Imagine you are sitting in the garden. Your best friend is no longer with you.',
-            'You can hear kids playing outside.'
-        ],
-        '/res/stills/thesillyhippy/tumblr_oejdr35l4y1rsrjrno2_1280.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'For some reason, it reminds you of a painting.',
-            'It depicts an aging soldier.',
-            'It is very tasteful.'
-        ],
-        '/res/stills/nos/8_5.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'You think of your other trips and adventures.',
-            'They were not really that happy again, were they.',
-
-            'Maybe we should have stopped them sooner.',
-            'Maybe the mountains would be a happier place \n without some sorts of people.',
-
-            'But everything is fine now.',
-            'We can move on.'
-        ],
-        '/res/stills/nos/78_0.jpg',
-        true
-    )
-
-    // Sample no. 2
-
-    await renderInstructions(6,'love and sadness')
-
-    await renderStillSequence(
-        [
-            'Imagine you are sitting on a sofa. \n You are spending time with your cousin.',
-            'An old clock is ticking nearby.'
-        ],
-        '/res/stills/nos/79_0.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'You are reading an acclaimed book.',
-            'It is about a great journey \n of a shy man and a bit unconventional.'
-        ],
-        '/res/stills/nos/84_1.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'You suddenly remember the third time  you were in love.',
-            'The feeling warms you up. Love is beautiful.'
-        ],
-        '/res/stills/sealedintime/tumblr_poggo6F4Sc1y62e4co1_640.jpg'
-    )
-
-    await renderTimePassage('But life goes on.')
-
-    await renderStillSequence(
-        [
-            'Imagine you are sitting on a sofa. \n Your cousin has moved far away.',
-            'A thunderstorm is coming.'
-        ],
-        '/res/stills/slideofthetimes/tumblr_pg606cAFx61x4cwtgo1_1280.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'You are watching a crime movie.',
-            'It is about a woman and hate. Inspirational.'
-        ],
-        '/res/stills/coolkidsofhistory/tumblr_op1faat9DE1w8i449o1_1280.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'At one point in the movie,\n a talkshow plays in the background.',
-            'An outgoing attorney talks with the host.',
-            'They are passionately discussing\n society and purpose.'
-        ],
-        '/res/stills/nos/75_8.jpg'
-    )
-
-    await renderStillSequence(
-        [
-            'You remember your third love again. \n Was it ever the same?',
-            'Things got sadder and sadder. So sad.',
-
-            'But now we are in better place.',
-            'You can move on. Find a new life.'
-        ],
-        '/res/stills/nos/124_4.jpg',
-        true
-    )
-
-}
-// narrativeTest()
-
-
 
 const narrativeStart = async () => {
     const rng = new RandomGenerator('1')
