@@ -68,7 +68,14 @@ const renderIntro = (txt: string) => {
     let text = new PIXI.Text(txt, {fontFamily : 'Arial', fontSize: 24, fill : '#ffffff', align : 'center'})
 
     // Interesting effect
-    text.width = monitorSettings.w*0.5
+    if (txt.length > 15) {
+        text.width = monitorSettings.w*0.5
+    } else {
+        text.width = monitorSettings.w*0.2
+    }
+
+
+
     text.x = monitorSettings.w/2 - text.width/2
 
     introContainer.removeChildren()
@@ -370,7 +377,23 @@ const createNarrative = async (rng: RandomGenerator) => {
         })
     )
 
+    if (rng.chance(25)) {
+        const words = narrative.describeWordAmbience(rng)
+        for (let w of words) {
+            await renderSentence(await createSentence(w))
+            await wait(3000)
+        }
+    }
+
     await renderTimePassage(narrative.describeTimePassage(rng))
+
+    if (rng.chance(50)) {
+        const words = narrative.describeWordAmbience(rng)
+        for (let w of words) {
+            await renderSentence(await createSentence(w))
+            await wait(3000)
+        }
+    }
 
     await renderStillSequence(
         [
@@ -415,6 +438,14 @@ const createNarrative = async (rng: RandomGenerator) => {
             return narrative.getStillForThought(sequence.thought)
         })
     )
+
+    if (rng.chance(50)) {
+        const words = narrative.describeWordAmbience(rng)
+        for (let w of words) {
+            await renderSentence(await createSentence(w))
+            await wait(3000)
+        }
+    }
 
     const movingOn = narrative.describeMovingOn(rng)
     await renderStillSequence(
