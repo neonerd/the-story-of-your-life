@@ -4,13 +4,19 @@ export const DB_STORY_THEMES: StoryTheme[] = [
     {
         key: 'love',
         name: 'love',
-        modifiers: ['unrequited', 'motherly', 'fatherly', 'friendly', 'tragic', 'pragmatic', 'forbidden', 'long-distance'],
+        modifiers: ['unrequited', 'motherly', 'fatherly', 'friendly', 'tragic', 'pragmatic', 'forbidden', 'long-distance', 'casual'],
+        stillTags: ['love']
+    },
+    {
+        key: 'relationship',
+        name: 'relationship',
+        modifiers: ['unrequited', 'friendly', 'tragic', 'pragmatic', 'forbidden', 'long-distance', 'casual'],
         stillTags: ['love']
     },
     {
         key: 'hate',
         name: 'hate',
-        modifiers: [],
+        modifiers: ['', 'unrelenting', ''],
         stillTags: ['man', 'woman']
     },
     {
@@ -64,13 +70,13 @@ export const DB_STORY_THEMES: StoryTheme[] = [
     {
         key: 'hope',
         name: 'hope',
-        modifiers: [],
+        modifiers: ['lost', '',],
         stillTags: ['scenery', 'youth']
     },
     {
         key: 'family',
         name: 'family',
-        modifiers: [],
+        modifiers: ['dysfunctional', 'large', 'struggling', 'poor', 'rich'],
         stillTags: ['childhood']
     },
     {

@@ -35,7 +35,8 @@ const LITERATURE_GENRES = [
     {key: 'scifi', name: 'scifi'},
     {key: 'detective', name: 'detective'},
     {key: 'romantic', name: 'romantic'},
-    {key: 'highbrow', name: 'highbrow'}
+    {key: 'highbrow', name: 'highbrow'},
+    {key: 'comic', name: 'comic'}
 ]
 
 const PAINTING_GENRES = [
@@ -46,6 +47,7 @@ const PAINTING_GENRES = [
     {key: 'cubist', name: 'cubist'},
     {key: 'rennaisance', name: 'rennaisance'},
     {key: 'minimalist', name: 'minimalist'},
+    {key: 'psychedelic', name: 'psychedelic'},
     {key: 'nogenre', name: ''}
 ]
 
@@ -96,7 +98,10 @@ export const DB_MEDIA: Medium[] = [
         ],
         story: {
             origin: [
-                'It is about #characters# and #themes#.'
+                'It is about #characters# and #themes#.',
+                'The movie is about #characters# and #themes#.',
+                '#characters.capitalize#. #themes.capitalize#.',
+                'The movie deals with #themes#.'
             ],
             rules: {
 
@@ -105,7 +110,7 @@ export const DB_MEDIA: Medium[] = [
     },
     {
         key: 'tv',
-        name: 'tv series',
+        name: 'TV series',
         type: MEDIUM_TYPE.AV,
         defaultWeight: 50,
         hasGenre: true,
@@ -135,7 +140,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'talkshow', 'videogame', 'book', 'comic book', 'song', 'album', 'painting', 'statue'],
                 grammar: {
                     origin: [
-                        'The episode reference #newMedium.a# at one point.'
+                        'The episode references #newMedium.a# at one point.'
                     ],
                     rules: {
 
@@ -145,7 +150,9 @@ export const DB_MEDIA: Medium[] = [
         ],
         story: {
             origin: [
-                'It is about #characters# and #themes#.'
+                'It is about #characters# and #themes#.',
+                'The TV series is about #characters# and #themes#.',
+                '#characters.capitalize#. #themes.capitalize#.',
             ],
             rules: {
                 
@@ -191,50 +198,7 @@ export const DB_MEDIA: Medium[] = [
             }
         }
     },
-    //
-    // GAMES
-    //
-    // {
-    //     key: 'videogame',
-    //     name: 'videogame',
-    //     type: MEDIUM_TYPE.GAME,
-    //     defaultWeight: 50,
-    //     hasGenre: true,
-    //     genres: [],
-    //     intro: {
-    //         origin: [
-    //             'You are playing #newMedium.a#.'
-    //         ],
-    //         rules: {
-
-    //         }
-    //     },
-    //     transitionVerbs: ['see'],
-    //     transitions: [
-    //         {
-    //             to: ['videogame'],
-    //             grammar: {
-    //                 origin: [
-    //                     'The game contains '
-    //                 ],
-    //                 rules: {}
-    //         }
-    //         },
-    //         {
-    //             to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book', 'comic book'],
-    //             grammar: {
-    //                 origin: [
-    //                     'The characters talk about #newMedium.a# at one point in the story.',
-    //                     'You can #transitiveVerb# #newMedium.a# in one of the levels of the videogame.'
-    //                 ],
-    //                 rules: {}
-    //         }
-    //         }
-    //     ]
-    // },
-    //
     // MUSIC
-    //
     {
         key: 'song',
         name: 'song',
@@ -276,7 +240,9 @@ export const DB_MEDIA: Medium[] = [
         ],
         story: {
             origin: [
-                'The singer sings about #themes#.'
+                'The singer sings about #themes#.',
+                'The song is about #themes#.',
+                "#themes.capitalize#. That's what the song is about."
             ],
             rules: {
                 
@@ -313,7 +279,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['movie', 'tv', 'videogame', 'song', 'painting', 'statue', 'book', 'comic book'],
                 grammar: {
                     origin: [
-                        'In one of the songs on the album,\n the signer sings about #newMedium.a#.'
+                        'In one of the songs on the album,\n the singer sings about #newMedium.a#.'
                     ],
                     rules: {}
             }
@@ -321,7 +287,9 @@ export const DB_MEDIA: Medium[] = [
         ],
         story: {
             origin: [
-                'The band sings about #themes#.'
+                'The band sings about #themes#.',
+                'The album is about #themes#.',
+                "#themes.capitalize#. That's what the album is about."
             ],
             rules: {
                 
@@ -369,7 +337,8 @@ export const DB_MEDIA: Medium[] = [
         ],
         story: {
             origin: [
-                'The painting depicts #characters#.'
+                'The painting depicts #characters#.',
+                'You can see #characters# in the painting.'
             ],
             rules: {
                 
@@ -415,7 +384,8 @@ export const DB_MEDIA: Medium[] = [
         ],
         story: {
             origin: [
-                'The statue depicts #characters#.'
+                'The statue depicts #characters#.',
+                'It is supposed to depict #characters#.'
             ],
             rules: {
                 
@@ -464,68 +434,15 @@ export const DB_MEDIA: Medium[] = [
         ],
         story: {
             origin: [
-                'The book is about #characters# and #themes#.'
+                'The book is about #characters# and #themes#.',
+                'The book deals with #themes#.',
+                'In the book, #characters# deal with #themes#.'
             ],
             rules: {
                 
             }
         }
-    },
-    {
-        key: 'comic book',
-        name: 'comic book',
-        type: MEDIUM_TYPE.LITERATURE,
-        defaultWeight: 50,
-        hasGenre: false,
-        genres: [
-        ],
-        intro: {
-            origin: [
-                'You are reading #newMedium.a#.'
-            ],
-            rules: {
-
-            }
-        },
-        transitionVerbs: ['see'],
-        transitions: [
-            {
-                to: ['comic book'],
-                grammar: {
-                    origin: [
-                        'The comic book is basically a retelling of #newMedium.a#.'
-                    ],
-                    rules: {
-
-                    }
-            }
-            },
-            {
-                to: ['movie', 'tv', 'videogame', 'song', 'album', 'painting', 'statue', 'book'],
-                grammar: {
-                    origin: [
-                        '#singleSubject.capitalize# references #newMedium.a# at one point.',
-
-                    ],
-                    rules: {
-                        singleSubject: [
-                            'the comic book',
-                            'the story',
-                            'the plot'
-                        ]
-                    }
-            }
-            }
-        ],
-        story: {
-            origin: [
-                'The comic book is about #characters# and #themes#.'
-            ],
-            rules: {
-                
-            }
-        }
-    },
+    }
     //
     // MASSMEDIA
     // 
@@ -599,6 +516,12 @@ export const DB_MEDIA_QUALITIES: MediumQuality[] = [
         key: 'popular',
         name: 'popular',
         modifiers: [],
+        applicableMedia: ['*']
+    },
+    {
+        key: 'unknown',
+        name: 'unknown',
+        modifiers: ['mostly', ''],
         applicableMedia: ['*']
     }
 ]

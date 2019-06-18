@@ -442,7 +442,7 @@ export function describeMovingOn (rng: RandomGenerator): string[] {
             betterPlace: ['a better place', 'a better world', 'better times'],
             fine: ['fine', 'well', 'great', 'wonderful', 'beautiful', 'all right'],
             betterSubjectPlural: ['you', 'we'],
-            betterSubjectSinguar: ['world', 'society', 'life']
+            betterSubjectSingular: ['world', 'society', 'life']
         }
     }
     const grammar2: NarrativeGrammar = {

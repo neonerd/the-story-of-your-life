@@ -28,6 +28,10 @@ export class RandomGenerator {
         tracery.setRng(this.rng)
     }
 
+    chance (percent: number) {
+        return this.rng() <= percent/100 
+    }
+
     randomItem (items: any[]) {
         return items[Math.floor(this.rng()*items.length)]
     }

@@ -200,7 +200,7 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
         grammar: {
             origin: [
                 'You can hear #subjectOutside# outside.',
-                'An old clock is ticking nearby.',
+                '#objectsNearby.a.capitalize# nearby.',
                 'You can hear #subjectInside#.'
             ],
             rules: {
@@ -223,7 +223,14 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
                     'singing',
                     'talking',
                     'laughing',
-                    'chatting'
+                    'chatting',
+                    'watching TV',
+                    'listening to the radio'
+                ],
+                objectsNearby: [
+                    'old clock is ticking',
+                    'radio is playing',
+                    'TV is playing'
                 ]
             }
         }
@@ -260,10 +267,19 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
         key: 'weather',
         grammar: {
             origin: [
-
+                "It's #weather#.",
             ],
             rules: {
-
+                weather: [
+                    'hot', 
+                    'cold', 
+                    'breezy', 
+                    'chilly', 
+                    'snowing', 
+                    'raining',
+                    'a hot summer evening',
+                    'a hot summer afternoon'
+                ]
             }
         }
     }
