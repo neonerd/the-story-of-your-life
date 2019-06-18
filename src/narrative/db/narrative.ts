@@ -52,10 +52,11 @@ export const DB_NARRATIVE_CHARACTERS: NarrativeCharacter[] = [
     {
         key: 'someone',
         name: [
-            'someone you love',
-            'someone who respect',
+            'someone who you love',
+            'someone who you respect',
             'someone who you look up to',
-            'someone who cared about you'
+            'someone who cared about you',
+            'someone who is important'
         ],
         stillTags: [
             'man',
@@ -108,7 +109,7 @@ export const DB_NARRATIVE_CHARACTERS: NarrativeCharacter[] = [
     },
     {
         key: 'aunt',
-        name: ['favourite aunt', 'aunt'],
+        name: ['favourite aunt', 'aunt', 'distant aunt', 'only aunt'],
         isYour: true,
         stillTags: [
             'woman',
@@ -117,7 +118,7 @@ export const DB_NARRATIVE_CHARACTERS: NarrativeCharacter[] = [
     },
     {
         key: 'cousin',
-        name: ['favourite cousin'],
+        name: ['favourite cousin', 'only cousin', 'cousin', 'distant cousin'],
         isYour: true,
         stillTags: [
             'childhood'
@@ -125,7 +126,7 @@ export const DB_NARRATIVE_CHARACTERS: NarrativeCharacter[] = [
     },
     {
         key: 'uncle',
-        name: ['favourite uncle', 'uncle'],
+        name: ['favourite uncle', 'only uncle', 'distant uncle', 'uncle'],
         isYour: true,
         stillTags: [
             'man',
