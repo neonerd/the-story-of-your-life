@@ -1,7 +1,7 @@
 import * as narrative from './index'
 import { RandomGenerator } from './random';
 
-const rng = new RandomGenerator('1')
+const rng = new RandomGenerator(Math.random())
 
 console.log('=== NARRATIVE SEQUENCE\n')
 const sequence = narrative.generateNarrativeSequence(rng)
