@@ -263,9 +263,13 @@ export function getMediumGrammarRules (mi: MediumInstance): any {
     const rules: any = {}
 
     const mediumQuality = mi.qualities.map(q => q.name).join(' ')
+    let mediumGenre = ''
+    if (mi.mediumGenre) {
+        mediumGenre = mi.mediumGenre.name
+    }
 
     rules.newMediumName = mi.medium.name
-    rules.newMedium = `${mediumQuality} ${mi.medium.name}`
+    rules.newMedium = `${mediumQuality} ${mediumGenre} ${mi.medium.name}`
 
     return rules
 }
@@ -333,10 +337,12 @@ export function describeStory (nu: NarrativeUnit, rng: RandomGenerator) {
 export function describeStoryQuality (nu: NarrativeUnit, rng: RandomGenerator) {
     const grammar: NarrativeGrammar = {
         origin: [
-            'It is #adjective# #quality#.'
+            'It is #adjective# #quality#.',
+            '#adjectiveAlways.capitalize# #quality#.'
         ],
         rules: {
-            adjective: ['', '', '', 'very', 'really', 'so']
+            adjective: ['', '', '', 'very', 'really', 'so'],
+            adjectiveAlways: ['very', 'really', 'so']
         }
     }
 
@@ -421,7 +427,13 @@ export function describeTimePassage (rng: RandomGenerator) {
 export function describeMovingOn (rng: RandomGenerator): string[] {
     const grammar: NarrativeGrammar = {
         origin: [
-            'Now we are in a better place.'
+            'But now we are in a better place.',
+            'Everything is all right now.',
+            'Everything is fine now.',
+            'It is all fine now.',
+            'You are much better now.',
+            'We are much better now.',
+            'World is much better now.'
         ],
         rules: {
 
@@ -430,7 +442,9 @@ export function describeMovingOn (rng: RandomGenerator): string[] {
     const grammar2: NarrativeGrammar = {
         origin: [
             'You can move on.',
+            'We can move  on.',
             'Everything can be like it used to.',
+            'Everything will be liked it used to.'            
         ],
         rules: {
 

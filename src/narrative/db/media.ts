@@ -14,22 +14,39 @@ const MUSIC_GENRES = [
 ]
 
 const CINEMA_GENRES = [
-    {key: 'action', name: 'action movie'},
+    {key: 'action', name: 'action'},
     {key: 'drama', name: 'drama'},
     {key: 'comedy', name: 'comedy'},
-    {key: 'detective', name: 'detective movie'},
+    {key: 'detective', name: 'detective'},
     {key: 'noir', name: 'noir'},
-    {key: 'romantic', name: 'romantic movie'},
+    {key: 'romantic', name: 'romantic'},
     {key: 'scifi', name: 'scifi'},
-    {key: 'historical', name: 'historical movie'},
-    {key: 'fantasy', name: 'fantasy movie'},
+    {key: 'historical', name: 'historical'},
+    {key: 'fantasy', name: 'fantasy'},
     {key: 'thriller', name: 'thriller'}
 ]   
 
 const LITERATURE_GENRES = [
     {key: 'crime', name: 'crime'},
     {key: 'paperback', name: 'paperback'},
-    {key: 'fantasy', name: 'fantasy'}
+    {key: 'hardcover', name: 'hardcover'},
+    {key: 'fantasy', name: 'fantasy'},
+    {key: 'historical', name: 'historical'},
+    {key: 'scifi', name: 'scifi'},
+    {key: 'detective', name: 'detective'},
+    {key: 'romantic', name: 'romantic'},
+    {key: 'highbrow', name: 'highbrow'}
+]
+
+const PAINTING_GENRES = [
+    {key: 'historical', name: 'historical'},
+    {key: 'portrait', name: 'portrait'},
+    {key: 'abstract', name: 'abstract'},
+    {key: 'impressionist', name: 'impressionist'},
+    {key: 'cubist', name: 'cubist'},
+    {key: 'rennaisance', name: 'rennaisance'},
+    {key: 'minimalist', name: 'minimalist'},
+    {key: 'nogenre', name: ''}
 ]
 
 export const DB_MEDIA: Medium[] = [
@@ -140,7 +157,7 @@ export const DB_MEDIA: Medium[] = [
         name: 'talkshow',
         type: MEDIUM_TYPE.AV,
         defaultWeight: 50,
-        hasGenre: true,
+        hasGenre: false,
         genres: [],
         intro: {
             origin: [
@@ -320,8 +337,7 @@ export const DB_MEDIA: Medium[] = [
         type: MEDIUM_TYPE.FINE_ART,
         defaultWeight: 50,
         hasGenre: true,
-        genres: [
-        ],
+        genres: PAINTING_GENRES,
         intro: {
             origin: [
                 'There is #newMedium.a# on the wall.'
@@ -365,7 +381,7 @@ export const DB_MEDIA: Medium[] = [
         name: 'statue',
         type: MEDIUM_TYPE.FINE_ART,
         defaultWeight: 50,
-        hasGenre: true,
+        hasGenre: false,
         genres: [
         ],
         intro: {

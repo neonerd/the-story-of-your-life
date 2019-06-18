@@ -292,7 +292,7 @@ export const DB_THOUGHT_QUALITY: ThoughtQuality[] = [
             origin: [
                 'Things got sadder and sadder. So sad.',
                 'Things only got worse. Everything fell apart.',
-                'Things got sadder. Never the same.'
+                'Things got sadder. Never the same again.'
             ],
             rules: {
                 
