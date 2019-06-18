@@ -5,6 +5,7 @@ console.log('=== The Story of Your Life')
 
 // Libs
 import axios from 'axios'
+import {range} from 'ramda'
 
 // Own
 import {wait} from '../lib'
@@ -22,6 +23,8 @@ const monitorSettings = {
 // ===
 // === APPLICATION SETUP
 // ===
+const NARRATIVE_STILL_COUNTS = [1, 2, 3]
+const NARRATIVE_STILL_WEIGHTS = [50, 30, 20]
 
 // ===
 // === PIXI
@@ -240,7 +243,7 @@ const clearStills = async () => {
 // ===
 // === TEXT RENDERING
 // ===
-const renderStillSequence = async (utterances: string[], stillPath: string, final = false) => {
+const renderStillSequence = async (utterances: string[], stillPaths: Promise<string>[], final = false) => {
     // Render the text
     for (let u of utterances) {
         const processedUtterance = u.split('\n').map(uPart => {
@@ -259,8 +262,10 @@ const renderStillSequence = async (utterances: string[], stillPath: string, fina
 
     // Display the still and give time to think
     clearIntro()
-    await renderStill(stillPath)
-    await wait(5000)
+    for(let stillPath of stillPaths) {
+        await renderStill(await stillPath)
+        await wait(5000)
+    }    
 
     if (!final) {
         await clearStills()
@@ -311,84 +316,106 @@ const renderInstructions = async (excerciseName: string) => {
 const createNarrative = async (rng: RandomGenerator) => {
     const sequence = narrative.generateNarrativeSequence(rng)
 
+    // TODO: Enable again
     // START SOUNDS
-    await wait(5000)
-    SOUNDS_AMBIENCE.play()
+    // await wait(5000)
+    // SOUNDS_AMBIENCE.play()
 
     // Wait a while
     await wait(3000)
 
-    await renderInstructions(narrative.getExcerciseName(sequence, rng))
+    // TODO: Enable again
+    // await renderInstructions(narrative.getExcerciseName(sequence, rng))
 
-    await renderStillSequence(
-        [
-            `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.introduceNarrativeCharacter(sequence, rng)}.`,
-            narrative.describeAmbience(sequence, rng)
-        ],
-        await narrative.getStillForNarrativeSequence(sequence)
-    )
+    // ===
+    // SEQUENCE
+    // ===
 
-    await renderStillSequence(
-        [
-            narrative.generateMediumIntro(sequence.units[0], rng),
-            narrative.describeStory(sequence.units[0], rng),
-            narrative.describeStoryQuality(sequence.units[0], rng),
-        ],
-        await narrative.getStillForNarrativeUnit(sequence.units[0])
-    )
+    // await renderStillSequence(
+    //     [
+    //         `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.introduceNarrativeCharacter(sequence, rng)}.`,
+    //         narrative.describeAmbience(sequence, rng)
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForNarrativeSequence(sequence)
+    //     })
+    // )
 
-    await renderStillSequence(
-        [
-            narrative.generateMediumNesting(sequence.units[1], sequence.units[0], rng),
-            narrative.describeStory(sequence.units[1], rng),
-            narrative.describeStoryQuality(sequence.units[1], rng),
-        ],
-        await narrative.getStillForNarrativeUnit(sequence.units[1])
-    )
+    // await renderStillSequence(
+    //     [
+    //         narrative.generateMediumIntro(sequence.units[0], rng),
+    //         narrative.describeStory(sequence.units[0], rng),
+    //         narrative.describeStoryQuality(sequence.units[0], rng),
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForNarrativeUnit(sequence.units[0])
+    //     })
+    // )
 
-    await renderStillSequence(
-        [
-            sequence.thought.positiveGrammarResult,
-            sequence.thought.positiveQualityResult
-        ],
-        await narrative.getStillForThought(sequence.thought) 
-    )
+    // await renderStillSequence(
+    //     [
+    //         narrative.generateMediumNesting(sequence.units[1], sequence.units[0], rng),
+    //         narrative.describeStory(sequence.units[1], rng),
+    //         narrative.describeStoryQuality(sequence.units[1], rng),
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForNarrativeUnit(sequence.units[1])
+    //     })
+    // )
 
-    await renderTimePassage(narrative.describeTimePassage(rng))
+    // await renderStillSequence(
+    //     [
+    //         sequence.thought.positiveGrammarResult,
+    //         sequence.thought.positiveQualityResult
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForThought(sequence.thought)
+    //     })
+    // )
 
-    await renderStillSequence(
-        [
-            `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.removeNarrativeCharacter(sequence, rng)}.`,
-            narrative.describeAmbience(sequence, rng)
-        ],
-        await narrative.getStillForNarrativeSequence(sequence)
-    )
+    // await renderTimePassage(narrative.describeTimePassage(rng))
 
-    await renderStillSequence(
-        [
-            narrative.generateMediumIntro(sequence.units[2], rng),
-            narrative.describeStory(sequence.units[2], rng),
-            narrative.describeStoryQuality(sequence.units[2], rng),
-        ],
-        await narrative.getStillForNarrativeUnit(sequence.units[2])
-    )
+    // await renderStillSequence(
+    //     [
+    //         `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.removeNarrativeCharacter(sequence, rng)}.`,
+    //         narrative.describeAmbience(sequence, rng)
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForNarrativeSequence(sequence)
+    //     })
+    // )
 
-    await renderStillSequence(
-        [
-            narrative.generateMediumNesting(sequence.units[3], sequence.units[2], rng),
-            narrative.describeStory(sequence.units[3], rng),
-            narrative.describeStoryQuality(sequence.units[3], rng),
-        ],
-        await narrative.getStillForNarrativeUnit(sequence.units[3])
-    )
+    // await renderStillSequence(
+    //     [
+    //         narrative.generateMediumIntro(sequence.units[2], rng),
+    //         narrative.describeStory(sequence.units[2], rng),
+    //         narrative.describeStoryQuality(sequence.units[2], rng),
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForNarrativeUnit(sequence.units[2])
+    //     })
+    // )
 
-    await renderStillSequence(
-        [
-            sequence.thought.negativeGrammarResult,
-            sequence.thought.negativeQualityResult
-        ],
-        await narrative.getStillForThought(sequence.thought)
-    )
+    // await renderStillSequence(
+    //     [
+    //         narrative.generateMediumNesting(sequence.units[3], sequence.units[2], rng),
+    //         narrative.describeStory(sequence.units[3], rng),
+    //         narrative.describeStoryQuality(sequence.units[3], rng),
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForNarrativeUnit(sequence.units[3])
+    //     })
+    // )
+
+    // await renderStillSequence(
+    //     [
+    //         sequence.thought.negativeGrammarResult,
+    //         sequence.thought.negativeQualityResult
+    //     ],
+    //     range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+    //         return narrative.getStillForThought(sequence.thought)
+    //     })
+    // )
 
     const movingOn = narrative.describeMovingOn(rng)
     await renderStillSequence(
@@ -397,20 +424,29 @@ const createNarrative = async (rng: RandomGenerator) => {
             movingOn[0],
             movingOn[1]
         ],
-        await narrative.getStillForMovingOn(),
+        range(0, NARRATIVE_STILL_COUNTS[rng.weighted(NARRATIVE_STILL_WEIGHTS)]).map(i => {
+            return narrative.getStillForMovingOn()
+        }),
         true
     )    
 
     // STOP SOUNDS
-    await wait(5000)
-    SOUNDS_AMBIENCE.stop()
+    // TODO: Enable again
+    // await wait(5000)
+    // SOUNDS_AMBIENCE.stop()
 }
 
 const narrativeStart = async () => {
-    const rng = new RandomGenerator('1')
-    await createNarrative(rng)
+    let rng
+    while (true) {
+        rng = new RandomGenerator('1')
+        await createNarrative(rng)
+    }
 }
 
+// ===
+// Bootstrap
+// ===
 Promise.all(loadSounds)
 .then(s => {
     SOUNDS_AMBIENCE = new Pizzicato.Group([SOUND_FAN, SOUND_VENTILATION])
