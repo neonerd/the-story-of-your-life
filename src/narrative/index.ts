@@ -316,13 +316,25 @@ export async function getStillForMovingOn () {
 // ===
 export function describeStory (nu: NarrativeUnit, rng: RandomGenerator) {
     return rng.expandGrammar(nu.mediumInstance.medium.story, {
-        themes: nu.mediumInstance.story.themes.map(t => t.name).join(' and '),
+        themes: nu.mediumInstance.story.themes.map(t => {
+            let finalName = t.name
+
+            if (t.modifiers.length) {
+                finalName = `${rng.randomItem(t.modifiers)} ${t.name}`
+            }
+
+            return finalName
+        }).join(' and '),
         characters: nu.mediumInstance.story.characters.map(c => {
             let name = ''
             if (Array.isArray(c.name)) {
                 name = rng.randomItem(c.name)
             } else {
                 name = c.name
+            }
+
+            if (c.modifiers.length) {
+                name = `${rng.randomItem(c.modifiers)} ${name}`
             }
 
             if (!c.isPlural) {

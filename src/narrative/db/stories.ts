@@ -497,13 +497,13 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
     {
         key: 'man',
         name: 'man',
-        modifiers: [],
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['man']
     },
     {
         key: 'woman',
         name: 'woman',
-        modifiers: [],
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['woman']
     },
     {
@@ -528,13 +528,13 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
     {
         key: 'soldier',
         name: 'soldier',
-        modifiers: [],
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['history', 'man', 'woman']
     },
     {
         key: 'businessman',
         name: 'businessman',
-        modifiers: [],
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['man', 'woman']
     },
     {
@@ -547,19 +547,19 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
     {
         key: 'hero',
         name: 'hero',
-        modifiers: [],
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['man', 'woman']
     },
     {
         key: 'teacher',
         name: 'teacher',
-        modifiers: [],
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['man','woman']
     },
     {
         key: 'attorney',
         name: 'attorney',
-        modifiers: [],
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['man', 'woman']
     }
 ]
