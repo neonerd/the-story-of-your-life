@@ -18,6 +18,8 @@ import {intersection} from 'ramda'
 const DIR_TMP = __dirname + '/../../tmp'
 console.log('TheStoryOfYourLife ~ DIR_TMP set to: ' + DIR_TMP)
 
+const LAST_STILLS_USED = []
+
 // !!! GET FROM TAGGER
 const AVAILABLE_TAGS = [
     // For thoughts
@@ -174,10 +176,18 @@ lowdbDb.defaults({
 app.get('/still/:tags', async (req, res) => {
     const tags = req.params.tags.split(',')
 
-    const result = lowdbDb.get('stills').filter(s => {
+    const result = lowdbDb.get('stills')
+    .filter(s => {
+        return LAST_STILLS_USED.indexOf(s) < 0
+    })
+    .filter(s => {
         return intersection(tags, s.tags).length
     }).sample().value()
 
+    LAST_STILLS_USED.push(result.file)
+    if (LAST_STILLS_USED.length > 50) {
+        LAST_STILLS_USED.shift()
+    }
     
     res.json({
         status: 'OK',
