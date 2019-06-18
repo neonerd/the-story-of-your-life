@@ -327,12 +327,11 @@ const createNarrative = async (rng: RandomGenerator) => {
     await wait(3000)
 
     // TODO: Enable again
-    // await renderInstructions(narrative.getExcerciseName(sequence, rng))
+    await renderInstructions(narrative.getExcerciseName(sequence, rng))
 
     // ===
     // SEQUENCE
     // ===
-
     await renderStillSequence(
         [
             `Imagine you are ${narrative.describeNarrativeLocation(sequence, rng)}. ${narrative.introduceNarrativeCharacter(sequence, rng)}.`,
@@ -376,14 +375,6 @@ const createNarrative = async (rng: RandomGenerator) => {
             return narrative.getStillForThought(sequence.thought)
         })
     )
-
-    if (rng.chance(25)) {
-        const words = narrative.describeWordAmbience(rng)
-        for (let w of words) {
-            await renderSentence(await createSentence(w))
-            await wait(3000)
-        }
-    }
 
     await renderTimePassage(narrative.describeTimePassage(rng))
 
@@ -461,7 +452,7 @@ const createNarrative = async (rng: RandomGenerator) => {
     )    
 
     // TODO: Enable again
-    // await wait(5000)
+    await wait(5000)
 }
 
 const narrativeStart = async () => {

@@ -415,11 +415,15 @@ export function getExcerciseName (ns: NarrativeSequence, rng: RandomGenerator) {
 export function describeTimePassage (rng: RandomGenerator) {
     const grammar: NarrativeGrammar = {
         origin: [
-            'Time passes.',
-            'Time moves on.',
+            'But time passes.',
+            'But time moves on.',
             'But life continues.',
             'But life goes on.',
-            'But life passes.'
+            'But life passes.',
+            'But everything moves forward.',
+            'But all changes.',
+            'But everything changes.',
+            'But the clock keeps ticking.'
         ],
         rules: {
 
@@ -466,6 +470,11 @@ const AMBIENT_WORDS_WEIGHTS = [35, 30, 25, 10]
 export function describeWordAmbience (rng: RandomGenerator): string[] {
     const numberOfWords = AMBIENT_WORDS_COUNTS[rng.weighted(AMBIENT_WORDS_WEIGHTS)]
     return range(0, numberOfWords).map(i => {
-        return rng.randomItem(DB_AMBIENCE_WORDS)
+        return rng.expandGrammar({
+            origin: ['#word.capitalize#.'],
+            rules: {
+                word: rng.randomItem(DB_AMBIENCE_WORDS)
+            }
+        })
     })
 }
