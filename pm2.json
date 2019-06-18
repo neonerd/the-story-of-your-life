@@ -1,0 +1,20 @@
+{
+    "apps": [
+    
+        {
+            "name": "tsoyl-server",
+            "script": "./node_modules/ts-node/dist/bin.js",
+            "args": "--skip-project src/server/index.ts",
+            "env": {
+                "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\Kiosk\\Documents\\credentials.json"
+            }
+        },
+        
+        {
+            "name": "tsoyl-dist",
+            "script": "./node_modules/http-server/bin/http-server",
+            "args": "dist/ -c-1"
+        }
+    
+    ]
+}

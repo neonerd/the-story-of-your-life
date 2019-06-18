@@ -84,34 +84,41 @@ const clearIntro = () => {
 // ===
 Gibber.init({ globalize: false })
 
-// Constant sounds
+let SOUND_SLIDEPROJECTOR, SOUND_FAN, SOUND_VENTILATION, SOUNDS_AMBIENCE
 
+// Constant sounds
 // Projector and fan panned to center
-const SOUND_SLIDEPROJECTOR = new Pizzicato.Sound({
+SOUND_SLIDEPROJECTOR = new Pizzicato.Sound({
     source: 'file',
     options: { path: '/res/sfx/slide_projector.wav' }
 })
 SOUND_SLIDEPROJECTOR.volume = 0.5
-const SOUND_FAN = new Pizzicato.Sound({
-    source: 'file',
-    options: { path: '/res/sfx/fan.wav', loop: true }
-})
-SOUND_FAN.volume = 1
 
-// Ventilation panned to right
-const SOUND_VENTILATION = new Pizzicato.Sound({
-    source: 'file',
-    options: { path: '/res/sfx/ventilation.wav' }
-})
-SOUND_VENTILATION.volume = 0.08
-var stereoPanner = new Pizzicato.Effects.StereoPanner({
-    pan: 0.75
-});
-SOUND_VENTILATION.addEffect(stereoPanner);
-
-const SOUNDS_AMBIENCE = new Pizzicato.Group([SOUND_FAN, SOUND_VENTILATION])
-
-
+const loadSounds = [
+    new Promise(resolve => {
+        SOUND_FAN = new Pizzicato.Sound({
+            source: 'file',
+            options: { path: '/res/sfx/fan.wav', loop: true }
+        }, function () {
+            resolve(true)
+        })
+        SOUND_FAN.volume = 1
+    }),
+    new Promise(resolve => {
+        // Ventilation panned to right
+        SOUND_VENTILATION = new Pizzicato.Sound({
+            source: 'file',
+            options: { path: '/res/sfx/ventilation.wav' }
+        }, function () {
+            resolve(true)
+        })
+        SOUND_VENTILATION.volume = 0.08
+        var stereoPanner = new Pizzicato.Effects.StereoPanner({
+            pan: 0.75
+        });
+        SOUND_VENTILATION.addEffect(stereoPanner);
+    })
+]
 
 // ===
 // === SPEECH PLAYING
@@ -294,7 +301,7 @@ const renderInstructions = async (excerciseName: string) => {
     renderIntro('You will be presented with a set of situations.')
 
     await wait(10000)
-    renderIntro('Try to immerse yourself into these fictions \n to achieve the expected result \n and feel nostalgic and longing for \n ' + topics + '.')
+    renderIntro('Try to immerse yourself into these fictions \n to achieve the expected result \n and feel nostalgic and longing for ' + excerciseName.split(':')[1] + '.')
 
     await wait(15000)
     clearIntro()
@@ -403,7 +410,13 @@ const narrativeStart = async () => {
     const rng = new RandomGenerator('1')
     await createNarrative(rng)
 }
-narrativeStart()
+
+Promise.all(loadSounds)
+.then(s => {
+    SOUNDS_AMBIENCE = new Pizzicato.Group([SOUND_FAN, SOUND_VENTILATION])
+    narrativeStart()
+})
+
 
 
 
