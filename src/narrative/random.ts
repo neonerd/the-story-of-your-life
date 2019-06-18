@@ -32,6 +32,10 @@ export class RandomGenerator {
         return items[Math.floor(this.rng()*items.length)]
     }
 
+    randomNumber (min, max) {
+        return Math.floor(this.rng()*(max-min+1)+min)
+    }
+
     weighted (weights: number[]): number {
         var totalWeight = 0,
             i, random;

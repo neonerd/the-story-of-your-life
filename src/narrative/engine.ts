@@ -200,9 +200,10 @@ export interface Thought {
 
 export interface ThoughtSubject {
     key: string
-    positiveGrammar: NarrativeGrammar,
-    negativeGrammar: NarrativeGrammar,
-    subjectGrammar: NarrativeGrammar,
+    theme: string
+    positiveGrammar: NarrativeGrammar
+    negativeGrammar: NarrativeGrammar
+    subjectGrammar: NarrativeGrammar
     stillTags: string[]
 }
 

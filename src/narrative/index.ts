@@ -394,6 +394,10 @@ export function describeAmbience (ns: NarrativeSequence, rng: RandomGenerator) {
     return rng.expandGrammar(ns.ambience.grammar)
 }
 
+export function getExcerciseName (ns: NarrativeSequence, rng: RandomGenerator) {
+    return `Excercise #${rng.randomNumber(1, 999)}: ` + ns.thought.subject.theme
+}
+
 // ===
 // === STATICAL GENERATORS
 // ===

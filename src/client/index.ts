@@ -280,12 +280,12 @@ const renderOutro = async () => {
     document.getElementById('still').style.backgroundColor = '#000000'
 }
 
-const renderInstructions = async (excerciseNo: number, topics: string) => {
+const renderInstructions = async (excerciseName: string) => {
     await wait(7000)
     renderIntro('Please, take a seat and relax. \n The excercise will begin shortly.')
 
     await wait(10000)
-    renderIntro('Excercise #' + excerciseNo + ': ' + topics)
+    renderIntro(excerciseName)
 
     await wait(10000)
     renderIntro('This excercise is focused \n on developing your sense of nostalgia \n and broadening your cultural imagination.')
@@ -311,7 +311,7 @@ const createNarrative = async (rng: RandomGenerator) => {
     // Wait a while
     await wait(3000)
 
-    await renderInstructions(1, 'childhood')
+    await renderInstructions(narrative.getExcerciseName(sequence, rng))
 
     await renderStillSequence(
         [

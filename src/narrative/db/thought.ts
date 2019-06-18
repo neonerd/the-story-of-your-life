@@ -49,6 +49,7 @@ export const DB_THOUGHTS: Thought[] = [
 export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
     {
         key: 'school',
+        theme: 'school',
         positiveGrammar: {
             origin: [
                 'the times in high school',
@@ -78,6 +79,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
     },
     {
         key: 'travel',
+        theme: 'wanderlust',
         positiveGrammar: {
             origin: [
                 'the trip to #destination# you took with #partners#',
@@ -109,6 +111,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
     },
     {
         key: 'love',
+        theme: 'love',
         positiveGrammar: {
             origin: [
                 'the #time# you were in love',
@@ -139,6 +142,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
     },
     {
         key: 'childhood',
+        theme: 'childhood',
         positiveGrammar: {
             origin: [
                 'the times when you were a little child'
@@ -170,6 +174,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
     },
     {
         key: 'youth',
+        theme: 'youth',
         positiveGrammar: {
             origin: [
                 'when you were young and free'
@@ -200,6 +205,7 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
     },
     {
         key: 'history',
+        theme: 'history',
         positiveGrammar: {
             origin: [
                 'all the moments of great importance that happened',

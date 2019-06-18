@@ -1,31 +1,19 @@
 import * as narrative from './index'
 import { RandomGenerator } from './random';
 
-const rng = new RandomGenerator('test')
+const rng = new RandomGenerator('1')
 
 console.log('=== NARRATIVE SEQUENCE\n')
 const sequence = narrative.generateNarrativeSequence(rng)
-
-// Get the themes
-// Sequence doesn't need themes
-// sequence.themes.map(t => {
-//     console.log('Theme: ', t.name)
-// })
-
-// Get the location
-console.log('Location: ', rng.expandGrammar(sequence.location.grammar))
-
-// Get the narrative characters
-sequence.characters.map(c => {
-    console.log('Character: ', c.name)
-})
-
 
 // ===
 // === EXAMPLE OF A WHOLE NARRATIVE SEQUENCE
 // ===
 
 const n = async () => {
+
+console.log('\n')
+console.log(narrative.getExcerciseName(sequence, rng))
 
 // === Create the intro
 console.log('\n')
