@@ -105,7 +105,7 @@ export const DB_MEDIA: Medium[] = [
     },
     {
         key: 'tv',
-        name: 'episode of tv series',
+        name: 'tv series',
         type: MEDIUM_TYPE.AV,
         defaultWeight: 50,
         hasGenre: true,
@@ -398,7 +398,7 @@ export const DB_MEDIA: Medium[] = [
                 to: ['statue'],
                 grammar: {
                     origin: [
-                        'The statue is based on another #newMedium.a#.'
+                        'The statue is based on another #newMedium#.'
                     ],
                     rules: {}
             }

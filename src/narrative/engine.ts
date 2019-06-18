@@ -15,7 +15,9 @@ export interface NarrativeSequence {
     characters: NarrativeCharacter[],
     location: NarrativeLocation,
     ambience: NarrativeAmbience,
-    thought: ThoughtInstance
+    thought: ThoughtInstance,
+
+    characterRendered?: string
 }
 
 // The basic themes that the narrative should carry

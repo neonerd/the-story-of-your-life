@@ -379,6 +379,7 @@ export function introduceNarrativeCharacter (ns: NarrativeSequence, rng: RandomG
         }
     })
 
+    ns.characterRendered = characterStrings.join(' and ')
     const grammar: NarrativeGrammar = {
         origin: [`#subject.capitalize# is next to you`],
         rules: {
@@ -390,19 +391,10 @@ export function introduceNarrativeCharacter (ns: NarrativeSequence, rng: RandomG
 }
 
 export function removeNarrativeCharacter (ns: NarrativeSequence, rng: RandomGenerator) {
-    const characterStrings = ns.characters.map(c => {
-        const n = rng.randomItem(c.name)
-        if (c.isYour) {
-            return `your ${n}`
-        } else {
-            return n
-        }
-    })
-
     const grammar: NarrativeGrammar = {
         origin: [`#subject.capitalize# is no longer with you`],
         rules: {
-            subject: characterStrings.join(' and ')
+            subject: ns.characterRendered
         }
     }
 
@@ -443,8 +435,8 @@ export function describeMovingOn (rng: RandomGenerator): string[] {
             'But now we are in #betterPlace#.',
             'But everything is #fine# now.',
             'However, it is all #fine# now.',
-            '#betterSubjectPlural.capitalize# are much better now.',
-            '#betterSubjectSingular.capitalize# is much better now.'
+            'But #betterSubjectPlural# are much better now.',
+            'But #betterSubjectSingular# is much better now.'
         ],
         rules: {
             betterPlace: ['a better place', 'a better world', 'better times'],

@@ -212,11 +212,18 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
                 ],
                 subjectInside: [
                     'someone typing on a #typingTool#',
-                    'someone '
+                    'someone #activity#'
                 ],
                 typingTool: [
-                    'someone typing on a keyboard',
-                    'a typewriter'
+                    'keyboard',
+                    'typewriter'
+                ],
+                activity: [
+                    'cooking',
+                    'singing',
+                    'talking',
+                    'laughing',
+                    'chatting'
                 ]
             }
         }
