@@ -26,6 +26,7 @@ import {DB_MEDIA, DB_MEDIA_QUALITIES} from './db/media'
 import {DB_NARRATIVE_THEMES, DB_NARRATIVE_CHARACTERS, DB_NARRATIVE_LOCATIONS, DB_NARRATIVE_AMBIENCES} from './db/narrative'
 import {DB_STORY_THEMES, DB_STORY_QUALITIES, DB_STORY_CHARACTERS, DB_STORY_SITUATIONS} from './db/stories'
 import { DB_THOUGHTS, DB_THOUGHT_SUBJECT, DB_THOUGHT_REASONS, DB_THOUGHT_QUALITY } from './db/thought';
+import { DB_AMBIENCE_WORDS } from './db/ambience';
 
 // ===
 // === FUNCTIONS
@@ -439,29 +440,40 @@ export function describeTimePassage (rng: RandomGenerator) {
 export function describeMovingOn (rng: RandomGenerator): string[] {
     const grammar: NarrativeGrammar = {
         origin: [
-            'But now we are in a better place.',
-            'Everything is all right now.',
-            'Everything is fine now.',
-            'It is all fine now.',
-            'You are much better now.',
-            'We are much better now.',
-            'World is much better now.'
+            'But now we are in #betterPlace#.',
+            'But everything is #fine# now.',
+            'However, it is all #fine# now.',
+            '#betterSubjectPlural.capitalize# are much better now.',
+            '#betterSubjectSingular.capitalize# is much better now.'
         ],
         rules: {
-
+            betterPlace: ['a better place', 'a better world', 'better times'],
+            fine: ['fine', 'well', 'great', 'wonderful', 'beautiful', 'all right'],
+            betterSubjectPlural: ['you', 'we'],
+            betterSubjectSinguar: ['world', 'society', 'life']
         }
     }
     const grammar2: NarrativeGrammar = {
         origin: [
-            'You can move on.',
-            'We can move  on.',
-            'Everything can be like it used to.',
-            'Everything will be liked it used to.'            
+            '#moveOnSubject.capitalize# can move on.',
+            '#moveOnSubject.capitalize# can move on.',
+            '#subject.capitalize# can be like it used to.',
+            '#subject.capitalize# will be liked it used to.'
         ],
         rules: {
-
+            subject: ['everything', 'life', 'world', 'universe'],
+            moveOnSubject: ['we', 'you', 'world', 'society', 'people']
         }
     }
 
     return [rng.expandGrammar(grammar), rng.expandGrammar(grammar2)]
+}
+
+const AMBIENT_WORDS_COUNTS = [1, 2, 3, 4]
+const AMBIENT_WORDS_WEIGHTS = [35, 30, 25, 10]
+export function describeWordAmbience (rng: RandomGenerator): string[] {
+    const numberOfWords = AMBIENT_WORDS_COUNTS[rng.weighted(AMBIENT_WORDS_WEIGHTS)]
+    return range(0, numberOfWords).map(i => {
+        return rng.randomItem(DB_AMBIENCE_WORDS)
+    })
 }
