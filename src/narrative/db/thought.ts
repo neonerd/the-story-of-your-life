@@ -354,8 +354,8 @@ export const DB_THOUGHT_REASONS: ThoughtReason[] = [
         key: 'time',
         grammar: {
             origin: [
-                'Times have changed. Nothing is like it used to be.',
-                'The old era is now long gone. Nothing is the same.'
+                'Times have changed. Nothing was like it used to be.',
+                'The old era was long gone. Nothing was same.'
             ],
             rules: {
 
@@ -413,7 +413,7 @@ export const DB_THOUGHT_REASONS: ThoughtReason[] = [
         key: 'life',
         grammar: {
             origin: [
-                'Life has changed. It is so #adjective# now.'
+                'Life has changed. It became #adjective#.'
             ],
             rules: {
                 adjective: [
