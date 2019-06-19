@@ -247,14 +247,16 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
                     'fresh #bakery#',
                     'cut grass',
                     'lunch',
-                    'the laundry',
+                    'cooking',
+                    'fresh laundry',
                     'fresh rain evaporating from hot pavement',
                     'wet asphalt',
                     'old books',
                     'the ocean',
                     'rain',
                     'a thunderstorm coming',
-                    'the forest'
+                    'the forest',
+                    'hay'
                 ],
                 bakery: [
                     'bread',
@@ -278,9 +280,11 @@ export const DB_NARRATIVE_AMBIENCES: NarrativeAmbience[] = [
                     'chilly', 
                     'snowing', 
                     'raining',
-                    'a hot summer evening',
-                    'a hot summer afternoon'
-                ]
+                    'a #weatherType# #season# #timeOfDay#',
+                ],
+                season: ['summer', 'autumn'],
+                timeOfDay: ['evening', 'afternoon', 'morning'],
+                weatherType: ['hot', 'rainy']
             }
         }
     }

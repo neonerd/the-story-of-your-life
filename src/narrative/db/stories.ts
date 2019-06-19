@@ -1,6 +1,7 @@
 import {StoryTheme, StoryQuality, StoryCharacter, StorySituation} from '../engine'
 
 export const DB_STORY_THEMES: StoryTheme[] = [
+    // Love
     {
         key: 'love',
         name: 'love',
@@ -14,21 +15,28 @@ export const DB_STORY_THEMES: StoryTheme[] = [
         stillTags: ['love']
     },
     {
-        key: 'hate',
-        name: 'hate',
-        modifiers: ['', 'unrelenting', ''],
-        stillTags: ['man', 'woman']
-    },
-    {
         key: 'friendship',
         name: 'friendship',
-        modifiers: ['failing', 'great', ''],
+        modifiers: ['', 'failing', 'great', 'old', 'strong'],
         stillTags: ['childhood', 'youth']
     },
     {
+        key: 'family',
+        name: 'family',
+        modifiers: ['dysfunctional', 'large', 'struggling', 'poor', 'rich'],
+        stillTags: ['childhood']
+    },
+    // Hate and struggle
+    {
+        key: 'hate',
+        name: 'hate',
+        modifiers: ['', 'unrelenting', 'useless', 'vain', ''],
+        stillTags: ['man', 'woman']
+    },    
+    {
         key: 'struggle',
         name: 'struggle',
-        modifiers: ['evil', 'corporations', 'system'],
+        modifiers: ['social', 'political', 'system', 'neverending', 'futile'],
         stillTags: ['history']
     },
     {
@@ -40,7 +48,7 @@ export const DB_STORY_THEMES: StoryTheme[] = [
     {
         key: 'grief',
         name: 'grief',
-        modifiers: [],
+        modifiers: ['', '', 'great'],
         stillTags: []
     },
     {
@@ -50,6 +58,13 @@ export const DB_STORY_THEMES: StoryTheme[] = [
         stillTags: []
     },
     {
+        key: 'sadness',
+        name: 'sadness',
+        modifiers: [],
+        stillTags: []
+    },
+    // Journeys, nostalgia
+    {
         key: 'journey',
         name: 'journey',
         modifiers: ['great', 'small', 'important', ''],
@@ -58,26 +73,20 @@ export const DB_STORY_THEMES: StoryTheme[] = [
     {
         key: 'youth',
         name: 'youth',
-        modifiers: ['lost', 'reclaimed', 'boring'],
+        modifiers: ['lost', 'reclaimed', 'boring', ''],
         stillTags: ['youth']
     },
     {
         key: 'summer',
         name: 'summer',
-        modifiers: [],
+        modifiers: ['', 'last', 'lost', 'best'],
         stillTags: ['scenery', 'youth']
     },
     {
         key: 'hope',
         name: 'hope',
-        modifiers: ['lost', '',],
+        modifiers: ['lost', 'regained', ''],
         stillTags: ['scenery', 'youth']
-    },
-    {
-        key: 'family',
-        name: 'family',
-        modifiers: ['dysfunctional', 'large', 'struggling', 'poor', 'rich'],
-        stillTags: ['childhood']
     },
     {
         key: 'growing up',
@@ -91,11 +100,31 @@ export const DB_STORY_THEMES: StoryTheme[] = [
         modifiers: [],
         stillTags: ['scenery']
     },
+    // Society
     {
-        key: 'sadness',
-        name: 'sadness',
+        key: 'history',
+        name: 'history',
         modifiers: [],
-        stillTags: []
+        stillTags: ['scenery', 'history']
+    },
+    {
+        key: 'politics',
+        name: 'politics',
+        modifiers: [],
+        stillTags: ['moving on', 'history']
+    },
+    {
+        key: 'society',
+        name: 'society',
+        modifiers: [],
+        stillTags: ['moving on', 'history']
+    },
+    // Other
+    {
+        key: 'ghosts',
+        name: 'ghosts',
+        modifiers: ['past', 'future', ''],
+        stillTags: ['childhood', 'history', 'scenery']
     }
 ]
 
@@ -490,7 +519,57 @@ const DB_STORY_CHARACTER_HUMAN_MODIFIERS = [
     'silent',
     'strong',
     'outgoing',
-    'intelligent'
+    'intelligent',
+    // negative traits
+    'anxious',
+    'boring',
+    'cunning',
+    'cowardly',
+    'desperate',
+    'destructive',
+    'fanatical',
+    'greedy',
+    'hateful',
+    'impatient',
+    'impulsive',
+    'irrational',
+    'moody',
+    'narcisstic',
+    'pesimistic',
+    'perverse',
+    'pretentious',
+    'sadistic',
+    'shameless',
+    'unreliable',
+    // positive traits
+    'adventurous',
+    'affable',
+    'brilliant',
+    'captivating',
+    'caring',
+    'charming',
+    'curageous',
+    'creative',
+    'educated',
+    'determined',
+    'disciplined',
+    'friendly',
+    'gentle',
+    'generous',
+    'hard-working',
+    'heroic',
+    'persistent',
+    'powerful',
+    'protective',
+    'rational',
+    'romantic',
+    'selfless',
+    'sensible',
+    'sincere',
+    'sensitive',
+    'strong',
+    'symphatetic',
+    'wise'
 ]
 
 export const DB_STORY_CHARACTERS: StoryCharacter[] = [
@@ -519,6 +598,12 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
         stillTags: ['childhood']
     },
     {
+        key: 'teenager',
+        name: 'teenager',
+        modifiers: [],
+        stillTags: ['youth']
+    },
+    {
         key: 'friends',
         name: 'friends',
         modifiers: [],
@@ -527,9 +612,21 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
     },
     {
         key: 'famous person',
-        name: 'famous person',
+        name: 'someone famous',
         modifiers: [],
         stillTags: ['history']
+    },
+    {
+        key: 'someone wealthy',
+        name: 'someone wealthy',
+        modifiers: [],
+        stillTags: ['man', 'woman']
+    },
+    {
+        key: 'someone wealthy',
+        name: 'someone wealthy',
+        modifiers: [],
+        stillTags: ['man', 'woman']
     },
     {
         key: 'soldier',
@@ -567,5 +664,12 @@ export const DB_STORY_CHARACTERS: StoryCharacter[] = [
         name: 'attorney',
         modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
         stillTags: ['man', 'woman']
-    }
+    },
+    {
+        key: 'doctor',
+        name: 'doctor',
+        modifiers: DB_STORY_CHARACTER_HUMAN_MODIFIERS,
+        stillTags: ['man', 'woman']
+    },
+
 ]
