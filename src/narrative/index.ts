@@ -190,7 +190,9 @@ export function generateThoughtInstance (rng: RandomGenerator): ThoughtInstance 
     const subject: ThoughtSubject = rng.randomItem(DB_THOUGHT_SUBJECT)
 
     const positiveGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.positiveGrammar) + '.'
-    const negativeGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.negativeGrammar) + '.'
+    const negativeGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.negativeGrammar, {
+        positiveGrammarResult
+    }) + '.'
 
     const reason: ThoughtReason = rng.randomItem(DB_THOUGHT_REASONS)
 
