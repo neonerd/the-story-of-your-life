@@ -118,13 +118,13 @@ export const DB_THOUGHT_SUBJECT: ThoughtSubject[] = [
                 'your first #quality# love'
             ],
             rules: {
-                time: ['second', 'first', 'last', 'third'],
-                quality: ['real', '']
+                time: ['second time', 'first time', 'last time', 'third time', 'times'],
+                quality: ['real', 'long', 'serious', '']
             }
         },
         negativeGrammar: {
             origin: [
-                '#positiveGrammarResult# again. Was it ever the same?'
+                '#positiveGrammarResult#. Again. Was it ever the same?'
             ],
             rules: {
                 

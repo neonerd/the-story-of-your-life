@@ -227,7 +227,7 @@ export const DB_MEDIA: Medium[] = [
             }
             },
             {
-                to: ['movie', 'tv', 'album', 'painting', 'statue', 'book', 'comic book'],
+                to: ['movie', 'tv', 'album', 'painting', 'statue', 'book', 'talkshow'],
                 grammar: {
                     origin: [
                         'The singer mentions #newMedium.a# in the song.'

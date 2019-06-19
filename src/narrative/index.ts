@@ -189,10 +189,11 @@ export function generateThoughtInstance (rng: RandomGenerator): ThoughtInstance 
     const thought: Thought = rng.randomItem(DB_THOUGHTS)
     const subject: ThoughtSubject = rng.randomItem(DB_THOUGHT_SUBJECT)
 
-    const positiveGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.positiveGrammar) + '.'
-    const negativeGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.negativeGrammar, {
-        positiveGrammarResult
-    }) + '.'
+    const positiveGrammarResultOnly = rng.expandGrammar(subject.positiveGrammar)
+    const positiveGrammarResult = rng.expandGrammar(thought.introductoryGrammar) + ' ' + positiveGrammarResultOnly + '.'
+    const negativeGrammarResult = (rng.expandGrammar(thought.introductoryGrammar) + ' ' + rng.expandGrammar(subject.negativeGrammar, {
+        positiveGrammarResult: positiveGrammarResultOnly
+    }) + '.').replace('?.', '?')
 
     const reason: ThoughtReason = rng.randomItem(DB_THOUGHT_REASONS)
 
@@ -259,7 +260,11 @@ export function generateMediumNesting (nu: NarrativeUnit, previousNu: NarrativeU
     })
     const transition = rng.randomItem(availableTransitions)
 
-    return rng.expandGrammar(transition.grammar, injectableGrammar)
+    if (transition) {
+        return rng.expandGrammar(transition.grammar, injectableGrammar)
+    } else {
+        return rng.expandGrammar({origin: [`It reminds you of #newMedium.a#.`], rules: {}}, injectableGrammar)
+    }
 }
 
 export function getMediumGrammarRules (mi: MediumInstance): any {
