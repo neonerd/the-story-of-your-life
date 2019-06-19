@@ -398,7 +398,7 @@ export const DB_THOUGHT_REASONS: ThoughtReason[] = [
         key: 'technology',
         grammar: {
             origin: [
-                'Everything is different now. #technology# changed everything.'
+                'Everything was different. #technology# changed everything.'
             ],
             rules: {
                 technology: [
